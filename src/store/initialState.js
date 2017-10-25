@@ -1,5 +1,16 @@
 export default {
     table: {
-        data: 'Hello World'
+        data: [],
+        headers: [
+            { accessor: '', label: '' },
+            { accessor: '', label: '' },
+            { accessor: '', label: '' },
+            { accessor: '', label: '' },
+            { accessor: '', label: '' },
+            { accessor: '', label: '' },
+            { accessor: '', label: '' },
+            { accessor: '', label: '' },
+            { accessor: '', label: '' },
+        ],
     }
 }
