@@ -6,7 +6,7 @@ import * as TableApi from '../utils/api/TableAPI.dev';
 export const fetchData = () => async dispatch => {
   try {
       let payload = await TableApi.generateFakeData();
-      console.log(payload);
+      
       dispatch(fetchDataSuccess({ data: payload }))
   } catch (error) {
       console.log(error);

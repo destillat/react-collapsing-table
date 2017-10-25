@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
+import "babel-polyfill";
 //Redux
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';

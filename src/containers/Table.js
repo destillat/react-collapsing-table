@@ -7,7 +7,7 @@ import * as TableActions from '../actions/TableActions';
 //Components
 import TableComponent from '../components/table/Table';
 
-class Table extends Component {
+export class Table extends Component {
     constructor(props, context) {
         super(props, context);
     }

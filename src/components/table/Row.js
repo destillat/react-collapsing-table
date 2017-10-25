@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import {} from 'prop-types';
+import { object, arrayOf, string, shape } from 'prop-types';
 //Components
 import Cell from './Cell';
 
@@ -15,6 +15,12 @@ const Row = ({row, columns}) => {
     );
 };
 
-Row.PropTypes = {};
+Row.PropTypes = {
+    row: object.isRequired,
+    columns: arrayOf(shape({
+      accessor: string.isRequired,
+      label: string.isRequired,
+    }))
+};
 
 export default Row
