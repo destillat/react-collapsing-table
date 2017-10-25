@@ -2,7 +2,7 @@
 import React from 'react';
 import {} from 'prop-types';
 //Components
-import Cell from 'Cell';
+import Cell from './Cell';
 
 const Row = ({row, columns}) => {
     const cells = columns.map(({ accessor }) => {

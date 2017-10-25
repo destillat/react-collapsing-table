@@ -6,9 +6,7 @@ import {} from 'prop-types';
 const Column = ({ accessor, label }) => {
 
     return (
-        <tr>
-            <th key={ accessor } className={ `column-${accessor}` }>{ label }</th>;
-        </tr>
+            <th key={ accessor } className={ `column-${accessor}` }>{ label }</th>
     );
 };
 

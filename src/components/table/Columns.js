@@ -10,7 +10,9 @@ const Columns = ({ columns }) => {
     });
     return (
         <thead>
-            { tableColumns }
+            <tr>
+                { tableColumns }
+            </tr>
         </thead>
     );
 };

@@ -12,18 +12,23 @@ class Table extends Component {
         super(props, context);
     }
 
+    componentWillMount(){
+        this.props.actions.fetchData();
+    }
+
     render() {
-        const { data } = this.props;
+        const { table } = this.props;
 
         return (
-            <TableComponent data={ data }/>
+            <TableComponent data={ table.data }
+                            columns={ table.columns } />
         );
     }
 }
 
 function mapStateToProps(state) {
     return {
-        data: state.table.data,
+        table: state.table,
     };
 }
 

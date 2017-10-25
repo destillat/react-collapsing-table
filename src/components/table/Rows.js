@@ -5,13 +5,13 @@ import {} from 'prop-types';
 import Row from './Row';
 
 const Rows = ({rows, columns,}) => {
-    const rows = rows.map((row, index) => {
+    const tableRows = rows.map((row, index) => {
         return <Row key={ index } row={ row } columns={ columns }/>
     });
 
     return (
         <tbody>
-            { rows }
+            { tableRows }
         </tbody>
     );
 };

@@ -2,13 +2,16 @@
 import React from 'react';
 import {} from 'prop-types'
 //Components
+import Columns from './Columns';
+import Rows from './Rows';
 
-const Table = ({ data }) => {
+const Table = ({ data, columns }) => {
 
     return (
-        <div>
-            { data }
-        </div>
+        <table>
+            <Columns columns={ columns } />
+            <Rows rows={ data } columns={ columns } />
+        </table>
     );
 };
 
