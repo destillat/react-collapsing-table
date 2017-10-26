@@ -5,13 +5,18 @@ import {} from 'prop-types'
 import Columns from './Columns';
 import Rows from './Rows';
 
-const Table = ({ data, columns }) => {
-
+const Table = ({ table, actions }) => {
+    const { displayedRows, currentPageNumber, columns } = table
     return (
-        <table>
-            <Columns columns={ columns } />
-            <Rows rows={ data } columns={ columns } />
-        </table>
+        <div>
+            <table>
+                <Columns columns={ columns } />
+                <Rows rows={ displayedRows } columns={ columns } />
+            </table>
+            <button onClick={ actions.previousPage }>prev</button>
+            <p>{ currentPageNumber }</p>
+            <button onClick={ actions.nextPage }>next</button>
+        </div>
     );
 };
 

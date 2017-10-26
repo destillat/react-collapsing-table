@@ -8,20 +8,28 @@ import * as TableActions from '../actions/TableActions';
 import TableComponent from '../components/table/Table';
 
 export class Table extends Component {
-    constructor(props, context) {
-        super(props, context);
-    }
-
     componentWillMount(){
         this.props.actions.fetchData();
     }
 
+    nextPage = () => {
+        this.props.actions.nextPage();
+    }
+
+    previousPage = () => {
+        this.props.actions.previousPage();
+    }
+
     render() {
         const { table } = this.props;
+        const actions = {
+            nextPage: this.nextPage,
+            previousPage: this.previousPage,
+        }
 
         return (
-            <TableComponent data={ table.data }
-                            columns={ table.columns } />
+            <TableComponent table={ table }
+                            actions={ actions } />
         );
     }
 }

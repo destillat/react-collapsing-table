@@ -1,6 +1,7 @@
 export default {
     table: {
-        data: [],
+        allRows: [],
+        displayedRows: [],
         columns: [
             { accessor: 'firstName', label: 'First Name' },
             { accessor: 'lastName', label: 'Last Name' },
@@ -12,5 +13,8 @@ export default {
             { accessor: 'zipCode', label: 'Zip Code' },
             { accessor: 'bio', label: 'Bio' },
         ],
+        rowSize: 5,
+        currentPageNumber: 1,
+        rowSizeOptions: [15, 30, 60],
     }
 }
