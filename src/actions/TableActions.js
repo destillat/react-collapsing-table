@@ -12,11 +12,11 @@ export const fetchData = () => async dispatch => {
   } catch (error) {
       console.log(error);
   }
-}
+};
 
 export const fetchDataSuccess = ({ allRows }) => {
     return { type: types.FETCHED_DATA_SUCCESS, allRows }
-}
+};
 
 export const calculateRows = () => (dispatch, getState) => {
     let selectedRows = [];
@@ -38,31 +38,104 @@ export const calculateRows = () => (dispatch, getState) => {
     }
 
     dispatch(calculateRowsSuccess({ displayedRows: selectedRows }))
-}
+};
 
 export const calculateRowsSuccess = ({ displayedRows }) => {
     return { type: types.CALCULATED_ROWS_FINISHED, displayedRows }
-}
+};
 
 //TODO: Stop users from going to a totally blank page (to high)
 export const nextPage = () => (dispatch, getState) => {
     const state = getState();
-    const { table: { allRows, currentPageNumber, rowSize } } = state
+    const { table: { allRows, currentPageNumber, rowSize } } = state;
 
-    dispatch(changePageSuccess({ currentPageNumber: currentPageNumber + 1 }))
+    dispatch(changePageSuccess({ currentPageNumber: currentPageNumber + 1 }));
     dispatch(calculateRows())
-}
+};
 
 //TODO: Stop users from going to a totally blank page (to low)
 export const previousPage = () => (dispatch, getState) => {
     const state = getState();
 
-    const { table: { currentPageNumber } } = state
+    const { table: { currentPageNumber } } = state;
 
-    dispatch(changePageSuccess({ currentPageNumber: currentPageNumber - 1 }))
+    dispatch(changePageSuccess({ currentPageNumber: currentPageNumber - 1 }));
     dispatch(calculateRows())
-}
+};
 
 export const changePageSuccess = ({ currentPageNumber }) => {
     return { type: types.CHANGE_CURRENT_PAGE, currentPageNumber }
-}
+};
+
+export const sortColumn = ({ column }) => dispatch => {
+    dispatch(changeSortFieldAndDirection({ newColumn: column }));
+    dispatch(changeRowOrder({ column }));
+};
+
+export const changeSortFieldAndDirection = ({ newColumn }) => (dispatch, getState) => {
+    let newDirection;
+    const state = getState();
+    const { table: { sort: { column, direction } } } = state;
+
+
+    if(column === newColumn) {
+        switch (direction) {
+            case 'none':
+                newDirection = 'ascending';
+                break;
+            case 'ascending':
+                newDirection = 'descending';
+                break;
+            case 'descending':
+                newDirection = 'none';
+                break;
+            default:
+                newDirection = 'none';
+                break;
+        }
+    } else {
+        newDirection = 'ascending';
+    }
+
+    dispatch(changeSortColumnAndDirectionSuccess({ column: newColumn, direction: newDirection }))
+};
+
+export const changeRowOrder = ({ column }) => (dispatch, getState) => {
+    const state = getState();
+
+    // TODO: search columns for priority level 1 as deafult search field
+    const { table: { sort: { direction }, allRows, columns } } = state;
+    let newAllRows = [];
+
+    switch (direction) {
+        case 'ascending':
+            newAllRows = allRows.sort(dynamicSort({ column }));
+            break;
+        case 'descending':
+            newAllRows = allRows.sort(dynamicSort({ column })).reverse();
+            break;
+        case 'none':
+            // TODO: added in priority level to figure out the default search field
+            newAllRows = allRows.sort(dynamicSort({ column: 'firstName'}));
+            break;
+        default:
+            newAllRows = allRows.sort(dynamicSort({ column }));
+    }
+
+    dispatch(allRowsOrderChanged({ allRows: newAllRows }));
+    dispatch(calculateRows());
+};
+
+export const allRowsOrderChanged = ({ allRows }) => {
+    return { type: types.ROW_ORDER_CHANGED, allRows };
+};
+
+export const changeSortColumnAndDirectionSuccess = ({ column, direction }) => {
+    return { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column, direction };
+};
+
+export const dynamicSort = ({ column }) => {
+    // TODO: Figure out how to tell if date
+    // return (a, b) => (new Date(b[property]).getTime() - new Date(a[property]).getTime());
+    return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
+};

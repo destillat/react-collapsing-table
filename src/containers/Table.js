@@ -14,18 +14,23 @@ export class Table extends Component {
 
     nextPage = () => {
         this.props.actions.nextPage();
-    }
+    };
 
     previousPage = () => {
         this.props.actions.previousPage();
-    }
+    };
+
+    sortColumn = ({ column }) => {
+        this.props.actions.sortColumn({ column });
+    };
 
     render() {
         const { table } = this.props;
         const actions = {
             nextPage: this.nextPage,
             previousPage: this.previousPage,
-        }
+            sortColumn: this.sortColumn,
+        };
 
         return (
             <TableComponent table={ table }

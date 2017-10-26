@@ -3,10 +3,10 @@ import React from 'react';
 import {} from 'prop-types';
 //Components
 
-const Column = ({ accessor, label }) => {
+const Column = ({ accessor, label, onClick }) => {
 
     return (
-            <th key={ accessor } className={ `column-${accessor}` }>{ label }</th>
+            <th key={ accessor } onClick={ () => onClick({ column: accessor })} className={ `column-${accessor}` }>{ label }</th>
     );
 };
 

@@ -6,11 +6,12 @@ import Columns from './Columns';
 import Rows from './Rows';
 
 const Table = ({ table, actions }) => {
-    const { displayedRows, currentPageNumber, columns } = table
+    const { displayedRows, currentPageNumber, columns } = table;
+
     return (
         <div>
             <table>
-                <Columns columns={ columns } />
+                <Columns columns={ columns } onClick={ actions.sortColumn }/>
                 <Rows rows={ displayedRows } columns={ columns } />
             </table>
             <button onClick={ actions.previousPage }>prev</button>
