@@ -16,11 +16,29 @@ describe('table reducer', () => {
         expect( TableReducer(tableInitialState, { type: 'NOT_EXISTING' } ) ).toEqual( tableInitialState )
     });
 
-    it('should fetcha data to populate the table', () => {
-        const action = { type: types.FETCHED_DATA_SUCCESS, data: [1, 2, 3] };
+    it('should ', () => {
+        const action = { type: types.FETCHED_DATA_SUCCESS, allRows: [1, 2, 3] };
         const nextState = TableReducer(tableInitialState, action );
 
-        const expectedState = { ...tableInitialState, data: [1, 2, 3] };
+        const expectedState = { ...tableInitialState, allRows: [1, 2, 3] };
+
+        expect( nextState ).toEqual( expectedState );
+    });
+
+    it('should return ', () => {
+        const action = { type: types.CALCULATED_ROWS_FINISHED, displayedRows: [1, 2, 3] };
+        const nextState = TableReducer(tableInitialState, action );
+
+        const expectedState = { ...tableInitialState, displayedRows: [1, 2, 3] };
+
+        expect( nextState ).toEqual( expectedState );
+    });
+
+    it('should ', () => {
+        const action = { type: types.CHANGE_CURRENT_PAGE, currentPageNumber: 2 };
+        const nextState = TableReducer(tableInitialState, action );
+
+        const expectedState = { ...tableInitialState, currentPageNumber: 2 };
 
         expect( nextState ).toEqual( expectedState );
     });

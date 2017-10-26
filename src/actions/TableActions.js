@@ -18,7 +18,7 @@ export const fetchDataSuccess = ({ allRows }) => {
     return { type: types.FETCHED_DATA_SUCCESS, allRows }
 }
 
-export const calculateRows = () => async (dispatch, getState) => {
+export const calculateRows = () => (dispatch, getState) => {
     let selectedRows = [];
     const state = getState();
     const { table, table: { allRows, rowSize, currentPageNumber } } = state
@@ -37,14 +37,15 @@ export const calculateRows = () => async (dispatch, getState) => {
         selectedRows.push({});
     }
 
-    dispatch(calculateRowsSuccess({ selectedRows }))
+    dispatch(calculateRowsSuccess({ displayedRows: selectedRows }))
 }
 
-export const calculateRowsSuccess = ({ selectedRows }) => {
-    return { type: types.SELECTED_ROW_SUCCESS, selectedRows }
+export const calculateRowsSuccess = ({ displayedRows }) => {
+    return { type: types.CALCULATED_ROWS_FINISHED, displayedRows }
 }
 
-export const nextPage = () => async (dispatch, getState) => {
+//TODO: Stop users from going to a totally blank page (to high)
+export const nextPage = () => (dispatch, getState) => {
     const state = getState();
     const { table: { allRows, currentPageNumber, rowSize } } = state
 
@@ -52,8 +53,10 @@ export const nextPage = () => async (dispatch, getState) => {
     dispatch(calculateRows())
 }
 
-export const previousPage = () => async (dispatch, getState) => {
+//TODO: Stop users from going to a totally blank page (to low)
+export const previousPage = () => (dispatch, getState) => {
     const state = getState();
+
     const { table: { currentPageNumber } } = state
 
     dispatch(changePageSuccess({ currentPageNumber: currentPageNumber - 1 }))

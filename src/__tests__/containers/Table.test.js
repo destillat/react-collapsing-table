@@ -21,7 +21,10 @@ describe('Table Container', () => {
         props = {
             table: initialState.table,
             actions: {
+                //TODO: Remove when data is passed in
                 fetchData: jest.fn(),
+                nextPage: jest.fn(),
+                previousPage: jest.fn(),
             }
         };
 
@@ -41,8 +44,11 @@ describe('Table Container', () => {
         expect(searches.length).toBe(1);
     });
 
-    // it('should trigger the action methods when called', () => {
-    //     instance.fetchData();
-    //     expect(props.actions.fetchData).toHaveBeenCalled();
-    // });
+    it('should trigger the action methods when called', () => {
+        instance.previousPage();
+        expect(props.actions.previousPage).toHaveBeenCalled();
+
+        instance.nextPage();
+        expect(props.actions.nextPage).toHaveBeenCalled();
+    });
 });
