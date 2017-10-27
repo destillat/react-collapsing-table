@@ -139,3 +139,11 @@ export const dynamicSort = ({ column }) => {
     // return (a, b) => (new Date(b[property]).getTime() - new Date(a[property]).getTime());
     return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
 };
+
+export const searchRows = ({ searchString }) => (dispatch, getState) => {
+
+};
+
+export const searchRowsSuccess = ({ }) => {
+    return { type: types }
+};

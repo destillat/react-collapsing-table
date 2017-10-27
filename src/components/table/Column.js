@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import {} from 'prop-types';
+import { string } from 'prop-types';
 //Components
 
 const Column = ({ accessor, label, onClick }) => {
@@ -10,6 +10,9 @@ const Column = ({ accessor, label, onClick }) => {
     );
 };
 
-Column.PropTypes = {};
+Column.PropTypes = {
+    accessor: string.isRequired,
+    label: string.isRequired,
+};
 
 export default Column

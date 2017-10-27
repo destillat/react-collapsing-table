@@ -24,12 +24,18 @@ export class Table extends Component {
         this.props.actions.sortColumn({ column });
     };
 
+    searchRows = (event) => {
+        const { value } = event.target;
+        this.props.actions.searchRows({ searchString: value });
+    };
+
     render() {
         const { table } = this.props;
         const actions = {
             nextPage: this.nextPage,
             previousPage: this.previousPage,
             sortColumn: this.sortColumn,
+            searchRows: this.searchRows,
         };
 
         return (

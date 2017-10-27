@@ -1,12 +1,15 @@
 //React
 import React from 'react';
-import {} from 'prop-types';
+import { object, string } from 'prop-types';
 //Components
 
 const Cell = ({row, accessor}) => {
     return <td className={ accessor }>{ row[accessor] }</td>;
 };
 
-Cell.PropTypes = {};
+Cell.PropTypes = {
+    row: object.isRequired,
+    accessor: string.isRequired,
+};
 
 export default Cell

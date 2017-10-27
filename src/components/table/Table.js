@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import {} from 'prop-types'
+import { array, arrayOf, shape, string, func } from 'prop-types'
 //Components
 import Columns from './Columns';
 import Rows from './Rows';
@@ -21,6 +21,17 @@ const Table = ({ table, actions }) => {
     );
 };
 
-Table.PropTypes = {};
+Table.PropTypes = {
+    rows: array.isRequierd,
+    columns: arrayOf(shape({
+        accessor: string.isRequired,
+        label: string.isRequired,
+    })),
+    actions: shape({
+        sortColumn: func.isRequired,
+        previousPage: func.isRequired,
+        nextPage: func.isRequired,
+    })
+};
 
 export default Table
