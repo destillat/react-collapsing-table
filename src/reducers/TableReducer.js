@@ -18,9 +18,6 @@ export default function TableReducer(state = initialState.table, action) {
         case types.EXPAND_ROW:
             return {
                 ...state,
-                allRows: state.allRows.map(
-                    (row, index) => action.rowIndex === index ?
-                        { ...row, isOpen: !row.isOpen} : row),
                 displayedRows: state.displayedRows.map(
                     (row, index) => action.rowIndex === index ?
                         { ...row, isOpen: !row.isOpen} : row),
