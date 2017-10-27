@@ -12,6 +12,7 @@ describe('Column', () => {
         props = {
             accessor: 'firstName',
             label: 'First Name',
+            onClick: jest.fn(),
         };
 
         wrapper = shallow(<Column { ...props } />);
@@ -33,5 +34,11 @@ describe('Column', () => {
         const thText = wrapper.find('th').text();
 
         expect(thText).toBe('First Name');
+    });
+
+    it('should fire an action when the th is clicked', () => {
+        wrapper.find('th').first().simulate('click');
+
+        expect(props.onClick).toHaveBeenCalled();
     });
 });

@@ -25,6 +25,8 @@ describe('Table Container', () => {
                 fetchData: jest.fn(),
                 nextPage: jest.fn(),
                 previousPage: jest.fn(),
+                sortColumn: jest.fn(),
+                searchRows: jest.fn(),
             }
         };
 
@@ -50,5 +52,11 @@ describe('Table Container', () => {
 
         instance.nextPage();
         expect(props.actions.nextPage).toHaveBeenCalled();
+
+        instance.sortColumn({ column: 'id' });
+        expect(props.actions.sortColumn).toHaveBeenCalledWith({ column: 'id' });
+
+        instance.searchRows({ target: { value: 'Hello' } });
+        expect(props.actions.searchRows).toHaveBeenCalledWith({ searchString: 'Hello' });
     });
 });

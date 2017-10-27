@@ -1,11 +1,11 @@
 //React
 import React from 'react';
 //Component
-import Row from '../../components/table/Row';
+import ExpandedRow from '../../components/table/ExpandedRow';
 //Testing
-import { shallow, mount } from 'enzyme';
+import { shallow, } from 'enzyme';
 
-describe('Row', () => {
+describe('ExpandedRow', () => {
     let wrapper, props;
 
     beforeEach(() => {
@@ -34,18 +34,18 @@ describe('Row', () => {
             ],
         };
 
-        wrapper = mount(<Row { ...props } />);
+        wrapper = shallow(<ExpandedRow { ...props } />);
     });
 
-    it('should have 9 table cells', () => {
-        const cells = wrapper.find('Cell');
+    it('should have 1 table data cell', () => {
+        const tds = wrapper.find('td');
 
-        expect(cells.length).toBe(9);
+        expect(tds.length).toBe(1);
     });
 
-    it('should have 2 table rows', () => {
-        const cells = wrapper.find('tr');
+    it('should display 9 fields that are the hidden fields', () => {
+        const ps = wrapper.find('p');
 
-        expect(cells.length).toBe(2);
+        expect(ps.length).toBe(9);
     });
 });

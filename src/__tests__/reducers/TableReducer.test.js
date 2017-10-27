@@ -42,4 +42,22 @@ describe('table reducer', () => {
 
         expect( nextState ).toEqual( expectedState );
     });
+
+    it('should ', () => {
+        const action = { type: types.ROW_ORDER_CHANGED, allRows: [1, 2, 3] };
+        const nextState = TableReducer(tableInitialState, action );
+
+        const expectedState = { ...tableInitialState, allRows: [1, 2, 3] };
+
+        expect( nextState ).toEqual( expectedState );
+    });
+
+    it('should ', () => {
+        const action = { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'ascending' };
+        const nextState = TableReducer(tableInitialState, action );
+
+        const expectedState = { ...tableInitialState, sort: { ...tableInitialState.sort, column: 'id', direction: 'ascending' } };
+
+        expect( nextState ).toEqual( expectedState );
+    });
 });

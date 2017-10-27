@@ -4,13 +4,13 @@ import { object, arrayOf, shape, string } from 'prop-types';
 //Components
 
 const ExpandedRow = ({ row, columns, }) => {
-    const something = columns.map(({ accessor, label }) => {
-        return <p>{ label }: { row[accessor] }</p>
+    const listOfHiddenAttributes = columns.map(({ accessor, label }) => {
+        return <p key={ accessor }>{ label }: { row[accessor] }</p>
     });
 
     return (
         <td>
-            { something }
+            { listOfHiddenAttributes }
         </td>
     );
 };

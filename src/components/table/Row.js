@@ -12,10 +12,10 @@ const Row = ({row, columns}) => {
 
     return (
         [
-            <tr>
+            <tr key='normalRow'>
                 { cells }
             </tr>,
-            <tr>
+            <tr key='expandedRow'>
                 <ExpandedRow row={ row } columns={ columns }/>
             </tr>
         ]
