@@ -3,6 +3,7 @@ import * as types from './ActionTypes'
 //Fake API
 import * as TableApi from '../utils/api/TableAPI.dev';
 
+//TODO: Add isOpen set to false for all rows on initial data load
 export const fetchData = () => async dispatch => {
   try {
       let payload = await TableApi.generateFakeData();

@@ -10,14 +10,17 @@ const Row = ({row, columns}) => {
         return <Cell key={ accessor } row={ row } accessor={ accessor } />
     });
 
+    const expandedRow = row.isOpen ?
+        <tr key='expandedRow'>
+            <ExpandedRow row={ row } columns={ columns }/>
+        </tr> : null
+
     return (
         [
             <tr key='normalRow'>
                 { cells }
             </tr>,
-            <tr key='expandedRow'>
-                <ExpandedRow row={ row } columns={ columns }/>
-            </tr>
+            expandedRow
         ]
     );
 };
