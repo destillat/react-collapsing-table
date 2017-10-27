@@ -11,15 +11,16 @@ describe('Row', () => {
     beforeEach(() => {
         props = {
             row: {
-              firstName: "Brain",
-              lastName: "Kling",
-              email: "Sandra_Bradtke3@hotmail.com",
-              address: "3522 Gianni Ridges",
-              city: "Christiansenhaven",
-              state: "New Jersey",
-              country: "India",
-              zipCode: "21758-1323",
-              bio: "Et quo iste quo facere sit tenetur deleniti.",
+                firstName: "Brain",
+                lastName: "Kling",
+                email: "Sandra_Bradtke3@hotmail.com",
+                address: "3522 Gianni Ridges",
+                city: "Christiansenhaven",
+                state: "New Jersey",
+                country: "India",
+                zipCode: "21758-1323",
+                bio: "Et quo iste quo facere sit tenetur deleniti.",
+                isOpen: false,
             },
             columns: [
                 { accessor: 'firstName', label: 'First Name' },
@@ -43,7 +44,15 @@ describe('Row', () => {
         expect(cells.length).toBe(9);
     });
 
-    it('should have 2 table rows', () => {
+    it('should have 1 table row', () => {
+        const cells = wrapper.find('tr');
+
+        expect(cells.length).toBe(1);
+    });
+
+    it('should have 2 table rows when the row has been expanded', () => {
+        props = { ...props, row: { ...props.row, isOpen: true } };
+        wrapper = mount(<Row { ...props } />);
         const cells = wrapper.find('tr');
 
         expect(cells.length).toBe(2);

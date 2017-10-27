@@ -30,7 +30,6 @@ export class Table extends Component {
     };
 
     expandRow = ({ rowIndex }) => {
-        console.log(rowIndex);
         this.props.actions.expandRow({ rowIndex })
     };
 

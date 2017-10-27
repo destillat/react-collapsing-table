@@ -20,51 +20,51 @@ const ascOrderedRows = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 3 }, { id: 5 }, {
 const descOrderedRows = [{ id: 6 }, { id: 5 }, { id: 3 }, { id: 3 }, { id: 2 }, { id: 1 }, ]
 
 const unorderedRowIntialState = {
-      ...initialState,
-      table: {
-          ...initialState.table,
-          allRows: unorderedRows,
-      }
- }
+    ...initialState,
+    table: {
+        ...initialState.table,
+        allRows: unorderedRows,
+    }
+};
 
 const unorderedRowNoneIntialState = {
-       ...initialState,
-       table: {
-           ...initialState.table,
-           allRows: unorderedRows,
-           sort: {
-               ...initialState.table.sort,
-               direction: 'none',
-               column: 'id',
-           }
-       }
-  }
+    ...initialState,
+    table: {
+        ...initialState.table,
+        allRows: unorderedRows,
+        sort: {
+            ...initialState.table.sort,
+            direction: 'none',
+            column: 'id',
+        }
+    }
+};
 
 const unorderedRowAscIntialState = {
-      ...initialState,
-      table: {
-          ...initialState.table,
-          allRows: unorderedRows,
-          sort: {
-              ...initialState.table.sort,
-              direction: 'ascending',
-              column: 'id',
-          }
-      }
- }
+    ...initialState,
+    table: {
+        ...initialState.table,
+        allRows: unorderedRows,
+        sort: {
+            ...initialState.table.sort,
+            direction: 'ascending',
+            column: 'id',
+        }
+    }
+};
 
 const unorderedRowDescIntialState = {
-     ...initialState,
-     table: {
-         ...initialState.table,
-         allRows: unorderedRows,
-         sort: {
+    ...initialState,
+    table: {
+        ...initialState.table,
+        allRows: unorderedRows,
+        sort: {
             ...initialState.table.sort,
             direction: 'descending',
             column: 'id',
         }
     }
-}
+};
 
 const unorderedRowDescDifferentDirectionIntialState = {
     ...initialState,
@@ -77,7 +77,7 @@ const unorderedRowDescDifferentDirectionIntialState = {
             column: 'id',
         }
     }
-}
+};
 
 const unorderedRowDescDifferentColumnAndDirectionIntialState = {
     ...initialState,
@@ -90,7 +90,7 @@ const unorderedRowDescDifferentColumnAndDirectionIntialState = {
             column: 'dMoney',
         }
     }
-}
+};
 
 describe('Search Actions', () => {
     //Actions
@@ -109,24 +109,31 @@ describe('Search Actions', () => {
     });
 
     it('should update what the current page of the table is', () => {
-        const given = { currentPageNumber: 3 }
+        const given = { currentPageNumber: 3 };
         const expected = { type: types.CHANGE_CURRENT_PAGE, currentPageNumber: 3 };
 
         expect(actions.changePageSuccess(given)).toEqual(expected)
     });
 
     it('should return the sorted rows', () => {
-        const given = { allRows: [1, 2, 3] }
+        const given = { allRows: [1, 2, 3] };
         const expected = { type: types.ROW_ORDER_CHANGED, allRows: [1, 2, 3]};
 
         expect(actions.allRowsOrderChanged(given)).toEqual(expected)
     });
 
     it('should return the sorted rows', () => {
-        const given = { column: 'id', direction: 'ascending' }
+        const given = { column: 'id', direction: 'ascending' };
         const expected = { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'ascending' };
 
         expect(actions.changeSortColumnAndDirectionSuccess(given)).toEqual(expected)
+    });
+
+    it('should return the sorted rows', () => {
+        const given = { rowIndex: 4 };
+        const expected = { type: types.EXPAND_ROW, rowIndex: 4 };
+
+        expect(actions.expandRow(given)).toEqual(expected)
     });
 
     //Async Actions
