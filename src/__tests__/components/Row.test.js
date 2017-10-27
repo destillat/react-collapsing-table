@@ -39,7 +39,7 @@ describe('Row', () => {
 
     it('should have 9 table cells', () => {
         const cells = wrapper.find('Cell');
-
+        console.log(wrapper.debug());
         expect(cells.length).toBe(9);
     });
 });
