@@ -29,6 +29,11 @@ export class Table extends Component {
         this.props.actions.searchRows({ searchString: value });
     };
 
+    expandRow = ({ rowIndex }) => {
+        console.log(rowIndex);
+        this.props.actions.expandRow({ rowIndex })
+    };
+
     render() {
         const { table } = this.props;
         const actions = {
@@ -36,6 +41,7 @@ export class Table extends Component {
             previousPage: this.previousPage,
             sortColumn: this.sortColumn,
             searchRows: this.searchRows,
+            expandRow: this.expandRow,
         };
 
         return (

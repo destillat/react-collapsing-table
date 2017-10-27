@@ -8,7 +8,7 @@ export const fetchData = () => async dispatch => {
   try {
       let payload = await TableApi.generateFakeData();
 
-      dispatch(fetchDataSuccess({ allRows: payload }))
+      dispatch(fetchDataSuccess({ allRows: payload }));
       dispatch(calculateRows())
   } catch (error) {
       console.log(error);
@@ -141,6 +141,11 @@ export const dynamicSort = ({ column }) => {
     // return (a, b) => (new Date(b[property]).getTime() - new Date(a[property]).getTime());
     return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
 };
+
+export const expandRow = ({ rowIndex }) => {
+    return { type: types.EXPAND_ROW, rowIndex};
+};
+
 // TODO: Add table searching
 // export const searchRows = ({ searchString }) => (dispatch, getState) => {
 //

@@ -12,7 +12,7 @@ const Table = ({ table, actions }) => {
         <div>
             <table>
                 <Columns columns={ columns } onClick={ actions.sortColumn }/>
-                <Rows rows={ displayedRows } columns={ columns } />
+                <Rows rows={ displayedRows } columns={ columns } actions={ actions }/>
             </table>
             <button onClick={ actions.previousPage }>prev</button>
             <p>{ currentPageNumber }</p>

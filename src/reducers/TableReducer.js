@@ -15,6 +15,16 @@ export default function TableReducer(state = initialState.table, action) {
             return { ...state, currentPageNumber: action.currentPageNumber };
         case types.SORT_COLUMN_AND_DIRECTION_UPDATED:
             return { ...state, sort: { ...state.sort, column: action.column, direction: action.direction } };
+        case types.EXPAND_ROW:
+            return {
+                ...state,
+                allRows: state.allRows.map(
+                    (row, index) => action.rowIndex === index ?
+                        { ...row, isOpen: !row.isOpen} : row),
+                displayedRows: state.displayedRows.map(
+                    (row, index) => action.rowIndex === index ?
+                        { ...row, isOpen: !row.isOpen} : row),
+            };
         default:
             return { ...state };
     }

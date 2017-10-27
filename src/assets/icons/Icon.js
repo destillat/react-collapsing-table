@@ -1,3 +1,6 @@
+//React
+import React from 'react';
+//Imported Icons
 import OpenRow from 'react-icons/lib/md/keyboard-arrow-down';
 import CloseRow from 'react-icons/lib/md/keyboard-arrow-up';
 
@@ -10,4 +13,17 @@ export const getIcon = ({ id, onClick, name, size=16 }) => {
         default:
             return <span />;
     }
+};
+
+export const expandIcon = ({ cellIndex, rowIndex, row, actions }) => {
+    let icon = null;
+    const { isOpen } = row;
+    const IS_FIRST_CELL = cellIndex === 0;
+
+    if(IS_FIRST_CELL){
+        const name = isOpen ? 'CloseRow' : 'OpenRow';
+        icon = getIcon({ name, onClick: () => actions.expandRow({ rowIndex }) });
+    }
+
+    return icon
 };

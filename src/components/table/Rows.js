@@ -4,9 +4,13 @@ import { array, arrayOf, string, shape } from 'prop-types';
 //Components
 import Row from './Row';
 
-const Rows = ({rows, columns,}) => {
+const Rows = ({rows, columns, actions }) => {
     const tableRows = rows.map((row, index) => {
-        return <Row key={ index } row={ row } columns={ columns }/>
+        return <Row key={ index }
+                    row={ row }
+                    columns={ columns }
+                    actions={ actions }
+                    rowIndex={ index } />
     });
 
     return (
