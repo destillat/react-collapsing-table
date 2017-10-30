@@ -27,6 +27,7 @@ describe('Table Container', () => {
                 previousPage: jest.fn(),
                 sortColumn: jest.fn(),
                 searchRows: jest.fn(),
+                expandRow: jest.fn(),
             }
         };
 
@@ -58,5 +59,8 @@ describe('Table Container', () => {
 
         instance.searchRows({ target: { value: 'Hello' } });
         expect(props.actions.searchRows).toHaveBeenCalledWith({ searchString: 'Hello' });
+
+        instance.expandRow({ rowIndex: 5 });
+        expect(props.actions.expandRow).toHaveBeenCalledWith({ rowIndex: 5 });
     });
 });

@@ -60,4 +60,16 @@ describe('table reducer', () => {
 
         expect( nextState ).toEqual( expectedState );
     });
+
+    it('should ', () => {
+        const rows = [{ isOpen: false }, { isOpen: false }, { isOpen: false }];
+        const newInitialState = { ...tableInitialState, displayedRows: rows };
+
+        const action = { type: types.EXPAND_ROW, rowIndex: 2, };
+        const nextState = TableReducer(newInitialState, action );
+
+        const expectedState = { ...tableInitialState, displayedRows: [{ isOpen: false }, { isOpen: false }, { isOpen: true }] };
+
+        expect( nextState ).toEqual( expectedState );
+    });
 });
