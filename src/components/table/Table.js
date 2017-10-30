@@ -1,38 +1,60 @@
 //React
 import React from 'react';
-import { array, arrayOf, shape, string, func } from 'prop-types'
+import { array, arrayOf, shape, string, number, func } from 'prop-types';
 //Components
+import Search from './Search';
 import Columns from './Columns';
 import Rows from './Rows';
+import Pagination from './Pagination';
 
 const Table = ({ table, actions }) => {
-    const { displayedRows, currentPageNumber, columns } = table;
+    const {
+        rows: { displayed },
+        pagination: { currentPage },
+        columns: { visible, hidden },
+        globalSearchString,
+    } = table;
 
     return (
         <div>
-            <input onChange={ actions.searchRows } />
-            <button onClick={ actions.clearSearch }>Clear</button>
+            <Search searchString={ globalSearchString } actions={ actions } />
             <table>
-                <Columns columns={ columns } onClick={ actions.sortColumn }/>
-                <Rows rows={ displayedRows } columns={ columns } actions={ actions }/>
+                <Columns columns={ visible } onClick={ actions.sortColumn }/>
+                <Rows rows={ displayed } columns={ visible } actions={ actions }/>
             </table>
-            <button onClick={ actions.previousPage }>prev</button>
-            <p>{ currentPageNumber }</p>
-            <button onClick={ actions.nextPage }>next</button>
+            <Pagination currentPage={ currentPage } actions={ actions }/>
         </div>
     );
 };
 
 Table.PropTypes = {
-    rows: array.isRequierd,
-    columns: arrayOf(shape({
-        accessor: string.isRequired,
-        label: string.isRequired,
-    })),
+    table: shape({
+        rows: shape({
+            displayed: array.isRequierd,
+        }),
+        columns: shape({
+            visible: arrayOf(shape({
+                accessor: string.isRequired,
+                label: string.isRequired,
+            })),
+            hidden: arrayOf(shape({
+                accessor: string.isRequired,
+                label: string.isRequired,
+            })),
+        }),
+        pagination: shape({
+            currentPage: number.isRequierd,
+        }),
+        globalSearchString: string.isRequierd,
+    }),
     actions: shape({
-        sortColumn: func.isRequired,
-        previousPage: func.isRequired,
         nextPage: func.isRequired,
+        previousPage: func.isRequired,
+        sortColumn: func.isRequired,
+        searchRows: func.isRequired,
+        clearSearch: func.isRequired,
+        expandRow: func.isRequired,
+        resizeTable: func.isRequired,
     })
 };
 

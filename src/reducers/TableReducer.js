@@ -6,26 +6,55 @@ import initialState from '../store/initialState';
 export default function TableReducer(state = initialState.table, action) {
     switch (action.type) {
         case types.FETCHED_DATA_SUCCESS:
-            return { ...state, allRows: action.allRows, initialRows: action.allRows };
-        case types.ROW_ORDER_CHANGED:
-            return { ...state, allRows: action.allRows };
+            return {
+                ...state,
+                rows: {
+                    ...state.rows,
+                    initial: action.rows,
+                    filtered: action.rows,
+                },
+                columns: {
+                    ...state.columns,
+                    initial: action.columns,
+                    visible: action.columns,
+                },
+            };
+        case types.ROWS_SORTED:
+            return { ...state, rows: { ...state.rows, filtered: action.rows, }, };
         case types.CALCULATED_ROWS_FINISHED:
-            return { ...state, displayedRows: action.displayedRows };
+            return {
+                ...state,
+                rows: { ...state.rows, displayed: action.visibleRows },
+            };
         case types.CHANGE_CURRENT_PAGE:
-            return { ...state, currentPageNumber: action.currentPageNumber };
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    currentPage: action.currentPage
+                }
+             };
         case types.SORT_COLUMN_AND_DIRECTION_UPDATED:
             return { ...state, sort: { ...state.sort, column: action.column, direction: action.direction } };
         case types.EXPAND_ROW:
             return {
                 ...state,
-                displayedRows: state.displayedRows.map(
+                rows: {
+                    ...state.rows,
+                    displayed: state.rows.displayed.map(
                     (row, index) => action.rowIndex === index ?
-                        { ...row, isOpen: !row.isOpen} : row),
+                        { ...row, isOpen: !row.isOpen } : row), }
             };
         case types.FILTERED_TABLE:
-            return { ...state, allRows: action.allRows };
+            return { ...state, rows: { ...state.rows, filtered: action.rows, }, };
+        case types.SEARCH_STRING_UPDATED:
+            return { ...state, globalSearchString: action.value }
         case types.CLEAR_SEARCH:
-            return { ...state, allRows: state.initialRows };
+            return {
+                ...state,
+                rows: { ...state.rows, filtered: state.rows.initial },
+                globalSearchString: ''
+            };
         default:
             return { ...state };
     }

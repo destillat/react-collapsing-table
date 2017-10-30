@@ -6,29 +6,35 @@ import * as TableApi from '../utils/api/TableAPI.dev';
 //TODO: Add isOpen set to false for all rows on initial data load
 export const fetchData = () => async dispatch => {
     try {
-        let payload = await TableApi.generateFakeData();
+        let rowPayload = await TableApi.generateFakeData();
+        let columnPayload = await TableApi.getColumns();
 
-        dispatch(fetchDataSuccess({ allRows: payload }));
+        dispatch(fetchDataSuccess({ rows: rowPayload, columns: columnPayload }));
         dispatch(calculateRows())
     } catch (error) {
         console.log(error);
     }
 };
 
-export const fetchDataSuccess = ({ allRows }) => {
-    return { type: types.FETCHED_DATA_SUCCESS, allRows }
+export const fetchDataSuccess = ({ rows, columns }) => {
+    return { type: types.FETCHED_DATA_SUCCESS, rows, columns }
 };
 
 export const calculateRows = () => (dispatch, getState) => {
     let selectedRows = [];
     const state = getState();
-    const { table, table: { allRows, rowSize, currentPageNumber } } = state;
+    const {
+        table: {
+            rows: { filtered },
+            pagination: { currentPage, rowSize }
+        }
+     } = state;
 
     //pagination
-    if( allRows.length > 0 ) {
-        const startingPoint = ((currentPageNumber - 1) * rowSize);
+    if( filtered.length > 0 ) {
+        const startingPoint = ((currentPage - 1) * rowSize);
         const endingPoint = startingPoint + rowSize;
-        selectedRows = allRows.slice(startingPoint, endingPoint);
+        selectedRows = filtered.slice(startingPoint, endingPoint);
     }
 
     //create empty rows
@@ -38,34 +44,31 @@ export const calculateRows = () => (dispatch, getState) => {
         selectedRows.push({});
     }
 
-    dispatch(calculateRowsSuccess({ displayedRows: selectedRows }))
+    dispatch(calculateRowsSuccess({ visibleRows: selectedRows }))
 };
 
-export const calculateRowsSuccess = ({ displayedRows }) => {
-    return { type: types.CALCULATED_ROWS_FINISHED, displayedRows }
+export const calculateRowsSuccess = ({ visibleRows }) => {
+    return { type: types.CALCULATED_ROWS_FINISHED, visibleRows }
 };
 
-//TODO: Stop users from going to a totally blank page (to high)
 export const nextPage = () => (dispatch, getState) => {
     const state = getState();
-    const { table: { allRows, currentPageNumber, rowSize } } = state;
+    const { table: { pagination: { currentPage } } } = state;
 
-    dispatch(changePageSuccess({ currentPageNumber: currentPageNumber + 1 }));
+    dispatch(changePageSuccess({ currentPage: currentPage + 1 }));
     dispatch(calculateRows())
 };
 
-//TODO: Stop users from going to a totally blank page (to low)
 export const previousPage = () => (dispatch, getState) => {
     const state = getState();
+    const { table: { pagination: { currentPage } } } = state;
 
-    const { table: { currentPageNumber } } = state;
-
-    dispatch(changePageSuccess({ currentPageNumber: currentPageNumber - 1 }));
+    dispatch(changePageSuccess({ currentPage: currentPage - 1 }));
     dispatch(calculateRows())
 };
 
-export const changePageSuccess = ({ currentPageNumber }) => {
-    return { type: types.CHANGE_CURRENT_PAGE, currentPageNumber }
+export const changePageSuccess = ({ currentPage }) => {
+    return { type: types.CHANGE_CURRENT_PAGE, currentPage }
 };
 
 export const sortColumn = ({ column }) => dispatch => {
@@ -105,31 +108,31 @@ export const changeRowOrder = ({ column }) => (dispatch, getState) => {
     const state = getState();
 
     // TODO: search columns for priority level 1 as deafult search field
-    const { table: { sort: { direction }, allRows, columns } } = state;
-    let newAllRows = [];
+    const { table: { sort: { direction }, rows: { filtered } } } = state;
+    let sortedRows = [];
 
     switch (direction) {
         case 'ascending':
-            newAllRows = allRows.sort(dynamicSort({ column }));
+            sortedRows = filtered.sort(dynamicSort({ column }));
             break;
         case 'descending':
-            newAllRows = allRows.sort(dynamicSort({ column })).reverse();
+            sortedRows = filtered.sort(dynamicSort({ column })).reverse();
             break;
         case 'none':
             // TODO: added in priority level to figure out the default search field
-            // newAllRows = allRows.sort(dynamicSort({ column: 'firstName'}));
-            newAllRows = allRows.sort(dynamicSort({ column }));
+            // newRows = allRows.sort(dynamicSort({ column: 'firstName'}));
+            sortedRows = filtered.sort(dynamicSort({ column }));
             break;
         default:
-            newAllRows = allRows.sort(dynamicSort({ column }));
+            sortedRows = filtered.sort(dynamicSort({ column }));
     }
 
-    dispatch(allRowsOrderChanged({ allRows: newAllRows }));
+    dispatch(rowsSorted({ rows: sortedRows }));
     dispatch(calculateRows());
 };
 
-export const allRowsOrderChanged = ({ allRows }) => {
-    return { type: types.ROW_ORDER_CHANGED, allRows };
+export const rowsSorted = ({ rows }) => {
+    return { type: types.ROWS_SORTED, rows };
 };
 
 export const changeSortColumnAndDirectionSuccess = ({ column, direction }) => {
@@ -143,30 +146,35 @@ export const dynamicSort = ({ column }) => {
 };
 
 export const expandRow = ({ rowIndex }) => {
-    return { type: types.EXPAND_ROW, rowIndex};
+    return { type: types.EXPAND_ROW, rowIndex };
 };
 
 export const searchRows = ({ searchString }) => (dispatch, getState) => {
     const state = getState();
-    let allRows = state.table.initialRows;
+    let rows = state.table.rows.initial;
     let flag;
-    searchString = searchString.toUpperCase();
+    const upperCaseSearchString = searchString.toUpperCase();
 
-    allRows = allRows.filter( row => {
+    rows = rows.filter( row => {
         for (let rowValue of Object.values(row)) {
             const currentCell = (typeof rowValue === 'string') ? rowValue.toUpperCase() : rowValue.toString().toUpperCase();
-            flag = currentCell.includes(searchString);
+            flag = currentCell.includes(upperCaseSearchString);
             if(flag) break;
         }
         return flag ? row : false;
     });
 
-    dispatch(searchRowsSuccess({ allRows }));
+    dispatch(updateGlobalSearchString({ value: searchString }))
+    dispatch(searchRowsSuccess({ rows }));
     dispatch(calculateRows());
 };
 
-export const searchRowsSuccess = ({ allRows }) => {
-    return { type: types.FILTERED_TABLE, allRows }
+export const searchRowsSuccess = ({ rows }) => {
+    return { type: types.FILTERED_TABLE, rows }
+};
+
+export const updateGlobalSearchString = ({ value }) => {
+    return { type: types.SEARCH_STRING_UPDATED, value }
 };
 
 export const clearSearch = () => dispatch => {
@@ -176,4 +184,8 @@ export const clearSearch = () => dispatch => {
 
 export const clearSearchSuccess = () => {
     return { type: types.CLEAR_SEARCH }
+};
+
+export const resizeTable = () => (dispatch, getState) => {
+
 };

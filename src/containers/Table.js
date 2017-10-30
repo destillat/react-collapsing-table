@@ -37,6 +37,10 @@ export class Table extends Component {
         this.props.actions.expandRow({ rowIndex })
     };
 
+    resizeTable = () => {
+        this.props.actions.resizeTable();
+    }
+
     render() {
         const { table } = this.props;
         const actions = {
@@ -46,6 +50,7 @@ export class Table extends Component {
             searchRows: this.searchRows,
             clearSearch: this.clearSearch,
             expandRow: this.expandRow,
+            resizeTable: this.resizeTable,
         };
 
         return (
