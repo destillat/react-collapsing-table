@@ -56,7 +56,7 @@ export const nextPage = () => (dispatch, getState) => {
     const { table: { pagination: { currentPage } } } = state;
 
     dispatch(changePageSuccess({ currentPage: currentPage + 1 }));
-    dispatch(calculateRows())
+    dispatch(calculateRows());
 };
 
 export const previousPage = () => (dispatch, getState) => {
@@ -64,7 +64,7 @@ export const previousPage = () => (dispatch, getState) => {
     const { table: { pagination: { currentPage } } } = state;
 
     dispatch(changePageSuccess({ currentPage: currentPage - 1 }));
-    dispatch(calculateRows())
+    dispatch(calculateRows());
 };
 
 export const changePageSuccess = ({ currentPage }) => {

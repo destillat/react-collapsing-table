@@ -23,7 +23,11 @@ const unorderedRowIntialState = {
     ...initialState,
     table: {
         ...initialState.table,
-        allRows: unorderedRows,
+        rows: {
+            ...initialState.table.rows,
+            intial: unorderedRows,
+            filtered: unorderedRows,
+        },
     }
 };
 
@@ -31,7 +35,11 @@ const unorderedRowNoneIntialState = {
     ...initialState,
     table: {
         ...initialState.table,
-        allRows: unorderedRows,
+        rows: {
+            ...initialState.table.rows,
+            intial: unorderedRows,
+            filtered: unorderedRows,
+        },
         sort: {
             ...initialState.table.sort,
             direction: 'none',
@@ -44,7 +52,11 @@ const unorderedRowAscIntialState = {
     ...initialState,
     table: {
         ...initialState.table,
-        allRows: unorderedRows,
+        rows: {
+            ...initialState.table.rows,
+            intial: unorderedRows,
+            filtered: unorderedRows,
+        },
         sort: {
             ...initialState.table.sort,
             direction: 'ascending',
@@ -57,7 +69,11 @@ const unorderedRowDescIntialState = {
     ...initialState,
     table: {
         ...initialState.table,
-        allRows: unorderedRows,
+        rows: {
+            ...initialState.table.rows,
+            intial: unorderedRows,
+            filtered: unorderedRows,
+        },
         sort: {
             ...initialState.table.sort,
             direction: 'descending',
@@ -70,7 +86,11 @@ const unorderedRowDescDifferentDirectionIntialState = {
     ...initialState,
     table: {
         ...initialState.table,
-        allRows: unorderedRows,
+        rows: {
+            ...initialState.table.rows,
+            intial: unorderedRows,
+            filtered: unorderedRows,
+        },
         sort: {
             ...initialState.table.sort,
             direction: 'dMoney',
@@ -83,7 +103,11 @@ const unorderedRowDescDifferentColumnAndDirectionIntialState = {
     ...initialState,
     table: {
         ...initialState.table,
-        allRows: unorderedRows,
+        rows: {
+            ...initialState.table.rows,
+            intial: unorderedRows,
+            filtered: unorderedRows,
+        },
         sort: {
             ...initialState.table.sort,
             direction: 'dMoney',
@@ -95,41 +119,45 @@ const unorderedRowDescDifferentColumnAndDirectionIntialState = {
 describe('Search Actions', () => {
     //Actions
     it('should return the all of the returned rows', () => {
-        const given = { allRows: [1, 2, 3]}
-        const expected = { type: types.FETCHED_DATA_SUCCESS, allRows: [1, 2, 3] };
+        const given = { rows: [1, 2, 3], columns: [1, 2] }
+        const expected = {
+            type: types.FETCHED_DATA_SUCCESS,
+            rows: [1, 2, 3],
+            columns: [1, 2],
+        };
 
         expect(actions.fetchDataSuccess(given)).toEqual(expected)
     });
 
     it('should return only a selection of the rows based on the current page and the total rows per page', () => {
-        const given = { displayedRows: [1, 2] }
-        const expected = { type: types.CALCULATED_ROWS_FINISHED, displayedRows: [1, 2] };
+        const given = { visibleRows: [1, 2] }
+        const expected = { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [1, 2] };
 
         expect(actions.calculateRowsSuccess(given)).toEqual(expected)
     });
 
     it('should update what the current page of the table is', () => {
-        const given = { currentPageNumber: 3 };
-        const expected = { type: types.CHANGE_CURRENT_PAGE, currentPageNumber: 3 };
+        const given = { currentPage: 3 };
+        const expected = { type: types.CHANGE_CURRENT_PAGE, currentPage: 3 };
 
         expect(actions.changePageSuccess(given)).toEqual(expected)
     });
 
     it('should return the sorted rows', () => {
-        const given = { allRows: [1, 2, 3] };
-        const expected = { type: types.ROW_ORDER_CHANGED, allRows: [1, 2, 3]};
+        const given = { rows: [1, 2, 3] };
+        const expected = { type: types.ROWS_SORTED, rows: [1, 2, 3] };
 
-        expect(actions.allRowsOrderChanged(given)).toEqual(expected)
+        expect(actions.rowsSorted(given)).toEqual(expected)
     });
 
-    it('should return the sorted rows', () => {
+    it('should return the column and direction', () => {
         const given = { column: 'id', direction: 'ascending' };
         const expected = { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'ascending' };
 
         expect(actions.changeSortColumnAndDirectionSuccess(given)).toEqual(expected)
     });
 
-    it('should return the sorted rows', () => {
+    it('should return the rowIndex to expand', () => {
         const given = { rowIndex: 4 };
         const expected = { type: types.EXPAND_ROW, rowIndex: 4 };
 
@@ -140,8 +168,8 @@ describe('Search Actions', () => {
     it('should decerement the page and recalulate what rows to show', async() => {
         const given = {};
         const expected = [
-            { type: types.CHANGE_CURRENT_PAGE, currentPageNumber: 0 },
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: [{}, {}, {}, {}, {}] }
+            { type: types.CHANGE_CURRENT_PAGE, currentPage: 0 },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [{}, {}, {}, {}, {}] }
         ];
 
         await store.dispatch(actions.previousPage(given));
@@ -153,8 +181,8 @@ describe('Search Actions', () => {
     it('should increment the page and recalulate what rows to show', async() => {
         const given = {};
         const expected = [
-            { type: types.CHANGE_CURRENT_PAGE, currentPageNumber: 2 },
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: [{}, {}, {}, {}, {}] }
+            { type: types.CHANGE_CURRENT_PAGE, currentPage: 2 },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [{}, {}, {}, {}, {}] }
         ];
 
         await store.dispatch(actions.nextPage(given));
@@ -166,7 +194,7 @@ describe('Search Actions', () => {
     it('should return 5 empty rows when there is no data passed in', async() => {
         const given = {};
         const expected = [
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: [{}, {}, {}, {}, {}] }
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [{}, {}, {}, {}, {}] }
         ];
 
         await store.dispatch(actions.calculateRows(given));
@@ -176,10 +204,16 @@ describe('Search Actions', () => {
     });
 
     it('should return 3 empty rows when there is 2 rows with data in state', async() => {
-        store = mockStore({ ...initialState, table: { ...initialState.table, allRows: [1, 2] } })
+        store = mockStore({
+            ...initialState,
+            table: {
+                ...initialState.table,
+                rows: { filtered: [1, 2, ] }
+            }
+        })
         const given = {};
         const expected = [
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: [1, 2, {}, {}, {}] }
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [1, 2, {}, {}, {}] }
         ];
 
         await store.dispatch(actions.calculateRows(given));
@@ -189,10 +223,16 @@ describe('Search Actions', () => {
     });
 
     it('should return 0 empty rows when there is 5 rows with data in state', async() => {
-        store = mockStore({ ...initialState, table: { ...initialState.table, allRows: [1, 2, 3, 4, 5] } })
+        store = mockStore({
+            ...initialState,
+            table: {
+                ...initialState.table,
+                rows: { filtered: [1, 2, 3, 4, 5] }
+            }
+        })
         const given = {};
         const expected = [
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: [1, 2, 3, 4, 5] }
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [1, 2, 3, 4, 5] }
         ];
 
         await store.dispatch(actions.calculateRows(given));
@@ -202,10 +242,17 @@ describe('Search Actions', () => {
     });
 
     it('should return only 5 rows when there is more than 5 rows with data in state', async() => {
-        store = mockStore({ ...initialState, table: { ...initialState.table, allRows: [1, 2, 3, 4, 5, 6] } })
+        store = mockStore({
+            ...initialState,
+            table: {
+                ...initialState.table,
+                rows: { filtered: [1, 2, 3, 4, 5, 6] }
+            }
+        })
+
         const given = {};
         const expected = [
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: [1, 2, 3, 4, 5] }
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [1, 2, 3, 4, 5] }
         ];
 
         await store.dispatch(actions.calculateRows(given));
@@ -285,8 +332,8 @@ describe('Search Actions', () => {
         const given = { column: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'ascending' },
-            { type: types.ROW_ORDER_CHANGED, allRows: ascOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: ascOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: ascOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: ascOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.sortColumn(given));
@@ -299,8 +346,8 @@ describe('Search Actions', () => {
         store = mockStore(unorderedRowIntialState)
         const given = { column: 'id' };
         const expected = [
-            { type: types.ROW_ORDER_CHANGED, allRows: ascOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: ascOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: ascOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: ascOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.changeRowOrder(given));
@@ -313,8 +360,8 @@ describe('Search Actions', () => {
         store = mockStore(unorderedRowAscIntialState)
         const given = { column: 'id' };
         const expected = [
-            { type: types.ROW_ORDER_CHANGED, allRows: ascOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: ascOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: ascOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: ascOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.changeRowOrder(given));
@@ -328,8 +375,8 @@ describe('Search Actions', () => {
         store = mockStore(unorderedRowDescIntialState)
         const given = { column: 'id' };
         const expected = [
-            { type: types.ROW_ORDER_CHANGED, allRows: descOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: descOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: descOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: descOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.changeRowOrder(given));
@@ -342,8 +389,8 @@ describe('Search Actions', () => {
         store = mockStore(unorderedRowDescDifferentDirectionIntialState)
         const given = { column: 'id' };
         const expected = [
-            { type: types.ROW_ORDER_CHANGED, allRows: ascOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, displayedRows: ascOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: ascOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: ascOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.changeRowOrder(given));
