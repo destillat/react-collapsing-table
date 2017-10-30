@@ -10,6 +10,8 @@ const Table = ({ table, actions }) => {
 
     return (
         <div>
+            <input onChange={ actions.searchRows } />
+            <button onClick={ actions.clearSearch }>Clear</button>
             <table>
                 <Columns columns={ columns } onClick={ actions.sortColumn }/>
                 <Rows rows={ displayedRows } columns={ columns } actions={ actions }/>

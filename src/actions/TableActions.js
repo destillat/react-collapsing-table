@@ -5,14 +5,14 @@ import * as TableApi from '../utils/api/TableAPI.dev';
 
 //TODO: Add isOpen set to false for all rows on initial data load
 export const fetchData = () => async dispatch => {
-  try {
-      let payload = await TableApi.generateFakeData();
+    try {
+        let payload = await TableApi.generateFakeData();
 
-      dispatch(fetchDataSuccess({ allRows: payload }));
-      dispatch(calculateRows())
-  } catch (error) {
-      console.log(error);
-  }
+        dispatch(fetchDataSuccess({ allRows: payload }));
+        dispatch(calculateRows())
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const fetchDataSuccess = ({ allRows }) => {
@@ -22,7 +22,7 @@ export const fetchDataSuccess = ({ allRows }) => {
 export const calculateRows = () => (dispatch, getState) => {
     let selectedRows = [];
     const state = getState();
-    const { table, table: { allRows, rowSize, currentPageNumber } } = state
+    const { table, table: { allRows, rowSize, currentPageNumber } } = state;
 
     //pagination
     if( allRows.length > 0 ) {
@@ -146,11 +146,34 @@ export const expandRow = ({ rowIndex }) => {
     return { type: types.EXPAND_ROW, rowIndex};
 };
 
-// TODO: Add table searching
-// export const searchRows = ({ searchString }) => (dispatch, getState) => {
-//
-// };
-//
-// export const searchRowsSuccess = ({ }) => {
-//     return { type: types }
-// };
+export const searchRows = ({ searchString }) => (dispatch, getState) => {
+    const state = getState();
+    let allRows = state.table.initialRows;
+    let flag;
+    searchString = searchString.toUpperCase();
+
+    allRows = allRows.filter( row => {
+        for (let rowValue of Object.values(row)) {
+            const currentCell = (typeof rowValue === 'string') ? rowValue.toUpperCase() : rowValue.toString().toUpperCase();
+            flag = currentCell.includes(searchString);
+            if(flag) break;
+        }
+        return flag ? row : false;
+    });
+
+    dispatch(searchRowsSuccess({ allRows }));
+    dispatch(calculateRows());
+};
+
+export const searchRowsSuccess = ({ allRows }) => {
+    return { type: types.FILTERED_TABLE, allRows }
+};
+
+export const clearSearch = () => dispatch => {
+    dispatch(clearSearchSuccess());
+    dispatch(calculateRows());
+};
+
+export const clearSearchSuccess = () => {
+    return { type: types.CLEAR_SEARCH }
+};

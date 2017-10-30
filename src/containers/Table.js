@@ -29,6 +29,10 @@ export class Table extends Component {
         this.props.actions.searchRows({ searchString: value });
     };
 
+    clearSearch = () => {
+        this.props.actions.clearSearch();
+    };
+
     expandRow = ({ rowIndex }) => {
         this.props.actions.expandRow({ rowIndex })
     };
@@ -40,6 +44,7 @@ export class Table extends Component {
             previousPage: this.previousPage,
             sortColumn: this.sortColumn,
             searchRows: this.searchRows,
+            clearSearch: this.clearSearch,
             expandRow: this.expandRow,
         };
 

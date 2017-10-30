@@ -1,5 +1,6 @@
 export default {
     table: {
+        initialRows: [],
         allRows: [],
         displayedRows: [],
         columns: [
