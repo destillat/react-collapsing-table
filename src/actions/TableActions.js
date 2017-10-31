@@ -164,7 +164,7 @@ export const searchRows = ({ searchString }) => (dispatch, getState) => {
         return flag ? row : false;
     });
 
-    dispatch(updateGlobalSearchString({ value: searchString }))
+    dispatch(updateGlobalSearchString({ value: searchString }));
     dispatch(searchRowsSuccess({ rows }));
     dispatch(calculateRows());
 };
@@ -186,6 +186,6 @@ export const clearSearchSuccess = () => {
     return { type: types.CLEAR_SEARCH }
 };
 
-export const resizeTable = () => (dispatch, getState) => {
-
-};
+// export const resizeTable = () => (dispatch, getState) => {
+//
+// };

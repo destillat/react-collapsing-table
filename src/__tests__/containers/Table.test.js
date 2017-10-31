@@ -28,6 +28,7 @@ describe('Table Container', () => {
                 sortColumn: jest.fn(),
                 searchRows: jest.fn(),
                 expandRow: jest.fn(),
+                clearSearch: jest.fn(),
             }
         };
 
@@ -50,6 +51,9 @@ describe('Table Container', () => {
     it('should trigger the action methods when called', () => {
         instance.previousPage();
         expect(props.actions.previousPage).toHaveBeenCalled();
+
+        instance.clearSearch();
+        expect(props.actions.clearSearch).toHaveBeenCalled();
 
         instance.nextPage();
         expect(props.actions.nextPage).toHaveBeenCalled();

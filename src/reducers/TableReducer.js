@@ -48,7 +48,7 @@ export default function TableReducer(state = initialState.table, action) {
         case types.FILTERED_TABLE:
             return { ...state, rows: { ...state.rows, filtered: action.rows, }, };
         case types.SEARCH_STRING_UPDATED:
-            return { ...state, globalSearchString: action.value }
+            return { ...state, globalSearchString: action.value };
         case types.CLEAR_SEARCH:
             return {
                 ...state,

@@ -11,36 +11,19 @@ describe('Table', () => {
     beforeEach(() => {
         props = {
             table: {
-                rows: {
-                    displayed: [1, 2, 3, 4, 5],
-                },
-                columns: {
-                    visible: [
-                        { accessor: 'firstName', label: 'First Name' },
-                        { accessor: 'lastName', label: 'Last Name' },
-                        { accessor: 'email', label: 'Email' },
-                        { accessor: 'address', label: 'Address' },
-                        { accessor: 'city', label: 'City' },
-                        { accessor: 'state', label: 'State' },
-                        { accessor: 'country', label: 'Country' },
-                    ],
-                    hidden: [
-                        { accessor: 'zipCode', label: 'Zip Code' },
-                        { accessor: 'bio', label: 'Bio' },
-                    ],
-                },
-                pagination: {
-                    currentPage: 3,
-                },
-                globalSearchString: ''
+                globalSearchString: '',
+                sort: { direction: 'none', column: '' },
+                pagination: { currentPage: 1, rowSize: 5, possibleRowSizes: [15, 30, 60] },
+                columns: { initial: [], visible: [], hidden: [] },
+                rows: { initial: [], filtered: [], displayed: [] },
             },
+            actions: {},
         };
 
         wrapper = shallow(<Table { ...props } />);
     });
 
     it('should have 1 search component', () => {
-        console.log(props);
         const searches = wrapper.find('Search');
 
         expect(searches.length).toBe(1);

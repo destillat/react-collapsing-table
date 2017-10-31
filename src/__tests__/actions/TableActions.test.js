@@ -119,7 +119,7 @@ const unorderedRowDescDifferentColumnAndDirectionIntialState = {
 describe('Search Actions', () => {
     //Actions
     it('should return the all of the returned rows', () => {
-        const given = { rows: [1, 2, 3], columns: [1, 2] }
+        const given = { rows: [1, 2, 3], columns: [1, 2] };
         const expected = {
             type: types.FETCHED_DATA_SUCCESS,
             rows: [1, 2, 3],
@@ -130,7 +130,7 @@ describe('Search Actions', () => {
     });
 
     it('should return only a selection of the rows based on the current page and the total rows per page', () => {
-        const given = { visibleRows: [1, 2] }
+        const given = { visibleRows: [1, 2] };
         const expected = { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [1, 2] };
 
         expect(actions.calculateRowsSuccess(given)).toEqual(expected)
@@ -210,7 +210,7 @@ describe('Search Actions', () => {
                 ...initialState.table,
                 rows: { filtered: [1, 2, ] }
             }
-        })
+        });
         const given = {};
         const expected = [
             { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [1, 2, {}, {}, {}] }
@@ -229,7 +229,7 @@ describe('Search Actions', () => {
                 ...initialState.table,
                 rows: { filtered: [1, 2, 3, 4, 5] }
             }
-        })
+        });
         const given = {};
         const expected = [
             { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [1, 2, 3, 4, 5] }
@@ -248,7 +248,7 @@ describe('Search Actions', () => {
                 ...initialState.table,
                 rows: { filtered: [1, 2, 3, 4, 5, 6] }
             }
-        })
+        });
 
         const given = {};
         const expected = [
@@ -261,9 +261,30 @@ describe('Search Actions', () => {
         expect(actualDispatchedActions).toEqual(expected);
     });
 
+    it('should return the filtered rows', () => {
+        const given = { rows: [1, 2] };
+        const expected = { type: types.FILTERED_TABLE, rows: [1, 2] };
+
+        expect(actions.searchRowsSuccess(given)).toEqual(expected)
+    });
+
+    it('should update the search string with the new value passed in', () => {
+        const given = { value: 'bye' };
+        const expected = { type: types.SEARCH_STRING_UPDATED, value: 'bye' };
+
+        expect(actions.updateGlobalSearchString(given)).toEqual(expected)
+    });
+
+    it('should tell the reducers to reset the search criteria', () => {
+        const given = {};
+        const expected = { type: types.CLEAR_SEARCH, };
+
+        expect(actions.clearSearchSuccess(given)).toEqual(expected)
+    });
+
     // changeSortFieldAndDirection
     it('should change the direction from none to ascending when the columns do not match', async() => {
-        store = mockStore(unorderedRowNoneIntialState)
+        store = mockStore(unorderedRowNoneIntialState);
         const given = { newColumn: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'ascending' },
@@ -276,7 +297,7 @@ describe('Search Actions', () => {
     });
 
     it('should change the direction from ascending to descending when the columns do match', async() => {
-        store = mockStore(unorderedRowAscIntialState)
+        store = mockStore(unorderedRowAscIntialState);
         const given = { newColumn: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'descending' },
@@ -289,7 +310,7 @@ describe('Search Actions', () => {
     });
 
     it('should change the direction from descending to none when the columns do match', async() => {
-        store = mockStore(unorderedRowDescIntialState)
+        store = mockStore(unorderedRowDescIntialState);
         const given = { newColumn: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'none' },
@@ -343,7 +364,7 @@ describe('Search Actions', () => {
     });
 
     it('should sort the results based on the priorty column when none is the case', async() => {
-        store = mockStore(unorderedRowIntialState)
+        store = mockStore(unorderedRowIntialState);
         const given = { column: 'id' };
         const expected = [
             { type: types.ROWS_SORTED, rows: ascOrderedRows },
@@ -357,7 +378,7 @@ describe('Search Actions', () => {
     });
 
     it('should sort the results from lowest to highest when ascending is the case', async() => {
-        store = mockStore(unorderedRowAscIntialState)
+        store = mockStore(unorderedRowAscIntialState);
         const given = { column: 'id' };
         const expected = [
             { type: types.ROWS_SORTED, rows: ascOrderedRows },
@@ -372,7 +393,7 @@ describe('Search Actions', () => {
 
 
     it('should sort the results from highest to lowest when descending is the case', async() => {
-        store = mockStore(unorderedRowDescIntialState)
+        store = mockStore(unorderedRowDescIntialState);
         const given = { column: 'id' };
         const expected = [
             { type: types.ROWS_SORTED, rows: descOrderedRows },
@@ -398,6 +419,45 @@ describe('Search Actions', () => {
 
         expect(actualDispatchedActions).toEqual(expected);
     });
+
+    it('should clear the search input and recalculate which rows to show', async() => {
+        const given = {};
+        const expected = [
+            { type: types.CLEAR_SEARCH },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [{}, {}, {}, {}, {}] }
+        ];
+
+        await store.dispatch(actions.clearSearch(given));
+        const actualDispatchedActions = store.getActions();
+
+        expect(actualDispatchedActions).toEqual(expected);
+    });
+
+    it('should ', async() => {
+        store = mockStore({
+            ...initialState,
+            table: {
+                ...initialState.table,
+                rows: {
+                    ...initialState.table.rows,
+                    initial: [{ name: 'Paul', id: 1 }, { name: 'Bob', id: 2 }],
+                }
+            }
+        });
+
+        const given = { searchString: 'Pa' };
+        const expected = [
+            { type: types.SEARCH_STRING_UPDATED, value: 'Pa' },
+            { type: types.FILTERED_TABLE, rows: [{ name: 'Paul', id: 1 }] },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [{ name: 'Paul', id: 1 }, {}, {}, {}, {}] }
+        ];
+
+        await store.dispatch(actions.searchRows(given));
+        const actualDispatchedActions = store.getActions();
+
+        expect(actualDispatchedActions).toEqual(expected);
+    });
+
 
     // TODO: Figure out how to test this given that you shouldn't need this later
     // it('should create an action for fetching data for the table', () => {

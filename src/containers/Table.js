@@ -39,7 +39,7 @@ export class Table extends Component {
 
     resizeTable = () => {
         this.props.actions.resizeTable();
-    }
+    };
 
     render() {
         const { table } = this.props;
