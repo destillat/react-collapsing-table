@@ -161,4 +161,20 @@ describe('table reducer', () => {
 
         expect( nextState ).toEqual( expectedState );
     });
+
+    it('should update the hidden and visible columns', () => {
+        const action = { type: types.RESIZED_TABLE, visible: [1, 2], hidden: [3] };
+        const nextState = TableReducer(tableInitialState, action );
+
+        const expectedState = {
+            ...tableInitialState,
+            columns: {
+                ...tableInitialState.columns,
+                visible: [1, 2],
+                hidden: [3],
+            },
+        };
+
+        expect( nextState ).toEqual( expectedState );
+    });
 });

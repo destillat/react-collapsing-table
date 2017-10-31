@@ -151,7 +151,7 @@ export const expandRow = ({ rowIndex }) => {
 
 export const searchRows = ({ searchString }) => (dispatch, getState) => {
     const state = getState();
-    let rows = state.table.rows.initial;
+    let rows = Object.assign([], state.table.rows.initial);
     let flag;
     const upperCaseSearchString = searchString.toUpperCase();
 
@@ -186,6 +186,32 @@ export const clearSearchSuccess = () => {
     return { type: types.CLEAR_SEARCH }
 };
 
-// export const resizeTable = () => (dispatch, getState) => {
-//
-// };
+export const removeColumn = () => (dispatch, getState) => {
+    const state = getState();
+    const { table: { columns: { visible, hidden } } } = state;
+    let visibleColumns = Object.assign([], visible);
+    let hiddenColumns = Object.assign([], hidden);
+
+    if(visibleColumns.length !== 0) {
+        visibleColumns.sort(dynamicSort({column: 'priorityLevel'}));
+        hiddenColumns.push(visibleColumns.pop());
+    }
+    dispatch(resizeTableSuccess({ visible: visibleColumns, hidden: hiddenColumns }));
+};
+
+export const addColumn = () => (dispatch, getState) => {
+    const state = getState();
+    const { table: { columns: { visible, hidden } } } = state;
+    let visibleColumns = Object.assign([], visible);
+    let hiddenColumns = Object.assign([], hidden);
+
+    if(hiddenColumns.length !== 0) {
+        hiddenColumns.sort(dynamicSort({column: 'priorityLevel'}));
+        visibleColumns.push(hiddenColumns.shift());
+    }
+    dispatch(resizeTableSuccess({ visible: visibleColumns, hidden: hiddenColumns }));
+};
+
+export const resizeTableSuccess = ({ visible, hidden }) => {
+    return { type: types.RESIZED_TABLE, visible, hidden };
+};

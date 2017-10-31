@@ -37,8 +37,12 @@ export class Table extends Component {
         this.props.actions.expandRow({ rowIndex })
     };
 
-    resizeTable = () => {
-        this.props.actions.resizeTable();
+    addColumn = () => {
+        this.props.actions.addColumn();
+    };
+
+    removeColumn = () => {
+        this.props.actions.removeColumn();
     };
 
     render() {
@@ -50,7 +54,8 @@ export class Table extends Component {
             searchRows: this.searchRows,
             clearSearch: this.clearSearch,
             expandRow: this.expandRow,
-            resizeTable: this.resizeTable,
+            addColumn: this.addColumn,
+            removeColumn: this.removeColumn,
         };
 
         return (

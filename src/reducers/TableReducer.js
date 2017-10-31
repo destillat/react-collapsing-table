@@ -33,7 +33,7 @@ export default function TableReducer(state = initialState.table, action) {
                     ...state.pagination,
                     currentPage: action.currentPage
                 }
-             };
+            };
         case types.SORT_COLUMN_AND_DIRECTION_UPDATED:
             return { ...state, sort: { ...state.sort, column: action.column, direction: action.direction } };
         case types.EXPAND_ROW:
@@ -42,8 +42,8 @@ export default function TableReducer(state = initialState.table, action) {
                 rows: {
                     ...state.rows,
                     displayed: state.rows.displayed.map(
-                    (row, index) => action.rowIndex === index ?
-                        { ...row, isOpen: !row.isOpen } : row), }
+                        (row, index) => action.rowIndex === index ?
+                            { ...row, isOpen: !row.isOpen } : row), }
             };
         case types.FILTERED_TABLE:
             return { ...state, rows: { ...state.rows, filtered: action.rows, }, };
@@ -54,6 +54,15 @@ export default function TableReducer(state = initialState.table, action) {
                 ...state,
                 rows: { ...state.rows, filtered: state.rows.initial },
                 globalSearchString: ''
+            };
+        case types.RESIZED_TABLE:
+            return {
+                ...state,
+                columns: {
+                    ...state.columns,
+                    hidden: action.hidden,
+                    visible: action.visible,
+                }
             };
         default:
             return { ...state };

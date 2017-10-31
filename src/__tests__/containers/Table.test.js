@@ -29,6 +29,8 @@ describe('Table Container', () => {
                 searchRows: jest.fn(),
                 expandRow: jest.fn(),
                 clearSearch: jest.fn(),
+                addColumn: jest.fn(),
+                removeColumn: jest.fn(),
             }
         };
 
@@ -52,11 +54,17 @@ describe('Table Container', () => {
         instance.previousPage();
         expect(props.actions.previousPage).toHaveBeenCalled();
 
-        instance.clearSearch();
-        expect(props.actions.clearSearch).toHaveBeenCalled();
-
         instance.nextPage();
         expect(props.actions.nextPage).toHaveBeenCalled();
+
+        instance.addColumn();
+        expect(props.actions.addColumn).toHaveBeenCalled();
+
+        instance.removeColumn();
+        expect(props.actions.removeColumn).toHaveBeenCalled();
+
+        instance.clearSearch();
+        expect(props.actions.clearSearch).toHaveBeenCalled();
 
         instance.sortColumn({ column: 'id' });
         expect(props.actions.sortColumn).toHaveBeenCalledWith({ column: 'id' });
