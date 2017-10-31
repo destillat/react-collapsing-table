@@ -4,13 +4,14 @@ import * as types from './ActionTypes'
 import * as TableApi from '../utils/api/TableAPI.dev';
 
 //TODO: Add isOpen set to false for all rows on initial data load
-export const fetchData = () => async dispatch => {
+export const fetchData = ({ width }) => async dispatch => {
     try {
         let rowPayload = await TableApi.generateFakeData();
         let columnPayload = await TableApi.getColumns();
 
         dispatch(fetchDataSuccess({ rows: rowPayload, columns: columnPayload }));
         dispatch(calculateRows())
+        dispatch(resizeTable({ width }))
     } catch (error) {
         console.log(error);
     }
