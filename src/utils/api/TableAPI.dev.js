@@ -25,14 +25,14 @@ export const generateFakeData = () => {
 
 export const getColumns = () => {
     return [
-        { accessor: 'firstName', label: 'First Name', priorityLevel: 1, position: 0, },
-        { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, position: 1, },
-        { accessor: 'email', label: 'Email', priorityLevel: 3, position: 2, },
-        { accessor: 'address', label: 'Address', priorityLevel: 4, position: 3, },
-        { accessor: 'city', label: 'City', priorityLevel: 9, position: 4, },
-        { accessor: 'state', label: 'State', priorityLevel: 6, position: 5, },
-        { accessor: 'country', label: 'Country', priorityLevel: 8, position: 6, },
-        { accessor: 'zipCode', label: 'Zip Code', priorityLevel: 7, position: 7, },
-        { accessor: 'bio', label: 'Bio', priorityLevel: 5, position: 8, },
+        { accessor: 'firstName', label: 'First Name', priorityLevel: 1, position: 1, minWidth: 100, },
+        { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, position: 2, minWidth: 100, },
+        { accessor: 'email', label: 'Email', priorityLevel: 3, position: 3, minWidth: 100, },
+        { accessor: 'address', label: 'Address', priorityLevel: 4, position: 4, minWidth: 100, },
+        { accessor: 'city', label: 'City', priorityLevel: 9, position: 5, minWidth: 100, },
+        { accessor: 'state', label: 'State', priorityLevel: 6, position: 6, minWidth: 100, },
+        { accessor: 'country', label: 'Country', priorityLevel: 8, position: 7, minWidth: 100, },
+        { accessor: 'zipCode', label: 'Zip Code', priorityLevel: 7, position: 8, minWidth: 100, },
+        { accessor: 'bio', label: 'Bio', priorityLevel: 5, position: 9, minWidth: 100, },
     ]
 };

@@ -183,7 +183,34 @@ export const clearSearch = () => dispatch => {
 };
 
 export const clearSearchSuccess = () => {
-    return { type: types.CLEAR_SEARCH }
+    return { type: types.CLEAR_SEARCH };
+};
+
+export const resizeTable = ({ width }) => (dispatch, getState) => {
+    const state = getState();
+    const { table: { columns: { visible, hidden } } } = state;
+    let visibleColumns = Object.assign([], visible);
+    let hiddenColumns = Object.assign([], hidden);
+    visibleColumns.sort(dynamicSort({column: 'priorityLevel'}));
+    hiddenColumns.sort(dynamicSort({column: 'priorityLevel'}));
+
+    let visibleColumnsWidth = 0;
+    for(let i = 0; i < visibleColumns.length; i++){
+        visibleColumnsWidth += visible[i].minWidth;
+    }
+    if(visibleColumnsWidth > width) {
+        while(visibleColumnsWidth > width && visibleColumns.length !== 0){
+            visibleColumnsWidth -= visibleColumns.pop().minWidth;
+            dispatch(removeColumn())
+        }
+    } else if(visibleColumnsWidth < width) {
+        while(visibleColumnsWidth < width && hiddenColumns.length !== 0){
+            visibleColumnsWidth += hiddenColumns.shift().minWidth;
+            if (visibleColumnsWidth < width){
+                dispatch(addColumn())
+            }
+        }
+    }
 };
 
 export const removeColumn = () => (dispatch, getState) => {

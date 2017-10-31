@@ -12,6 +12,18 @@ export class Table extends Component {
         this.props.actions.fetchData();
     }
 
+    componentDidMount() {
+        window.addEventListener("resize", this.updateDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
+    updateDimensions = () => {
+        this.props.actions.resizeTable({ width: window.innerWidth })
+    };
+
     nextPage = () => {
         this.props.actions.nextPage();
     };
