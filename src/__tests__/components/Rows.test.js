@@ -11,7 +11,7 @@ describe('Rows', () => {
     beforeEach(() => {
         props = {
             rows: [1, 2, 3, 4, 5],
-            columns: [
+            visibleColumns: [
                 { accessor: 'firstName', label: 'First Name' },
                 { accessor: 'lastName', label: 'Last Name' },
                 { accessor: 'email', label: 'Email' },
@@ -19,9 +19,12 @@ describe('Rows', () => {
                 { accessor: 'city', label: 'City' },
                 { accessor: 'state', label: 'State' },
                 { accessor: 'country', label: 'Country' },
+            ],
+            hiddenColumns: [
                 { accessor: 'zipCode', label: 'Zip Code' },
                 { accessor: 'bio', label: 'Bio' },
             ],
+            actions: {},
         };
 
         wrapper = shallow(<Rows { ...props } />);

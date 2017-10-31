@@ -22,7 +22,7 @@ describe('Row', () => {
                 bio: "Et quo iste quo facere sit tenetur deleniti.",
                 isOpen: false,
             },
-            columns: [
+            visibleColumns: [
                 { accessor: 'firstName', label: 'First Name' },
                 { accessor: 'lastName', label: 'Last Name' },
                 { accessor: 'email', label: 'Email' },
@@ -30,6 +30,8 @@ describe('Row', () => {
                 { accessor: 'city', label: 'City' },
                 { accessor: 'state', label: 'State' },
                 { accessor: 'country', label: 'Country' },
+            ],
+            hiddenColumns: [
                 { accessor: 'zipCode', label: 'Zip Code' },
                 { accessor: 'bio', label: 'Bio' },
             ],
@@ -38,10 +40,10 @@ describe('Row', () => {
         wrapper = mount(<Row { ...props } />);
     });
 
-    it('should have 9 table cells', () => {
+    it('should have 7 table cells', () => {
         const cells = wrapper.find('Cell');
 
-        expect(cells.length).toBe(9);
+        expect(cells.length).toBe(7);
     });
 
     it('should have 1 table row', () => {
@@ -54,6 +56,14 @@ describe('Row', () => {
         props = { ...props, row: { ...props.row, isOpen: true } };
         wrapper = mount(<Row { ...props } />);
         const cells = wrapper.find('tr');
+
+        expect(cells.length).toBe(2);
+    });
+
+    it('should show 2 columns that were hidden', () => {
+        props = { ...props, row: { ...props.row, isOpen: true } };
+        wrapper = mount(<Row { ...props } />);
+        const cells = wrapper.find('p');
 
         expect(cells.length).toBe(2);
     });

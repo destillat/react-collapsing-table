@@ -20,7 +20,7 @@ const Table = ({ table, actions }) => {
             <Search searchString={ globalSearchString } actions={ actions } />
             <table>
                 <Columns columns={ visible } onClick={ actions.sortColumn }/>
-                <Rows rows={ displayed } columns={ visible } actions={ actions }/>
+                <Rows rows={ displayed } visibleColumns={ visible } hiddenColumns={ hidden } actions={ actions }/>
             </table>
             <Pagination currentPage={ currentPage } actions={ actions }/>
         </div>

@@ -4,11 +4,12 @@ import { array, arrayOf, string, shape } from 'prop-types';
 //Components
 import Row from './Row';
 
-const Rows = ({rows, columns, actions }) => {
+const Rows = ({rows, visibleColumns, hiddenColumns, actions }) => {
     const tableRows = rows.map((row, index) => {
         return <Row key={ index }
                     row={ row }
-                    columns={ columns }
+                    visibleColumns={ visibleColumns }
+                    hiddenColumns={ hiddenColumns }
                     actions={ actions }
                     rowIndex={ index } />
     });
