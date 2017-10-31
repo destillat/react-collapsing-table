@@ -195,6 +195,8 @@ export const removeColumn = () => (dispatch, getState) => {
     if(visibleColumns.length !== 0) {
         visibleColumns.sort(dynamicSort({column: 'priorityLevel'}));
         hiddenColumns.push(visibleColumns.pop());
+        visibleColumns.sort(dynamicSort({column: 'position'}));
+        hiddenColumns.sort(dynamicSort({column: 'position'}));
     }
     dispatch(resizeTableSuccess({ visible: visibleColumns, hidden: hiddenColumns }));
 };
@@ -208,6 +210,8 @@ export const addColumn = () => (dispatch, getState) => {
     if(hiddenColumns.length !== 0) {
         hiddenColumns.sort(dynamicSort({column: 'priorityLevel'}));
         visibleColumns.push(hiddenColumns.shift());
+        visibleColumns.sort(dynamicSort({column: 'position'}));
+        hiddenColumns.sort(dynamicSort({column: 'position'}));
     }
     dispatch(resizeTableSuccess({ visible: visibleColumns, hidden: hiddenColumns }));
 };
