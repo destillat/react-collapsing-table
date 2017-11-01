@@ -12,10 +12,6 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 let store;
 
-beforeEach(() => {
-    store = mockStore(initialState);
-});
-
 describe('Search Actions', () => {
     //Actions
     it('should return the all of the returned rows', () => {
@@ -73,6 +69,7 @@ describe('Search Actions', () => {
 
     //Async Actions
     it('should decerement the page and recalulate what rows to show', async() => {
+        store = mockStore(initialState);
         const given = {};
         const expected = [
             { type: types.CHANGE_CURRENT_PAGE, currentPage: 0 },
@@ -86,6 +83,7 @@ describe('Search Actions', () => {
     });
 
     it('should increment the page and recalulate what rows to show', async() => {
+        store = mockStore(initialState);
         const given = {};
         const expected = [
             { type: types.CHANGE_CURRENT_PAGE, currentPage: 2 },
@@ -99,6 +97,7 @@ describe('Search Actions', () => {
     });
 
     it('should return 5 empty rows when there is no data passed in', async() => {
+        store = mockStore(initialState);
         const given = {};
         const expected = [
             { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [{}, {}, {}, {}, {}] }
@@ -328,6 +327,7 @@ describe('Search Actions', () => {
     });
 
     it('should clear the search input and recalculate which rows to show', async() => {
+        store = mockStore(initialState);
         const given = {};
         const expected = [
             { type: types.CLEAR_SEARCH },
@@ -340,31 +340,31 @@ describe('Search Actions', () => {
         expect(actualDispatchedActions).toEqual(expected);
     });
 
-    //TODO: Not Sure why this is failing
-    // it('should sort the rows based on the searchString passed in', async() => {
-    //     store = mockStore({
-    //         ...initialState,
-    //         table: {
-    //             ...initialState.table,
-    //             rows: {
-    //                 ...initialState.table.rows,
-    //                 initial: [{ name: 'Paul', id: 1 }, { name: 'Bob', id: 2 }],
-    //             }
-    //         }
-    //     });
-    //
-    //     const given = { searchString: 'Pa' };
-    //     const expected = [
-    //         { type: types.SEARCH_STRING_UPDATED, value: 'Pa' },
-    //         { type: types.FILTERED_TABLE, rows: [{ name: 'Paul', id: 1 }] },
-    //         { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [{ name: 'Paul', id: 1 }, {}, {}, {}, {}] }
-    //     ];
-    //
-    //     await store.dispatch(actions.searchRows(given));
-    //     const actualDispatchedActions = store.getActions();
-    //
-    //     expect(actualDispatchedActions).toEqual(expected);
-    // });
+    it('should sort the rows based on the searchString passed in', async() => {
+        store = mockStore({
+            ...initialState,
+            table: {
+                ...initialState.table,
+                rows: {
+                    ...initialState.table.rows,
+                    initial: [{ name: 'Paul', id: 1 }, { name: 'Bob', id: 2 }],
+                    filtered: [{ name: 'Paul', id: 1 }, ],
+                }
+            }
+        });
+
+        const given = { searchString: 'Pa' };
+        const expected = [
+            { type: types.SEARCH_STRING_UPDATED, value: 'Pa' },
+            { type: types.FILTERED_TABLE, rows: [{ name: 'Paul', id: 1 }] },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: [{ name: 'Paul', id: 1 }, {}, {}, {}, {}] }
+        ];
+
+        await store.dispatch(actions.searchRows(given));
+        const actualDispatchedActions = store.getActions();
+
+        expect(actualDispatchedActions).toEqual(expected);
+    });
 
     it('should successfully attempt to add a column', async() => {
         store = mockStore(states.oneHiddenColumn);
@@ -453,6 +453,20 @@ describe('Search Actions', () => {
 
         expect(actualDispatchedActions).toEqual(expected);
     });
+
+    //TODO: figure out why it does not pull from state correctly
+    // it('should ', async() => {
+    //     store = mockStore(states.needToAddRows);
+    //
+    //     const given = { visibleColumnsWidth: 100, width: 1000 };
+    //     const expected = [
+    //     ];
+    //
+    //     await store.dispatch(actions.tryToAddColumns(given));
+    //     const actualDispatchedActions = store.getActions();
+    //
+    //     expect(actualDispatchedActions).toEqual(expected);
+    // });
     // TODO: Figure out how to test this given that you shouldn't need this later
     // it('should create an action for fetching data for the table', () => {
     //     const expected = { type: types.FETCH_ARTICLES_STARTED };

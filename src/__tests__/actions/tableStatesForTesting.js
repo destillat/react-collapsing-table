@@ -166,3 +166,35 @@ export const noVisibleColumns = {
         }
     }
 }
+
+export const needToAddRows = {
+    ...initialState,
+    table: {
+        ...initialState.table,
+        columns: {
+            ...initialState.table.columns,
+            visible: [
+                {
+                    accessor: 'firstName',
+                    label: 'First Name',
+                    priorityLevel: 1,
+                    minWidth: 100,
+                },
+            ],
+            hidden: [
+                {
+                    accessor: 'lastName',
+                    label: 'Last Name',
+                    priorityLevel: 2,
+                    minWidth: 100,
+                },
+                {
+                    accessor: 'email',
+                    label: 'Email',
+                    priorityLevel: 3,
+                    minWidth: 100,
+                },
+            ],
+        }
+    }
+}
