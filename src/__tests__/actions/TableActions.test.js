@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 //Internal Files
 import * as actions from '../../actions/TableActions';
 import * as types from '../../actions/ActionTypes';
+import * as states from './tableStatesForTesting'
 import initialState from '../../store/initialState'
 const tableInitialState = { ...initialState.table }
 
@@ -14,107 +15,6 @@ let store;
 beforeEach(() => {
     store = mockStore(initialState);
 });
-
-const unorderedRows = [{ id: 2 }, { id: 3 }, { id: 1 }, { id: 6 }, { id: 3 }, { id: 5 }, ];
-const ascOrderedRows = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 3 }, { id: 5 }, { id: 6 }, ];
-const descOrderedRows = [{ id: 6 }, { id: 5 }, { id: 3 }, { id: 3 }, { id: 2 }, { id: 1 }, ];
-
-const unorderedRowIntialState = {
-    ...initialState,
-    table: {
-        ...initialState.table,
-        rows: {
-            ...initialState.table.rows,
-            intial: unorderedRows,
-            filtered: unorderedRows,
-        },
-    }
-};
-
-const unorderedRowNoneIntialState = {
-    ...initialState,
-    table: {
-        ...initialState.table,
-        rows: {
-            ...initialState.table.rows,
-            intial: unorderedRows,
-            filtered: unorderedRows,
-        },
-        sort: {
-            ...initialState.table.sort,
-            direction: 'none',
-            column: 'id',
-        }
-    }
-};
-
-const unorderedRowAscIntialState = {
-    ...initialState,
-    table: {
-        ...initialState.table,
-        rows: {
-            ...initialState.table.rows,
-            intial: unorderedRows,
-            filtered: unorderedRows,
-        },
-        sort: {
-            ...initialState.table.sort,
-            direction: 'ascending',
-            column: 'id',
-        }
-    }
-};
-
-const unorderedRowDescIntialState = {
-    ...initialState,
-    table: {
-        ...initialState.table,
-        rows: {
-            ...initialState.table.rows,
-            intial: unorderedRows,
-            filtered: unorderedRows,
-        },
-        sort: {
-            ...initialState.table.sort,
-            direction: 'descending',
-            column: 'id',
-        }
-    }
-};
-
-const unorderedRowDescDifferentDirectionIntialState = {
-    ...initialState,
-    table: {
-        ...initialState.table,
-        rows: {
-            ...initialState.table.rows,
-            intial: unorderedRows,
-            filtered: unorderedRows,
-        },
-        sort: {
-            ...initialState.table.sort,
-            direction: 'dMoney',
-            column: 'id',
-        }
-    }
-};
-
-const unorderedRowDescDifferentColumnAndDirectionIntialState = {
-    ...initialState,
-    table: {
-        ...initialState.table,
-        rows: {
-            ...initialState.table.rows,
-            intial: unorderedRows,
-            filtered: unorderedRows,
-        },
-        sort: {
-            ...initialState.table.sort,
-            direction: 'dMoney',
-            column: 'dMoney',
-        }
-    }
-};
 
 describe('Search Actions', () => {
     //Actions
@@ -291,7 +191,7 @@ describe('Search Actions', () => {
 
     // changeSortFieldAndDirection
     it('should change the direction from none to ascending when the columns do not match', async() => {
-        store = mockStore(unorderedRowNoneIntialState);
+        store = mockStore(states.unorderedRowNoneIntialState);
         const given = { newColumn: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'ascending' },
@@ -304,7 +204,7 @@ describe('Search Actions', () => {
     });
 
     it('should change the direction from ascending to descending when the columns do match', async() => {
-        store = mockStore(unorderedRowAscIntialState);
+        store = mockStore(states.unorderedRowAscIntialState);
         const given = { newColumn: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'descending' },
@@ -317,7 +217,7 @@ describe('Search Actions', () => {
     });
 
     it('should change the direction from descending to none when the columns do match', async() => {
-        store = mockStore(unorderedRowDescIntialState);
+        store = mockStore(states.unorderedRowDescIntialState);
         const given = { newColumn: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'none' },
@@ -330,7 +230,7 @@ describe('Search Actions', () => {
     });
 
     it('should change the direction from descending to none when the columns do match, but there is a direction that cannot be handled', async() => {
-        store = mockStore(unorderedRowDescDifferentDirectionIntialState)
+        store = mockStore(states.unorderedRowDescDifferentDirectionIntialState)
         const given = { newColumn: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'none' },
@@ -343,7 +243,7 @@ describe('Search Actions', () => {
     });
 
     it('should change the direction from descending to ascending when the columns do not match,', async() => {
-        store = mockStore(unorderedRowDescDifferentColumnAndDirectionIntialState)
+        store = mockStore(states.unorderedRowDescDifferentColumnAndDirectionIntialState)
         const given = { newColumn: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'ascending' },
@@ -356,12 +256,12 @@ describe('Search Actions', () => {
     });
 
     it('should update the sort direction of the column and then sort it', async() => {
-        store = mockStore(unorderedRowIntialState);
+        store = mockStore(states.unorderedRowIntialState);
         const given = { column: 'id' };
         const expected = [
             { type: types.SORT_COLUMN_AND_DIRECTION_UPDATED, column: 'id', direction: 'ascending' },
-            { type: types.ROWS_SORTED, rows: ascOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: ascOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: states.ascOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: states.ascOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.sortColumn(given));
@@ -371,11 +271,11 @@ describe('Search Actions', () => {
     });
 
     it('should sort the results based on the priorty column when none is the case', async() => {
-        store = mockStore(unorderedRowIntialState);
+        store = mockStore(states.unorderedRowIntialState);
         const given = { column: 'id' };
         const expected = [
-            { type: types.ROWS_SORTED, rows: ascOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: ascOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: states.ascOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: states.ascOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.changeRowOrder(given));
@@ -385,11 +285,11 @@ describe('Search Actions', () => {
     });
 
     it('should sort the results from lowest to highest when ascending is the case', async() => {
-        store = mockStore(unorderedRowAscIntialState);
+        store = mockStore(states.unorderedRowAscIntialState);
         const given = { column: 'id' };
         const expected = [
-            { type: types.ROWS_SORTED, rows: ascOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: ascOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: states.ascOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: states.ascOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.changeRowOrder(given));
@@ -400,11 +300,11 @@ describe('Search Actions', () => {
 
 
     it('should sort the results from highest to lowest when descending is the case', async() => {
-        store = mockStore(unorderedRowDescIntialState);
+        store = mockStore(states.unorderedRowDescIntialState);
         const given = { column: 'id' };
         const expected = [
-            { type: types.ROWS_SORTED, rows: descOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: descOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: states.descOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: states.descOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.changeRowOrder(given));
@@ -414,11 +314,11 @@ describe('Search Actions', () => {
     });
 
     it('should sort the results from lowest to highest when we are not sure what the case is', async() => {
-        store = mockStore(unorderedRowDescDifferentDirectionIntialState);
+        store = mockStore(states.unorderedRowDescDifferentDirectionIntialState);
         const given = { column: 'id' };
         const expected = [
-            { type: types.ROWS_SORTED, rows: ascOrderedRows },
-            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: ascOrderedRows.slice(0, 5) }
+            { type: types.ROWS_SORTED, rows: states.ascOrderedRows },
+            { type: types.CALCULATED_ROWS_FINISHED, visibleRows: states.ascOrderedRows.slice(0, 5) }
         ];
 
         await store.dispatch(actions.changeRowOrder(given));
@@ -467,22 +367,7 @@ describe('Search Actions', () => {
     // });
 
     it('should successfully attempt to add a column', async() => {
-        store = mockStore({
-            ...initialState,
-            table: {
-                ...initialState.table,
-                columns: {
-                    ...initialState.table.columns,
-                    visible: [
-                        { accessor: 'firstName', label: 'First Name', priorityLevel: 1, },
-                        { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, },
-                    ],
-                    hidden: [
-                        { accessor: 'email', label: 'Email', priorityLevel: 3, },
-                    ],
-                }
-            }
-        });
+        store = mockStore(states.oneHiddenColumn);
 
         const given = {};
         const expected = [
@@ -504,21 +389,7 @@ describe('Search Actions', () => {
     });
 
     it('should unsuccessfully attempt to add a column', async() => {
-        store = mockStore({
-            ...initialState,
-            table: {
-                ...initialState.table,
-                columns: {
-                    ...initialState.table.columns,
-                    visible: [
-                        { accessor: 'firstName', label: 'First Name', priorityLevel: 1, },
-                        { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, },
-                        { accessor: 'email', label: 'Email', priorityLevel: 3, },
-                    ],
-                    hidden: [],
-                }
-            }
-        });
+        store = mockStore(states.noHiddenColumns);
 
         const given = {};
         const expected = [
@@ -540,22 +411,7 @@ describe('Search Actions', () => {
     });
 
     it('should successfully attempt to remove a column', async() => {
-        store = mockStore({
-            ...initialState,
-            table: {
-                ...initialState.table,
-                columns: {
-                    ...initialState.table.columns,
-                    visible: [
-                        { accessor: 'email', label: 'Email', priorityLevel: 3, },
-                    ],
-                    hidden: [
-                        { accessor: 'firstName', label: 'First Name', priorityLevel: 1, },
-                        { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, },
-                    ],
-                }
-            }
-        });
+        store = mockStore(states.oneVisibleColumn);
 
         const given = {};
         const expected = [
@@ -577,21 +433,7 @@ describe('Search Actions', () => {
     });
 
     it('should unsuccessfully attempt to remove a column', async() => {
-        store = mockStore({
-            ...initialState,
-            table: {
-                ...initialState.table,
-                columns: {
-                    ...initialState.table.columns,
-                    visible: [],
-                    hidden: [
-                        { accessor: 'firstName', label: 'First Name', priorityLevel: 1, },
-                        { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, },
-                        { accessor: 'email', label: 'Email', priorityLevel: 3, },
-                    ],
-                }
-            }
-        });
+        store = mockStore(states.noVisibleColumns);
 
         const given = {};
         const expected = [
