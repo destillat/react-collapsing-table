@@ -27,10 +27,10 @@ describe('Search', () => {
         expect(inputs.length).toBe(1);
     });
 
-    it('should have a clear button, add button. remove button', () => {
+    it('should have a clear button', () => {
         const buttons = wrapper.find('button');
 
-        expect(buttons.length).toBe(3);
+        expect(buttons.length).toBe(1);
     });
 
     it('should call the clear search field action', () => {

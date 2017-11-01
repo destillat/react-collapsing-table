@@ -2,11 +2,11 @@
 import React from 'react';
 import { string } from 'prop-types';
 //Components
-import { columnDirection } from '../../assets/icons/Icon';
+import { sortDirection } from '../../assets/icons/Icon';
 
 const Column = ({ accessor, label, onClick, sort }) => {
     const direction = sort.column === accessor ? sort.direction : 'none';
-    const icon = columnDirection({ direction });
+    const icon = sortDirection({ direction });
 
     return (
             <th key={ accessor }
