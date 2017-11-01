@@ -5,6 +5,8 @@ import OpenRow from 'react-icons/lib/md/keyboard-arrow-down';
 import CloseRow from 'react-icons/lib/md/keyboard-arrow-up';
 import CaretUp from 'react-icons/lib/fa/caret-up';
 import CaretDown from 'react-icons/lib/fa/caret-down';
+import ChevronLeft from 'react-icons/lib/fa/chevron-left';
+import ChevronRight from 'react-icons/lib/fa/chevron-right';
 
 export const getIcon = ({ onClick, name='', size=16 }) => {
     switch (name) {
@@ -16,6 +18,10 @@ export const getIcon = ({ onClick, name='', size=16 }) => {
             return <span><CaretUp onClick={ onClick } size={ size }/></span>;
         case 'descending':
             return <span><CaretDown onClick={ onClick } size={ size }/></span>;
+        case 'leftChevron':
+            return <span><ChevronLeft onClick={ onClick } size={ size }/></span>;
+        case 'rightChevron':
+            return <span><ChevronRight onClick={ onClick } size={ size }/></span>;
         default:
             return <span />;
     }

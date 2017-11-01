@@ -166,6 +166,7 @@ export const searchRows = ({ searchString }) => (dispatch, getState) => {
     });
 
     dispatch(updateGlobalSearchString({ value: searchString }));
+    dispatch(changePageSuccess({ currentPage: 1 }));
     dispatch(searchRowsSuccess({ rows }));
     dispatch(calculateRows());
 };
@@ -180,6 +181,7 @@ export const updateGlobalSearchString = ({ value }) => {
 
 export const clearSearch = () => dispatch => {
     dispatch(clearSearchSuccess());
+    dispatch(changePageSuccess({ currentPage: 1 }));
     dispatch(calculateRows());
 };
 

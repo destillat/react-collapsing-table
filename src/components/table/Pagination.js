@@ -2,13 +2,23 @@
 import React from 'react';
 import { shape, func, number } from 'prop-types'
 //Components
+import { getIcon } from '../../assets/icons/Icon';
 
-const Pagination = ({ currentPage, actions }) => {
+const Pagination = ({ currentPage, totalRows, rowSize, actions }) => {
+    const totalPages = Math.ceil(totalRows / rowSize)
+
+    const previousPageIcon = currentPage > 1 ?
+        getIcon({ name: 'leftChevron', onClick: actions.previousPage }) : null;
+    const nextPageIcon = currentPage < totalPages ?
+        getIcon({ name: 'rightChevron', onClick: actions.nextPage }) : null;
+
     return (
         <div>
-            <button onClick={ actions.previousPage }>prev</button>
-            <p>{ currentPage }</p>
-            <button onClick={ actions.nextPage }>next</button>
+            <p>
+                { previousPageIcon }
+                Page { currentPage } of { totalPages }
+                { nextPageIcon }
+            </p>
         </div>
     );
 };

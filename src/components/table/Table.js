@@ -9,9 +9,9 @@ import Pagination from './Pagination';
 
 const Table = ({ table, actions }) => {
     const {
-        rows: { displayed },
+        rows: { displayed, filtered },
         sort,
-        pagination: { currentPage },
+        pagination: { currentPage, rowSize },
         columns: { visible, hidden },
         globalSearchString,
     } = table;
@@ -28,7 +28,10 @@ const Table = ({ table, actions }) => {
                       hiddenColumns={ hidden }
                       actions={ actions }/>
             </table>
-            <Pagination currentPage={ currentPage } actions={ actions }/>
+            <Pagination currentPage={ currentPage }
+                        totalRows={ filtered.length }
+                        rowSize={ rowSize }
+                        actions={ actions }/>
         </div>
     );
 };
