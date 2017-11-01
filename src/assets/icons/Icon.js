@@ -3,6 +3,8 @@ import React from 'react';
 //Imported Icons
 import OpenRow from 'react-icons/lib/md/keyboard-arrow-down';
 import CloseRow from 'react-icons/lib/md/keyboard-arrow-up';
+import CaretUp from 'react-icons/lib/fa/caret-up';
+import CaretDown from 'react-icons/lib/fa/caret-down';
 
 export const getIcon = ({ id, onClick, name, size=16 }) => {
     switch (name) {
@@ -26,4 +28,15 @@ export const expandIcon = ({ cellIndex, rowIndex, row, actions }) => {
     }
 
     return icon
+};
+
+export const columnDirection = ({ direction, size=20 }) => {
+    switch (direction) {
+        case 'ascending':
+            return <span><CaretUp size={ size }/></span>;
+        case 'descending':
+            return <span><CaretDown size={ size }/></span>;
+        default:
+            return <span />;
+    }
 };

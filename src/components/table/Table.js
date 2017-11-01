@@ -10,6 +10,7 @@ import Pagination from './Pagination';
 const Table = ({ table, actions }) => {
     const {
         rows: { displayed },
+        sort,
         pagination: { currentPage },
         columns: { visible, hidden },
         globalSearchString,
@@ -19,8 +20,13 @@ const Table = ({ table, actions }) => {
         <div>
             <Search searchString={ globalSearchString } actions={ actions } />
             <table>
-                <Columns columns={ visible } onClick={ actions.sortColumn }/>
-                <Rows rows={ displayed } visibleColumns={ visible } hiddenColumns={ hidden } actions={ actions }/>
+                <Columns columns={ visible }
+                         onClick={ actions.sortColumn }
+                         sort={ sort } />
+                <Rows rows={ displayed }
+                      visibleColumns={ visible }
+                      hiddenColumns={ hidden }
+                      actions={ actions }/>
             </table>
             <Pagination currentPage={ currentPage } actions={ actions }/>
         </div>
