@@ -6,12 +6,14 @@ import Cell from './Cell';
 import ExpandedRow from './ExpandedRow';
 
 const Row = ({ row, visibleColumns, hiddenColumns, actions, rowIndex }) => {
+    const hiddenColumnsLength = hiddenColumns.length;
     const cells = visibleColumns.map(({ accessor }, index) => {
         return <Cell key={ accessor }
                      row={ row }
                      accessor={ accessor }
                      rowIndex={ rowIndex }
                      cellIndex={ index }
+                     hiddenColumnsLength={ hiddenColumnsLength }
                      actions={ actions } />
     });
 

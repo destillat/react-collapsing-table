@@ -17,13 +17,14 @@ export const getIcon = ({ id, onClick, name, size=16 }) => {
     }
 };
 
-export const expandIcon = ({ cellIndex, rowIndex, row, actions }) => {
+export const expandIcon = ({ cellIndex, rowIndex, row, hiddenColumnsLength, actions }) => {
     let icon = null;
-    const { isOpen } = row;
+    const name = row.isOpen ? 'CloseRow' : 'OpenRow';
     const IS_FIRST_CELL = cellIndex === 0;
+    const IS_HIDDEN_COULMNS = hiddenColumnsLength > 0;
+    const IS_NOT_EMPTY_ROW = Object.keys(row).length > 1;
 
-    if(IS_FIRST_CELL){
-        const name = isOpen ? 'CloseRow' : 'OpenRow';
+    if(IS_FIRST_CELL && IS_HIDDEN_COULMNS && IS_NOT_EMPTY_ROW){
         icon = getIcon({ name, onClick: () => actions.expandRow({ rowIndex }) });
     }
 
