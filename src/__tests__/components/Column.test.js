@@ -13,6 +13,10 @@ describe('Column', () => {
             accessor: 'firstName',
             label: 'First Name',
             onClick: jest.fn(),
+            sort: {
+                direction: 'ascending',
+                column: 'lastName',
+            },
         };
 
         wrapper = shallow(<Column { ...props } />);
@@ -34,6 +38,29 @@ describe('Column', () => {
         const thText = wrapper.find('th').text();
 
         expect(thText).toBe('First Name');
+    });
+
+    it('should have an ascending Icon', () => {
+        props = { ...props, sort: { ...props.sort, column: 'firstName' } };
+        wrapper = shallow(<Column { ...props } />);
+        const caretUps = wrapper.find('FaCaretUp');
+
+        expect(caretUps.length).toBe(1);
+    });
+
+    it('should have an descending Icon', () => {
+        props = {
+            ...props,
+            sort: {
+                ...props.sort,
+                column: 'firstName',
+                direction: 'descending'
+            }
+        };
+        wrapper = shallow(<Column { ...props } />);
+        const caretDowns = wrapper.find('FaCaretDown');
+
+        expect(caretDowns.length).toBe(1);
     });
 
     it('should fire an action when the th is clicked', () => {

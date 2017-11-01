@@ -8,8 +8,6 @@ const Search = ({ searchString, actions }) => {
         <div>
             <input onChange={ actions.searchRows } value={ searchString }/>
             <button onClick={ actions.clearSearch }>Clear</button>
-            <button onClick={ actions.removeColumn }>Remove Column</button>
-            <button onClick={ actions.addColumn }>Add Column</button>
         </div>
     );
 };

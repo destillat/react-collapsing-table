@@ -31,7 +31,7 @@ export const expandIcon = ({ cellIndex, rowIndex, row, hiddenColumnsLength, acti
     return icon
 };
 
-export const columnDirection = ({ direction, size=20 }) => {
+export const columnDirection = ({ direction='none', size=20 }) => {
     switch (direction) {
         case 'ascending':
             return <span><CaretUp size={ size }/></span>;

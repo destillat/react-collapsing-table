@@ -33,7 +33,7 @@
       "**/*.js",
       "!**/node_modules/**",
       "!**/api/**",
-      "!**/assets/**",
+      "!**/stylesheets/**",
       "!**/build/**",
       "!**/coverage/**",
       "!**/store/**",

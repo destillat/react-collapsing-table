@@ -10,14 +10,14 @@ import TableComponent from '../components/table/Table';
 export class Table extends Component {
     componentWillMount(){
         this.props.actions.fetchData({ width: window.innerWidth });
-        window.addEventListener("resize", this.updateDimensions);
+        window.addEventListener("resize", this.resizeTable);
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("resize", this.resizeTable);
     }
 
-    updateDimensions = () => {
+    resizeTable = () => {
         this.props.actions.resizeTable({ width: window.innerWidth })
     };
 

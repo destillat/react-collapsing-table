@@ -31,6 +31,7 @@ describe('Table Container', () => {
                 clearSearch: jest.fn(),
                 addColumn: jest.fn(),
                 removeColumn: jest.fn(),
+                resizeTable: jest.fn(),
             }
         };
 
@@ -48,6 +49,7 @@ describe('Table Container', () => {
 
         const searches = wrapper.find('table');
         expect(searches.length).toBe(1);
+        wrapper.unmount();
     });
 
     it('should trigger the action methods when called', () => {
@@ -74,5 +76,11 @@ describe('Table Container', () => {
 
         instance.expandRow({ rowIndex: 5 });
         expect(props.actions.expandRow).toHaveBeenCalledWith({ rowIndex: 5 });
+
+        instance.resizeTable();
+        //How to set a new width
+        global.innerWidth = 960;
+        global.dispatchEvent(new Event('resize'));
+        expect(props.actions.resizeTable).toHaveBeenCalledWith({ width: 960 });
     });
 });
