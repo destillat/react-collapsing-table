@@ -7,7 +7,7 @@ const Search = ({ searchString, actions }) => {
     return (
         <div>
             <input onChange={ actions.searchRows } value={ searchString }/>
-            <button onClick={ actions.clearSearch }>Clear</button>
+            <button className="btn btn-primary" onClick={ actions.clearSearch }>Clear</button>
         </div>
     );
 };

@@ -6,6 +6,7 @@ import Search from './Search';
 import Columns from './Columns';
 import Rows from './Rows';
 import Pagination from './Pagination';
+import '../../assets/styles/react-table.css';
 
 const Table = ({ table, actions }) => {
     const {
@@ -19,7 +20,7 @@ const Table = ({ table, actions }) => {
     return (
         <div>
             <Search searchString={ globalSearchString } actions={ actions } />
-            <table>
+            <table className="react-collapsible">
                 <Columns columns={ visible }
                          onClick={ actions.sortColumn }
                          sort={ sort } />

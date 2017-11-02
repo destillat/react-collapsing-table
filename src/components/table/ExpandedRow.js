@@ -9,7 +9,7 @@ const ExpandedRow = ({ row, columns, }) => {
     });
 
     return (
-        <td>
+        <td colspan="4">
             { listOfHiddenAttributes }
         </td>
     );

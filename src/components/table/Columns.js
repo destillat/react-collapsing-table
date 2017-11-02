@@ -13,7 +13,7 @@ const Columns = ({ columns, sort, onClick }) => {
                        onClick={ onClick } />;
     });
     return (
-        <thead>
+        <thead className="text-label-sm text-xs-left">
             <tr>
                 { tableColumns }
             </tr>
