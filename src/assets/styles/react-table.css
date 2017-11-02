@@ -1,19 +1,27 @@
-table.react-collapsible {
-  font-family: Helvetica, Arial, "sans-serif";
-    font-size: 62.5%;
+html {
+  font-size: 62.5%;
 }
-table.react-collapsible thead {
+.react-collapsible {
+  font-family: Helvetica, Arial, "sans-serif";
+}
+.react-collapsible thead {
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  margin-top: 0;
-  margin-bottom: 0.2rem;
   color: #555;
-  line-height: 1.4rem;
   text-align: left;
+  font-weight: 400;
 }
-table.react-collapsible tr {
+.react-collapsible thead th, .react-collapsible td {
   border-bottom: 0.1rem #e0e4ea solid;
+  min-width: 10rem;
+  padding-bottom: 1rem;
 }
-table.react-collapsible td {
+.react-collapsible tr {
+
+}
+.react-collapsible td {
   padding: 1rem 1rem 1rem 0;
+  font-size: 1.4rem;
+  font-weight: 200;
 }

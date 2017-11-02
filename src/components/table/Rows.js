@@ -3,6 +3,7 @@ import React from 'react';
 import { array, arrayOf, string, shape } from 'prop-types';
 //Components
 import Row from './Row';
+import '../../assets/styles/react-table.css';
 
 const Rows = ({rows, visibleColumns, hiddenColumns, actions }) => {
     const tableRows = rows.map((row, index) => {

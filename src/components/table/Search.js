@@ -2,6 +2,7 @@
 import React from 'react';
 import { shape, string, func } from 'prop-types'
 //Components
+import '../../assets/styles/react-table.css';
 
 const Search = ({ searchString, actions }) => {
     return (

@@ -3,6 +3,7 @@ import React from 'react';
 import { arrayOf, shape, string, func } from 'prop-types';
 //Components
 import Column from './Column';
+import '../../assets/styles/react-table.css';
 
 const Columns = ({ columns, sort, onClick }) => {
     const tableColumns = columns.map(({ accessor, label }) => {
