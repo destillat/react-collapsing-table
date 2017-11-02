@@ -5,11 +5,14 @@ import { object, arrayOf, shape, string } from 'prop-types';
 
 const ExpandedRow = ({ row, columns, }) => {
     const listOfHiddenAttributes = columns.map(({ accessor, label }) => {
-        return <p key={ accessor }>{ label }: { row[accessor] }</p>
+        return <p key={ accessor }>
+                  <span>{ label }</span>
+                  <span> { row[accessor] }</span>
+               </p>
     });
 
     return (
-        <td colspan="4">
+        <td colspan={ columns.length }>
             { listOfHiddenAttributes }
         </td>
     );
