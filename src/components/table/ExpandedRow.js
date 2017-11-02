@@ -3,7 +3,7 @@ import React from 'react';
 import { object, arrayOf, shape, string } from 'prop-types';
 //Components
 
-const ExpandedRow = ({ row, columns, }) => {
+const ExpandedRow = ({ row, columns, colspan }) => {
     const listOfHiddenAttributes = columns.map(({ accessor, label }) => {
         return <p key={ accessor }>
                   <span>{ label }</span>
@@ -12,7 +12,7 @@ const ExpandedRow = ({ row, columns, }) => {
     });
 
     return (
-        <td colspan={ columns.length }>
+        <td colspan={ colspan }>
             { listOfHiddenAttributes }
         </td>
     );
