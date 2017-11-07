@@ -7,7 +7,7 @@ const ExpandedRow = ({ row, columns, colspan }) => {
     const listOfHiddenAttributes = columns.map(({ accessor, label }) => {
         return <p className="child-cell" key={ accessor }>
                   <span className="child-label">{ label }</span>
-                  <span className="child-content"> { row[accessor] }</span>
+                  <span className="child-content" dangerouslySetInnerHTML={{ __html: row[accessor] }} />
                </p>
     });
 
