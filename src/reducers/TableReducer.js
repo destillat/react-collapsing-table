@@ -64,6 +64,8 @@ export default function TableReducer(state = initialState.table, action) {
                     visible: action.visible,
                 }
             };
+        case types.CLOSED_ALL_ROWS:
+              return { ...state, rows: { ...state.rows, displayed: action.rowsDisplayed } };
         default:
             return { ...state };
     }

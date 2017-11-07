@@ -38,13 +38,6 @@ export const calculateRows = () => (dispatch, getState) => {
         selectedRows = filtered.slice(startingPoint, endingPoint);
     }
 
-    //create empty rows
-    //Set as a const so it is not re-evaluated after each loop
-    const selectedRowsLength = selectedRows.length;
-    for(let i = 0; i < (rowSize - selectedRowsLength); i++){
-        selectedRows.push({});
-    }
-
     dispatch(calculateRowsSuccess({ visibleRows: selectedRows }))
 };
 
@@ -221,10 +214,24 @@ export const tryToAddColumns = ({ visibleColumnsWidth, width }) => (dispatch, ge
 
     while(visibleColumnsWidth < width && hiddenColumns.length !== 0){
         visibleColumnsWidth += hiddenColumns.shift().minWidth;
-        if (visibleColumnsWidth < width){
+        if(visibleColumnsWidth < width && hiddenColumns.length === 0) {
+          dispatch(addColumn())
+          dispatch(closeAllRows());
+        } else if (visibleColumnsWidth < width){
             dispatch(addColumn())
         }
     }
+};
+
+export const closeAllRows = () => (dispatch, getState) => {
+  const state = getState();
+  const { table: { rows: { displayed } } } = state;
+  const rowsDisplayed = displayed.map(row => { return { ...row, isOpen: false } })
+  dispatch(closeAllRowsSuccess({ rowsDisplayed }));
+};
+
+export const closeAllRowsSuccess = ({ rowsDisplayed }) => {
+  return { type: types.CLOSED_ALL_ROWS, rowsDisplayed }
 };
 
 export const removeColumn = () => (dispatch, getState) => {
