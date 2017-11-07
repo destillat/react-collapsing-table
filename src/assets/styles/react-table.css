@@ -55,13 +55,19 @@ table.react-collapsible {
   color: #009cde;
   border: 0;
   background-color: #fff;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   margin-left: .8rem;
 }
 .react-collapsible-search input {
   border: 0;
   border-bottom: 1px #009cde solid;
   width: 20rem;
+  height: 2rem;
+  font-size: 1.4rem;
+  font-weight: 200;
+}
+.react-collapsible-search input::placeholder {
+  color: #858DA3;
 }
 .brand-primary-light {
   color: #009cde;
