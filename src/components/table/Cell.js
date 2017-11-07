@@ -8,7 +8,7 @@ import '../../assets/styles/react-table.css';
 const Cell = ({ row, accessor, cellIndex, rowIndex, actions, hiddenColumnsLength }) => {
     const icon = expandIcon({ cellIndex, rowIndex, row, hiddenColumnsLength, actions});
 
-    return <td className={ accessor }>{ icon }{ row[accessor] }</td>;
+    return <td className={ accessor } dangerouslySetInnerHTML={{ __html: row[accessor] }} />;
 };
 
 Cell.PropTypes = {

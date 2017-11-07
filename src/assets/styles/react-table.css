@@ -87,3 +87,7 @@ table.react-collapsible {
 .react-collapsible-page .arrow-right {
   margin-left: .8rem;
 }
+
+.highlight {
+  background-color: #FFFF00
+}

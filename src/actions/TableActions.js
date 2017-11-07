@@ -2,6 +2,7 @@
 import * as types from './ActionTypes'
 //Fake API
 import * as TableApi from '../utils/api/TableAPI.dev';
+const _ = require('lodash');
 
 //TODO: Add isOpen set to false for all rows on initial data load
 export const fetchData = ({ width }) => async dispatch => {
@@ -142,19 +143,47 @@ export const dynamicSort = ({ column }) => {
 export const expandRow = ({ rowIndex }) => {
     return { type: types.EXPAND_ROW, rowIndex };
 };
+const length = (x) => x.length
+const sum = (a, b) => a+b
+const indexesOf = (substr) => ({
+  in: (str) => (
+    str
+    .split(substr)
+    .slice(0, -1)
+    .map(length)
+    .map((_, i, lengths) => (
+      lengths
+      .slice(0, i+1)
+      .reduce(sum, i*substr.length)
+    ))
+  )
+});
+const insert = (str, index, value) => {
+    return str.substr(0, index) + value + str.substr(index);
+}
 
 export const searchRows = ({ searchString }) => (dispatch, getState) => {
     const state = getState();
-    let rows = Object.assign([], state.table.rows.initial);
-    let flag;
+    let rows = _.cloneDeep(state.table.rows.initial);
+    let flag, indexes;
     const upperCaseSearchString = searchString.toUpperCase();
 
     rows = rows.filter( row => {
-        for (let rowValue of Object.values(row)) {
+        flag = false;
+        Object.entries(row).forEach(([key, value]) => {
+            let rowValue = value;
             const currentCell = (typeof rowValue === 'string') ? rowValue.toUpperCase() : rowValue.toString().toUpperCase();
-            flag = currentCell.includes(upperCaseSearchString);
-            if(flag) break;
-        }
+            indexes = indexesOf(upperCaseSearchString).in(currentCell);
+            if( indexes.length > 0){
+              rowValue = value;
+              flag = true;
+              for(let i = indexes.length -1; i >= 0; i--){
+                rowValue = insert(rowValue, indexes[i] + searchString.length, '</span>')
+                rowValue = insert(rowValue, indexes[i], '<span class="highlight">')
+              }
+              row[key] = rowValue;
+            }
+        })
         return flag ? row : false;
     });
 
@@ -215,7 +244,7 @@ export const tryToAddColumns = ({ visibleColumnsWidth, width }) => (dispatch, ge
     while(visibleColumnsWidth < width && hiddenColumns.length !== 0){
         visibleColumnsWidth += hiddenColumns.shift().minWidth;
         if(visibleColumnsWidth < width && hiddenColumns.length === 0) {
-          dispatch(addColumn())
+          dispatch(addColumn());
           dispatch(closeAllRows());
         } else if (visibleColumnsWidth < width){
             dispatch(addColumn())
