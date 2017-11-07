@@ -3,8 +3,9 @@ html {
   font-family: Helvetica, Arial, "sans-serif";
 }
 /*Styles for the body of the table */
-table {
+table.react-collapsible {
   border-collapse: collapse;
+  width: 100%;
 }
 .react-collapsible thead, .react-collapsible .child-label {
   font-size: 1rem;
@@ -28,15 +29,23 @@ table {
 }
 /*child row in table */
 .react-collapsible .child-cell {
-  position: relative;
+  display: flex;
 }
 .react-collapsible .child-label {
   margin-left: 1.6rem;
+  flex-basis: 25%;
 }
 .react-collapsible .child-content {
-  position: absolute;
-  top: 0;
-  left: 10rem;
+  flex-basis: 75%;
+}
+@media screen and (min-width: 768px) {
+  .react-collapsible .child-label {
+    margin-left: 1.6rem;
+    flex-basis: 10%;
+  }
+  .react-collapsible .child-content {
+    flex-basis: 90%;
+  }
 }
 /*Styles for search */
 .react-collapsible-search {
@@ -57,6 +66,10 @@ table {
 .brand-primary-light {
   color: #009cde;
 }
+.search-highlight {
+  background-color: #C1C9D5;
+}
+
 /*Styles for pagination */
 .react-collapsible-page {
   font-size: 1.4rem;
