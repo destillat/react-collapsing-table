@@ -3,13 +3,16 @@ import React from 'react';
 import { object, arrayOf, shape, string } from 'prop-types';
 //Components
 
-const ExpandedRow = ({ row, columns, }) => {
+const ExpandedRow = ({ row, columns, colspan }) => {
     const listOfHiddenAttributes = columns.map(({ accessor, label }) => {
-        return <p key={ accessor }>{ label }: { row[accessor] }</p>
+        return <p className="child-cell" key={ accessor }>
+                  <span className="child-label">{ label }</span>
+                  <span className="child-content"> { row[accessor] }</span>
+               </p>
     });
 
     return (
-        <td colspan="4">
+        <td colspan={ colspan }>
             { listOfHiddenAttributes }
         </td>
     );

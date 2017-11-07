@@ -4,6 +4,7 @@ import { object, arrayOf, string, shape } from 'prop-types';
 //Components
 import Cell from './Cell';
 import ExpandedRow from './ExpandedRow';
+import '../../assets/styles/react-table.css';
 
 const Row = ({ row, visibleColumns, hiddenColumns, actions, rowIndex }) => {
     const hiddenColumnsLength = hiddenColumns.length;
@@ -18,8 +19,10 @@ const Row = ({ row, visibleColumns, hiddenColumns, actions, rowIndex }) => {
     });
 
     const expandedRow = row.isOpen ?
-        <tr key='expandedRow'>
-            <ExpandedRow row={ row } columns={ hiddenColumns }/>
+        <tr className="expanded-row" key='expandedRow'>
+            <ExpandedRow row={ row }
+                         columns={ hiddenColumns }
+                         colspan={ visibleColumns.length } />
         </tr> : null;
 
     return (

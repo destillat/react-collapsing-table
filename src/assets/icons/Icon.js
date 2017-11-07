@@ -11,17 +11,17 @@ import ChevronRight from 'react-icons/lib/fa/chevron-right';
 export const getIcon = ({ onClick, name='', size=16 }) => {
     switch (name) {
         case 'OpenRow':
-            return <span><OpenRow onClick={ onClick } size={ size }/></span>;
+            return <span><OpenRow onClick={ onClick } size={ size } className="brand-primary-light" /></span>;
         case 'CloseRow':
-            return <span><CloseRow onClick={ onClick } size={ size }/></span>;
+            return <span><CloseRow onClick={ onClick } size={ size } className="brand-primary-light" /></span>;
         case 'ascending':
-            return <span><CaretUp onClick={ onClick } size={ size }/></span>;
+            return <span><CaretUp onClick={ onClick } size={ size } className="brand-primary-light" /></span>;
         case 'descending':
-            return <span><CaretDown onClick={ onClick } size={ size }/></span>;
+            return <span><CaretDown onClick={ onClick } size={ size } className="brand-primary-light" /></span>;
         case 'leftChevron':
-            return <span><ChevronLeft onClick={ onClick } size={ size }/></span>;
+            return <span className="arrow-left"><ChevronLeft onClick={ onClick } size={ size } className="brand-primary-light" /></span>;
         case 'rightChevron':
-            return <span><ChevronRight onClick={ onClick } size={ size }/></span>;
+            return <span className="arrow-right"><ChevronRight onClick={ onClick } size={ size } className="brand-primary-light" /></span>;
         default:
             return <span />;
     }
@@ -43,9 +43,9 @@ export const expandIcon = ({ cellIndex, rowIndex, row, hiddenColumnsLength, acti
 export const sortDirection = ({ direction='none', size=20 }) => {
     switch (direction) {
         case 'ascending':
-            return <span><CaretUp size={ size }/></span>;
+            return <span><CaretUp size={ size } className="brand-primary-light" /></span>;
         case 'descending':
-            return <span><CaretDown size={ size }/></span>;
+            return <span><CaretDown size={ size } className="brand-primary-light" /></span>;
         default:
             return <span />;
     }
