@@ -5,9 +5,9 @@ import { object, arrayOf, shape, string } from 'prop-types';
 
 const ExpandedRow = ({ row, columns, colspan }) => {
     const listOfHiddenAttributes = columns.map(({ accessor, label }) => {
-        return <p key={ accessor }>
-                  <span>{ label }</span>
-                  <span> { row[accessor] }</span>
+        return <p className="child-cell" key={ accessor }>
+                  <span className="child-label">{ label }</span>
+                  <span className="child-content"> { row[accessor] }</span>
                </p>
     });
 

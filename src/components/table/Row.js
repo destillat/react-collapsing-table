@@ -19,7 +19,7 @@ const Row = ({ row, visibleColumns, hiddenColumns, actions, rowIndex }) => {
     });
 
     const expandedRow = row.isOpen ?
-        <tr key='expandedRow'>
+        <tr className="expanded-row" key='expandedRow'>
             <ExpandedRow row={ row }
                          columns={ hiddenColumns }
                          colspan={ visibleColumns.length } />

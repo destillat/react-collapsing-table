@@ -6,9 +6,9 @@ import '../../assets/styles/react-table.css';
 
 const Search = ({ searchString, actions }) => {
     return (
-        <div>
+        <div className="react-collapsible-search">
             <input onChange={ actions.searchRows } value={ searchString }/>
-            <button className="btn btn-primary" onClick={ actions.clearSearch }>Clear</button>
+            <button className="clear" onClick={ actions.clearSearch }>&#9587;</button>
         </div>
     );
 };
