@@ -177,4 +177,19 @@ describe('table reducer', () => {
 
         expect( nextState ).toEqual( expectedState );
     });
+
+    it('should update the displayed rows when those rows are closed', () => {
+        const action = { type: types.CLOSED_ALL_ROWS, rowsDisplayed: [1, 2] };
+        const nextState = TableReducer(tableInitialState, action );
+
+        const expectedState = {
+            ...tableInitialState,
+            rows: {
+                ...tableInitialState.rows,
+                displayed: [1, 2],
+            },
+        };
+
+        expect( nextState ).toEqual( expectedState );
+    });
 });

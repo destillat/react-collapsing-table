@@ -153,6 +153,22 @@ describe('Icon', () => {
         expect(CaretUps.length).toBe(1);
     });
 
+    it('should return a left cheveron icon', () => {
+        props = { name: 'leftChevron' };
+        wrapper = shallow(actions.getIcon(props));
+        const chevronLefts = wrapper.find('FaChevronLeft');
+
+        expect(chevronLefts.length).toBe(1);
+    });
+
+    it('should return a right chevron icon', () => {
+        props = { name: 'rightChevron' };
+        wrapper = shallow(actions.getIcon(props));
+        const chevronRights = wrapper.find('FaChevronRight');
+
+        expect(chevronRights.length).toBe(1);
+    });
+
     it('should return no icons', () => {
         props = {};
         wrapper = shallow(actions.getIcon(props));
@@ -161,7 +177,11 @@ describe('Icon', () => {
         const arrowDowns = wrapper.find('MdKeyboardArrowDown');
         const CaretUps = wrapper.find('FaCaretUp');
         const CaretDowns = wrapper.find('FaCaretUp');
+        const chevronLefts = wrapper.find('FaChevronLeft');
+        const chevronRights = wrapper.find('FaChevronRight');
 
+        expect(chevronRights.length).toBe(0);
+        expect(chevronLefts.length).toBe(0);
         expect(CaretDowns.length).toBe(0);
         expect(CaretUps.length).toBe(0);
         expect(arrowDowns.length).toBe(0);
