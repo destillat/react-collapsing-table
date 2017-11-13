@@ -4,7 +4,7 @@ import { array, arrayOf, shape, string, number, func } from 'prop-types';
 //Components
 import Columns from './Columns';
 import Rows from './Rows';
-import { calculateRows } from '../actions/TableActions'
+import { calculateRows, sortColumn } from '../actions/TableActions'
 
 export class Table extends Component {
     constructor(props) {
@@ -14,6 +14,9 @@ export class Table extends Component {
         rows = [],
         rowSize = 10,
         currentPage = 1,
+        defaultSortColumn = '',
+        column = '',
+        direction = 'none'
       } = props;
 
       this.state = {
@@ -22,41 +25,35 @@ export class Table extends Component {
             visible: columns,
             hidden: columns,
         },
-        rows: {
-            initial: rows,
-            filtered: rows,
-            displayed: calculateRows({ rows: { filtered: rows, }, pagination: { rowSize, currentPage } }),
-        },
+        rows,
         pagination: {
           rowSize,
           currentPage,
+        },
+        sort: {
+          defaultSortColumn,
+          column,
+          direction,
         }
       }
     }
 
-    componentWillReceiveProps = (nextProps) => {
-      console.log(nextProps);
-      const { columns, rows, } = nextProps;
-
-        this.setState({
-          columns: {
-            initial: columns,
-          },
-          rows: {
-            initial: rows,
-          }
-        })
-    };
-
+    sortRows = ({ column }) => {
+      console.log(this.state);
+      const newState = sortColumn({ column, state: this.state })
+      console.log(newState);
+      this.setState({ ...newState });
+    }
 
     render(){
-      const { rows: { displayed }, columns: { visible } } = this.state;
+      const { columns: { visible } } = this.state;
+      const displayedRows = calculateRows(this.state)
 
       return (
           <div>
               <table className="react-collapsible">
-                  <Columns columns={ visible }/>
-                  <Rows rows={ displayed }
+                  <Columns columns={ visible } sortRows={ this.sortRows } />
+                  <Rows rows={ displayedRows }
                         visibleColumns={ visible } />
               </table>
           </div>

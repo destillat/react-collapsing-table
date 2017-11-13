@@ -4,11 +4,12 @@ import { arrayOf, shape, string, func } from 'prop-types';
 //Components
 import Column from './Column';
 
-const Columns = ({ columns, }) => {
+const Columns = ({ columns, sortRows }) => {
     const tableColumns = columns.map(({ accessor, label }) => {
         return <Column key={ accessor }
                        accessor={ accessor }
-                       label={ label } />;
+                       label={ label }
+                       onClick={ sortRows } />;
     });
     return (
         <thead>
