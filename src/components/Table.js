@@ -4,7 +4,9 @@ import { array, arrayOf, shape, string, number, func } from 'prop-types';
 //Components
 import Columns from './Columns';
 import Rows from './Rows';
-import { calculateRows, sortColumn } from '../actions/TableActions'
+import Pagination from './Pagination';
+import { calculateRows, sortColumn, nextPage, previousPage, } from '../actions/TableActions'
+import { addColumn, removeColumn } from '../actions/ResizeTableActions'
 
 export class Table extends Component {
     constructor(props) {
@@ -20,11 +22,7 @@ export class Table extends Component {
       } = props;
 
       this.state = {
-        columns: {
-            initial: columns,
-            visible: columns,
-            hidden: columns,
-        },
+        columns: columns.map(column => { return { ...column, isVisible: true } }),
         rows,
         pagination: {
           rowSize,
@@ -39,57 +37,50 @@ export class Table extends Component {
     }
 
     sortRows = ({ column }) => {
-      console.log(this.state);
-      const newState = sortColumn({ column, state: this.state })
-      console.log(newState);
-      this.setState({ ...newState });
+      this.setState(sortColumn({ column, state: this.state }));
     }
 
+    nextPage = () => {
+      this.setState(nextPage({ state: this.state }));
+    };
+    previousPage = () => {
+      this.setState(previousPage({ state: this.state }));
+    };
+    addColumn = () => {
+      console.log(this.state);
+      this.setState(addColumn({ state: this.state }));
+    };
+    removeColumn = () => {
+      console.log(this.state);
+      this.setState(removeColumn({ state: this.state }));
+    };
+
     render(){
-      const { columns: { visible } } = this.state;
+      const { columns, pagination: { currentPage, rowSize }, rows } = this.state;
       const displayedRows = calculateRows(this.state)
+      const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
+      const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
 
       return (
           <div>
+              <button onClick={ this.addColumn }>add column</button>
+              <button onClick={ this.removeColumn }>remove column</button>
               <table className="react-collapsible">
-                  <Columns columns={ visible } sortRows={ this.sortRows } />
+                  <Columns columns={ visibleColumns } sortRows={ this.sortRows } />
                   <Rows rows={ displayedRows }
-                        visibleColumns={ visible } />
+                        visibleColumns={ visibleColumns }
+                        hiddenColumns={ hiddenColumns } />
               </table>
+              <Pagination currentPage={ currentPage }
+                          totalRows={ rows.length }
+                          rowSize={ rowSize }
+                          nextPage={ this.nextPage }
+                          previousPage={ this.previousPage } />
           </div>
       );
     }
 };
 
-Table.PropTypes = {
-    table: shape({
-        rows: shape({
-            displayed: array.isRequierd,
-        }),
-        columns: shape({
-            visible: arrayOf(shape({
-                accessor: string.isRequired,
-                label: string.isRequired,
-            })),
-            hidden: arrayOf(shape({
-                accessor: string.isRequired,
-                label: string.isRequired,
-            })),
-        }),
-        pagination: shape({
-            currentPage: number.isRequierd,
-        }),
-        globalSearchString: string.isRequierd,
-    }),
-    actions: shape({
-        nextPage: func.isRequired,
-        previousPage: func.isRequired,
-        sortColumn: func.isRequired,
-        searchRows: func.isRequired,
-        clearSearch: func.isRequired,
-        expandRow: func.isRequired,
-        resizeTable: func.isRequired,
-    })
-};
+Table.PropTypes = {};
 
 export default Table

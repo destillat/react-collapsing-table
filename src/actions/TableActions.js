@@ -26,7 +26,7 @@ export const sortColumn = ({ column, state }) => {
 
 export const changeSortFieldAndDirection = ({ newColumn, state }) => {
     let newDirection;
-    const { sort: { column, direction, defaultSortColumn } } = state;
+    const { sort: { column, direction } } = state;
 
 
     if(column === newColumn) {
@@ -79,4 +79,13 @@ export const dynamicSort = ({ column }) => {
     // TODO: Figure out how to tell if date
     // return (a, b) => (new Date(b[property]).getTime() - new Date(a[property]).getTime());
     return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
+};
+
+//Pagination
+export const nextPage = ({ state }) => {
+   return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage + 1 } }
+};
+
+export const previousPage = ({ state }) => {
+   return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage - 1 } }
 };
