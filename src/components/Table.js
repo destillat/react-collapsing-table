@@ -6,7 +6,7 @@ import Columns from './Columns';
 import Rows from './Rows';
 import Pagination from './Pagination';
 import { calculateRows, sortColumn, nextPage, previousPage, } from '../actions/TableActions'
-import { addColumn, removeColumn } from '../actions/ResizeTableActions'
+import { addColumn, removeColumn, resizeTable } from '../actions/ResizeTableActions'
 
 export class Table extends Component {
     constructor(props) {
@@ -35,6 +35,18 @@ export class Table extends Component {
         }
       }
     }
+
+    componentWillMount(){
+        window.addEventListener('resize', this.resizeTable);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resizeTable);
+    }
+
+    resizeTable = () => {
+        this.setState(resizeTable({ width: window.innerWidth, state: this.state }))
+    };
 
     sortRows = ({ column }) => {
       this.setState(sortColumn({ column, state: this.state }));
