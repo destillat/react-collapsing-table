@@ -77,7 +77,9 @@ export class Table extends Component {
       return (
           <div>
               <table className="react-collapsible">
-                  <Columns columns={ visibleColumns } sortRows={ this.sortRows } />
+                  <Columns columns={ visibleColumns } 
+                           sortRows={ this.sortRows }
+                           sort={ this.state.sort } />
                   <Rows rows={ displayedRows }
                         visibleColumns={ visibleColumns }
                         hiddenColumns={ hiddenColumns }
