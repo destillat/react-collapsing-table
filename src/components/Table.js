@@ -2,11 +2,14 @@
 import React, { Component }  from 'react';
 import { array, arrayOf, shape, string, number, func } from 'prop-types';
 //Components
+import Search from './Search';
 import Columns from './Columns';
 import Rows from './Rows';
 import Pagination from './Pagination';
 import { calculateRows, sortColumn, nextPage, previousPage, expandRow } from '../actions/TableActions'
 import { resizeTable } from '../actions/ResizeTableActions'
+import { searchRows, clearSearch } from '../actions/SearchActions';
+const _ = require('lodash');
 
 export class Table extends Component {
     constructor(props) {
@@ -23,7 +26,9 @@ export class Table extends Component {
 
       this.state = {
         columns: columns.map(column => { return { ...column, isVisible: true } }),
-        rows,
+        initialRows: _.cloneDeep(rows),
+        rows: _.cloneDeep(rows),
+        searchString: '',
         pagination: {
           rowSize,
           currentPage,
@@ -68,6 +73,15 @@ export class Table extends Component {
       this.setState(expandRow({ rowIndex, state: this.state }));
     }
 
+    searchRows = (event) => {
+        const { value } = event.target;
+        this.setState(searchRows({ searchString: value, state: this.state }));
+    }
+
+    clearSearch = () => {
+      this.setState(clearSearch({ state: this.state }));
+    }
+
     render(){
       const { columns, pagination: { currentPage, rowSize }, rows } = this.state;
       const displayedRows = calculateRows(this.state)
@@ -76,8 +90,11 @@ export class Table extends Component {
 
       return (
           <div>
+              <Search searchString={ this.state.searchString }
+                      searchRows={ this.searchRows }
+                      clearSearch={ this.clearSearch } />
               <table className="react-collapsible">
-                  <Columns columns={ visibleColumns } 
+                  <Columns columns={ visibleColumns }
                            sortRows={ this.sortRows }
                            sort={ this.state.sort } />
                   <Rows rows={ displayedRows }
