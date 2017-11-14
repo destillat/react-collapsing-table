@@ -80,7 +80,3 @@ export const addColumn = ({ state }) => {
     }
     return { ...state, columns: combinedColumns };
 };
-//
-// export const resizeTableSuccess = ({ visible, hidden }) => {
-//     return { type: types.RESIZED_TABLE, visible, hidden };
-// };

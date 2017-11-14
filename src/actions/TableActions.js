@@ -89,3 +89,13 @@ export const nextPage = ({ state }) => {
 export const previousPage = ({ state }) => {
    return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage - 1 } }
 };
+
+
+//Hide or Show Rows
+export const expandRow = ({ rowIndex, state }) => {
+  const actualIndex = rowIndex + ((state.pagination.currentPage - 1) * state.pagination.rowSize);
+  const newRows = state.rows.map((row, index) => {
+       return (index === actualIndex) ? { ...row, isOpen: !row.isOpen } : row
+    })
+    return { ...state, rows: newRows };
+};

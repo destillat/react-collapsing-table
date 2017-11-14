@@ -27,14 +27,14 @@ export const getIcon = ({ onClick, name='', size=16 }) => {
     }
 };
 
-export const expandIcon = ({ cellIndex, rowIndex, row, hiddenColumnsLength, actions }) => {
+export const expandIcon = ({ cellIndex, rowIndex, row, hiddenColumnsLength, expandRow }) => {
     const name = row.isOpen ? 'CloseRow' : 'OpenRow';
     const IS_FIRST_CELL = cellIndex === 0;
     const IS_HIDDEN_COULMNS = hiddenColumnsLength > 0;
     const IS_NOT_EMPTY_ROW = Object.keys(row).length > 1;
 
     if(IS_FIRST_CELL && IS_HIDDEN_COULMNS && IS_NOT_EMPTY_ROW){
-        return getIcon({ name, onClick: () => actions.expandRow({ rowIndex }) });
+        return getIcon({ name, onClick: () => expandRow({ rowIndex }) });
     }
 
     return getIcon({ onClick: {}, name: 'none' });

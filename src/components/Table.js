@@ -5,8 +5,8 @@ import { array, arrayOf, shape, string, number, func } from 'prop-types';
 import Columns from './Columns';
 import Rows from './Rows';
 import Pagination from './Pagination';
-import { calculateRows, sortColumn, nextPage, previousPage, } from '../actions/TableActions'
-import { addColumn, removeColumn, resizeTable } from '../actions/ResizeTableActions'
+import { calculateRows, sortColumn, nextPage, previousPage, expandRow } from '../actions/TableActions'
+import { resizeTable } from '../actions/ResizeTableActions'
 
 export class Table extends Component {
     constructor(props) {
@@ -40,6 +40,10 @@ export class Table extends Component {
         window.addEventListener('resize', this.resizeTable);
     }
 
+    componentDidMount(){
+        this.resizeTable();
+    }
+
     componentWillUnmount() {
         window.removeEventListener('resize', this.resizeTable);
     }
@@ -55,17 +59,14 @@ export class Table extends Component {
     nextPage = () => {
       this.setState(nextPage({ state: this.state }));
     };
+
     previousPage = () => {
       this.setState(previousPage({ state: this.state }));
     };
-    addColumn = () => {
-      console.log(this.state);
-      this.setState(addColumn({ state: this.state }));
-    };
-    removeColumn = () => {
-      console.log(this.state);
-      this.setState(removeColumn({ state: this.state }));
-    };
+
+    expandRow = ({ rowIndex }) => {
+      this.setState(expandRow({ rowIndex, state: this.state }));
+    }
 
     render(){
       const { columns, pagination: { currentPage, rowSize }, rows } = this.state;
@@ -75,13 +76,12 @@ export class Table extends Component {
 
       return (
           <div>
-              <button onClick={ this.addColumn }>add column</button>
-              <button onClick={ this.removeColumn }>remove column</button>
               <table className="react-collapsible">
                   <Columns columns={ visibleColumns } sortRows={ this.sortRows } />
                   <Rows rows={ displayedRows }
                         visibleColumns={ visibleColumns }
-                        hiddenColumns={ hiddenColumns } />
+                        hiddenColumns={ hiddenColumns }
+                        expandRow={ this.expandRow } />
               </table>
               <Pagination currentPage={ currentPage }
                           totalRows={ rows.length }
