@@ -2,7 +2,7 @@
 // https://github.com/facebookincubator/create-react-app/issues/3199#issuecomment-332842582
 import raf from './tempPolyfills'
 
-require('babel-polyfill');
+//require('babel-polyfill');
 
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';

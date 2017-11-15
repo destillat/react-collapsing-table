@@ -9,7 +9,7 @@ export const resizeTable = ({ width, state }) => {
 
     state = visibleColumnsWidth > width ?
         tryToRemoveColumns({ visibleColumnsWidth, width, state }) :
-         tryToAddColumns({ visibleColumnsWidth, width, state });
+        tryToAddColumns({ visibleColumnsWidth, width, state });
 
     return state;
 };
@@ -31,12 +31,12 @@ export const tryToAddColumns = ({ visibleColumnsWidth, width, state }) => {
     let hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible ));
     hiddenColumns.sort(dynamicSort({column: 'priorityLevel'}));
 
-    while(visibleColumnsWidth < width && hiddenColumns.length !== 0){
+    while(visibleColumnsWidth <= width && hiddenColumns.length !== 0){
         visibleColumnsWidth += hiddenColumns.shift().minWidth;
-        if(visibleColumnsWidth < width && hiddenColumns.length === 0) {
+        if(visibleColumnsWidth <= width && hiddenColumns.length === 0) {
           state = addColumn({ state });
           state = closeAllRows({ state });
-        } else if (visibleColumnsWidth < width){
+        } else if (visibleColumnsWidth <= width){
             state = addColumn({ state })
         }
     }

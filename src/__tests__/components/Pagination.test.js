@@ -1,7 +1,7 @@
 //React
 import React from 'react';
 //Component
-import Pagination from '../../components/table/Pagination';
+import Pagination from '../../components/Pagination';
 //Testing
 import { shallow, } from 'enzyme';
 
@@ -13,10 +13,8 @@ describe('Pagination', () => {
             currentPage: 3,
             totalRows: 20,
             rowSize: 5,
-            actions: {
-                nextPage: jest.fn(),
-                previousPage: jest.fn(),
-            }
+            nextPage: jest.fn(),
+            previousPage: jest.fn(),
         };
 
         wrapper = shallow(<Pagination { ...props } />);
@@ -71,11 +69,11 @@ describe('Pagination', () => {
     it('should call the last page action', () => {
         wrapper.find('FaChevronLeft').first().simulate('click');
 
-        expect(props.actions.previousPage).toHaveBeenCalled();
+        expect(props.previousPage).toHaveBeenCalled();
     });
     it('should call the next page action', () => {
         wrapper.find('FaChevronRight').last().simulate('click');
 
-        expect(props.actions.nextPage).toHaveBeenCalled();
+        expect(props.nextPage).toHaveBeenCalled();
     });
 });

@@ -1,7 +1,7 @@
 //React
 import React from 'react';
 //Component
-import Row from '../../components/table/Row';
+import Row from '../../components/Row';
 //Testing
 import { shallow, mount } from 'enzyme';
 
@@ -11,15 +11,15 @@ describe('Row', () => {
     beforeEach(() => {
         props = {
             row: {
-                firstName: "Brain",
-                lastName: "Kling",
-                email: "Sandra_Bradtke3@hotmail.com",
-                address: "3522 Gianni Ridges",
-                city: "Christiansenhaven",
-                state: "New Jersey",
-                country: "India",
-                zipCode: "21758-1323",
-                bio: "Et quo iste quo facere sit tenetur deleniti.",
+                firstName: 'Brain',
+                lastName: 'Kling',
+                email: 'Sandra_Bradtke3@hotmail.com',
+                address: '3522 Gianni Ridges',
+                city: 'Christiansenhaven',
+                state: 'New Jersey',
+                country: 'India',
+                zipCode: '21758-1323',
+                bio: 'Et quo iste quo facere sit tenetur deleniti.',
                 isOpen: false,
             },
             visibleColumns: [
