@@ -1,0 +1,81 @@
+//React
+import React from 'react';
+//Component
+import Pagination from '../../components/table/Pagination';
+//Testing
+import { shallow, } from 'enzyme';
+
+describe('Pagination', () => {
+    let wrapper, props;
+
+    beforeEach(() => {
+        props = {
+            currentPage: 3,
+            totalRows: 20,
+            rowSize: 5,
+            actions: {
+                nextPage: jest.fn(),
+                previousPage: jest.fn(),
+            }
+        };
+
+        wrapper = shallow(<Pagination { ...props } />);
+    });
+
+    it('should display the page with both arrows', () => {
+        const chevronLefts = wrapper.find('FaChevronLeft');
+        const chevronRights = wrapper.find('FaChevronRight');
+
+        expect(chevronLefts.length).toBe(1);
+        expect(chevronRights.length).toBe(1);
+    });
+
+    it('should display the page with only the next arrows', () => {
+        props = {
+            currentPage: 1,
+            totalRows: 6,
+            rowSize: 5,
+            actions: {
+                nextPage: jest.fn(),
+                previousPage: jest.fn(),
+            }
+        };
+
+        wrapper = shallow(<Pagination { ...props } />);
+        const chevronLefts = wrapper.find('FaChevronLeft');
+        const chevronRights = wrapper.find('FaChevronRight');
+
+        expect(chevronLefts.length).toBe(0);
+        expect(chevronRights.length).toBe(1);
+    });
+
+    it('should display the page with only the next arrows', () => {
+        props = {
+            currentPage: 2,
+            totalRows: 10,
+            rowSize: 5,
+            actions: {
+                nextPage: jest.fn(),
+                previousPage: jest.fn(),
+            }
+        };
+
+        wrapper = shallow(<Pagination { ...props } />);
+        const chevronLefts = wrapper.find('FaChevronLeft');
+        const chevronRights = wrapper.find('FaChevronRight');
+
+        expect(chevronLefts.length).toBe(1);
+        expect(chevronRights.length).toBe(0);
+    });
+
+    it('should call the last page action', () => {
+        wrapper.find('FaChevronLeft').first().simulate('click');
+
+        expect(props.actions.previousPage).toHaveBeenCalled();
+    });
+    it('should call the next page action', () => {
+        wrapper.find('FaChevronRight').last().simulate('click');
+
+        expect(props.actions.nextPage).toHaveBeenCalled();
+    });
+});

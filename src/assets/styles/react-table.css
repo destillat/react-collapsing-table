@@ -1,0 +1,93 @@
+html {
+  font-size: 62.5%;
+  font-family: Helvetica, Arial, "sans-serif";
+}
+/*Styles for the body of the table */
+table.react-collapsible {
+  border-collapse: collapse;
+  width: 100%;
+}
+.react-collapsible thead, .react-collapsible .child-label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: #555;
+  text-align: left;
+  font-weight: 600;
+}
+.react-collapsible thead th, .react-collapsible td {
+  min-width: 10rem;
+  padding-bottom: .8rem;
+}
+.react-collapsible tr {
+  border-bottom: 0.1rem #e0e4ea solid;
+}
+.react-collapsible td {
+  padding: .8rem .8rem .8rem 0;
+  font-size: 1.4rem;
+  font-weight: 200;
+}
+/*child row in table */
+.react-collapsible .child-cell {
+  display: flex;
+}
+.react-collapsible .child-label {
+  margin-left: 1.6rem;
+  flex-basis: 25%;
+}
+.react-collapsible .child-content {
+  flex-basis: 75%;
+}
+@media screen and (min-width: 768px) {
+  .react-collapsible .child-label {
+    margin-left: 1.6rem;
+    flex-basis: 10%;
+  }
+  .react-collapsible .child-content {
+    flex-basis: 90%;
+  }
+}
+/*Styles for search */
+.react-collapsible-search {
+  margin: 3.2rem 0;
+}
+.react-collapsible-search .clear {
+  color: #009cde;
+  border: 0;
+  background-color: #fff;
+  font-size: 1.4rem;
+  margin-left: .8rem;
+}
+.react-collapsible-search input {
+  border: 0;
+  border-bottom: 1px #009cde solid;
+  width: 20rem;
+  height: 2rem;
+  font-size: 1.4rem;
+  font-weight: 200;
+}
+.react-collapsible-search input::placeholder {
+  color: #858DA3;
+}
+.brand-primary-light {
+  color: #009cde;
+}
+.search-highlight {
+  background-color: #C1C9D5;
+}
+
+/*Styles for pagination */
+.react-collapsible-page {
+  font-size: 1.4rem;
+  font-weight: 200;
+}
+.react-collapsible-page .arrow-left {
+  margin-right: .8rem;
+}
+.react-collapsible-page .arrow-right {
+  margin-left: .8rem;
+}
+
+.highlight {
+  background-color: #FFFF00
+}

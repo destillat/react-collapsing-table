@@ -16,5 +16,30 @@
   },
   "devDependencies": {
     "react-icons": "^2.2.7"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/api/**",
+      "!**/stylesheets/**",
+      "!**/build/**",
+      "!**/coverage/**",
+      "!**/store/**",
+      "!**/vendor/**",
+      "!**/ActionTypes.js",
+      "!**/index.js",
+      "!**/registerServiceWorker.js",
+      "!**/setupTests.js",
+      "!**/tempPolyfills.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
   }
 }

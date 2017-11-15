@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 //What rows should be displayed?
 export const calculateRows = (state) => {
     const {
@@ -28,7 +30,6 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
     let newDirection;
     const { sort: { column, direction } } = state;
 
-
     if(column === newColumn) {
         switch (direction) {
             case 'none':
@@ -53,26 +54,26 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
 
 export const changeRowOrder = ({ column, state }) => {
     // TODO: search columns for priority level 1 as deafult search field
-    const { sort: { direction, defaultSortColumn }, rows } = state;
-    let sortedRows = [];
+    const { sort: { direction, defaultSortColumn } } = state;
+    let rows = _.cloneDeep(state.rows);
 
     switch (direction) {
         case 'ascending':
-            sortedRows = rows.sort(dynamicSort({ column }));
+            rows.sort(dynamicSort({ column }));
             break;
         case 'descending':
-            sortedRows = rows.sort(dynamicSort({ column })).reverse();
+            rows.sort(dynamicSort({ column })).reverse();
             break;
         case 'none':
             // TODO: added in priority level to figure out the default search field
             // newRows = allRows.sort(dynamicSort({ column: 'firstName'}));
-            sortedRows = rows.sort(dynamicSort({ column: defaultSortColumn }));
+            rows.sort(dynamicSort({ column }));
             break;
         default:
-            sortedRows = rows.sort(dynamicSort({ column }));
+            rows.sort(dynamicSort({ column }));
     }
 
-     return { sortedRows };
+    return { sortedRows: rows };
 };
 
 export const dynamicSort = ({ column }) => {
@@ -89,7 +90,6 @@ export const nextPage = ({ state }) => {
 export const previousPage = ({ state }) => {
    return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage - 1 } }
 };
-
 
 //Hide or Show Rows
 export const expandRow = ({ rowIndex, state }) => {
