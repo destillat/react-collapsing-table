@@ -1,4 +1,5 @@
-This project is aiming to recreate [this jquery table](https://datatables.net/)
-
-## Table of Contents
-//TODO
+What it does
+Setup
+How to build (if needed)
+Running the app (usage)
+Deployment

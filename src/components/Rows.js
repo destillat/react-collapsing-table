@@ -3,16 +3,15 @@ import React from 'react';
 import { array, arrayOf, string, shape } from 'prop-types';
 //Components
 import Row from './Row';
-import '../../assets/styles/react-table.css';
 
-const Rows = ({rows, visibleColumns, hiddenColumns, actions }) => {
+const Rows = ({ rows, visibleColumns, hiddenColumns, expandRow }) => {
     const tableRows = rows.map((row, index) => {
         return <Row key={ index }
+                    rowIndex={ index }
                     row={ row }
                     visibleColumns={ visibleColumns }
                     hiddenColumns={ hiddenColumns }
-                    actions={ actions }
-                    rowIndex={ index } />
+                    expandRow={ expandRow } />
     });
 
     return (

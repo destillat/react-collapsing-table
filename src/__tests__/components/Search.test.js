@@ -1,7 +1,7 @@
 //React
 import React from 'react';
 //Component
-import Search from '../../components/table/Search';
+import Search from '../../components/Search';
 //Testing
 import { shallow, } from 'enzyme';
 
@@ -10,12 +10,8 @@ describe('Search', () => {
 
     beforeEach(() => {
         props = {
-
-            actions: {
-                searchRows: jest.fn(),
-                clearSearch: jest.fn(),
-                resizeSearch: jest.fn(),
-            }
+            searchRows: jest.fn(),
+            clearSearch: jest.fn(),
         };
 
         wrapper = shallow(<Search { ...props } />);
@@ -36,12 +32,12 @@ describe('Search', () => {
     it('should call the clear search field action', () => {
         wrapper.find('button').first().simulate('click');
 
-        expect(props.actions.clearSearch).toHaveBeenCalled();
+        expect(props.clearSearch).toHaveBeenCalled();
     });
 
     it('should call the search row action', () => {
         wrapper.find('input').first().simulate('change', { target: { value: 2 } });
 
-        expect(props.actions.searchRows).toHaveBeenCalledWith({ target: { value: 2 } });
+        expect(props.searchRows).toHaveBeenCalledWith({ target: { value: 2 } });
     });
 });

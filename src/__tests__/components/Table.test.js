@@ -1,7 +1,7 @@
 //React
 import React from 'react';
 //Component
-import Table from '../../components/table/Table';
+import Table from '../../components/Table';
 //Testing
 import { shallow, } from 'enzyme';
 
@@ -12,10 +12,10 @@ describe('Table', () => {
         props = {
             table: {
                 globalSearchString: '',
-                sort: { direction: 'none', column: '' },
-                pagination: { currentPage: 1, rowSize: 5, possibleRowSizes: [15, 30, 60] },
+                sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
+                pagination: { currentPage: 1, rowSize: 5, },
                 columns: { initial: [], visible: [], hidden: [] },
-                rows: { initial: [], filtered: [], displayed: [] },
+                rows: [],
             },
             actions: {},
         };

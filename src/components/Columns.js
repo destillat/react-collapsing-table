@@ -3,15 +3,14 @@ import React from 'react';
 import { arrayOf, shape, string, func } from 'prop-types';
 //Components
 import Column from './Column';
-import '../../assets/styles/react-table.css';
 
-const Columns = ({ columns, sort, onClick }) => {
+const Columns = ({ columns, sortRows, sort }) => {
     const tableColumns = columns.map(({ accessor, label }) => {
         return <Column key={ accessor }
                        accessor={ accessor }
                        label={ label }
                        sort={ sort }
-                       onClick={ onClick } />;
+                       onClick={ sortRows } />;
     });
     return (
         <thead>

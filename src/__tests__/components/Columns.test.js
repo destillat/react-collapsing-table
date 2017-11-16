@@ -1,7 +1,7 @@
 //React
 import React from 'react';
 //Component
-import Columns from '../../components/table/Columns';
+import Columns from '../../components/Columns';
 //Testing
 import { shallow, } from 'enzyme';
 

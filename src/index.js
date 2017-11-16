@@ -1,20 +1,7 @@
-//React
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import "babel-polyfill";
-//Redux
-import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
-//Components
-import Table from './containers/Table';
 
-const store = configureStore();
-
-ReactDOM.render(
-    <Provider store={store} >
-        <Table />
-    </Provider>,
-    document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
