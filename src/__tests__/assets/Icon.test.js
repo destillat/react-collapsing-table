@@ -109,15 +109,13 @@ describe('Icon', () => {
                 isOpen: false,
                 anotherField: 'field!!!!'
             },
-            actions: {
-                expandRow: jest.fn(),
-            }
+            expandRow: jest.fn(),
         };
         wrapper = shallow(actions.expandIcon(props));
 
         wrapper.find('MdKeyboardArrowDown').simulate('click');
 
-        expect(props.actions.expandRow).toHaveBeenCalledWith({ rowIndex: 1 });
+        expect(props.expandRow).toHaveBeenCalledWith({ rowIndex: 1 });
     });
 
     //Get Icons for the application

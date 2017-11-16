@@ -84,7 +84,7 @@ export class Table extends Component {
 
     render(){
       const { columns, pagination: { currentPage, rowSize }, rows } = this.state;
-      const displayedRows = calculateRows(this.state)
+      const displayedRows = calculateRows({ state: this.state })
       const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
       const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
 

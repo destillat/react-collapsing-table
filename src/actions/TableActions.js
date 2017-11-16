@@ -1,13 +1,12 @@
 const _ = require('lodash');
 
 //What rows should be displayed?
-export const calculateRows = (state) => {
+export const calculateRows = ({ state }) => {
     const {
       rows,
       pagination: { currentPage, rowSize }
     } = state;
     let selectedRows = []
-
     //pagination
     if( rows.length > 0 ) {
         const startingPoint = ((currentPage - 1) * rowSize);
@@ -67,7 +66,7 @@ export const changeRowOrder = ({ column, state }) => {
         case 'none':
             // TODO: added in priority level to figure out the default search field
             // newRows = allRows.sort(dynamicSort({ column: 'firstName'}));
-            rows.sort(dynamicSort({ column }));
+            rows.sort(dynamicSort({ column: defaultSortColumn }));
             break;
         default:
             rows.sort(dynamicSort({ column }));
@@ -77,9 +76,7 @@ export const changeRowOrder = ({ column, state }) => {
 };
 
 export const dynamicSort = ({ column }) => {
-    // TODO: Figure out how to tell if date
-    // return (a, b) => (new Date(b[property]).getTime() - new Date(a[property]).getTime());
-    return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
+  return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
 };
 
 //Pagination

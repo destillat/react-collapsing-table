@@ -1,6 +1,6 @@
 import * as actions from '../../actions/ResizeTableActions';
 
-describe('Search Actions', () => {
+describe('Resize Table Actions', () => {
   //RESIZE TABLE
   it('should try to add a column', () => {
       const given = {
