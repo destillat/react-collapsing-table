@@ -39,6 +39,14 @@ export class Table extends Component {
           direction,
         }
       }
+
+      this.resizeTable = this.resizeTable.bind(this);
+      this.sortRows = this.sortRows.bind(this);
+      this.nextPage = this.nextPage.bind(this);
+      this.previousPage = this.previousPage.bind(this);
+      this.expandRow = this.expandRow.bind(this);
+      this.searchRows = this.searchRows.bind(this);
+      this.clearSearch = this.clearSearch.bind(this);
     }
 
     componentWillMount(){
@@ -53,32 +61,32 @@ export class Table extends Component {
         window.removeEventListener('resize', this.resizeTable);
     }
 
-    resizeTable = () => {
+    resizeTable() {
         this.setState(resizeTable({ width: window.innerWidth, state: this.state }))
     };
 
-    sortRows = ({ column }) => {
+    sortRows({ column }) {
       this.setState(sortColumn({ column, state: this.state }));
     }
 
-    nextPage = () => {
+    nextPage() {
       this.setState(nextPage({ state: this.state }));
     };
 
-    previousPage = () => {
+    previousPage() {
       this.setState(previousPage({ state: this.state }));
     };
 
-    expandRow = ({ rowIndex }) => {
+    expandRow({ rowIndex }) {
       this.setState(expandRow({ rowIndex, state: this.state }));
     }
 
-    searchRows = (event) => {
+    searchRows(event) {
         const { value } = event.target;
         this.setState(searchRows({ searchString: value, state: this.state }));
     }
 
-    clearSearch = () => {
+    clearSearch() {
       this.setState(clearSearch({ state: this.state }));
     }
 

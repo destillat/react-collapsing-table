@@ -1,49 +1,36 @@
 {
   "name": "react-collapsing-table",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.1",
+  "description": "Put a description here",
+  "main": "build/index.js",
+  "peerDependencies": {
+    "react": "^16.1.0"
+  },
   "dependencies": {
-    "lodash": "^4.17.4",
     "react": "^16.1.0",
-    "react-dom": "^16.1.0",
-    "react-scripts": "1.0.17"
+    "webpack": "^2.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "author": {
+    "name": "Your name",
+    "email": "your email"
   },
   "devDependencies": {
-    "babel-polyfill": "^6.26.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.5.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
+    "lodash": "^4.17.4",
     "react-icons": "^2.2.7"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "**/*.js",
-      "!**/node_modules/**",
-      "!**/api/**",
-      "!**/stylesheets/**",
-      "!**/build/**",
-      "!**/coverage/**",
-      "!**/store/**",
-      "!**/vendor/**",
-      "!**/ActionTypes.js",
-      "!**/index.js",
-      "!**/App.js",
-      "!**/registerServiceWorker.js",
-      "!**/setupTests.js",
-      "!**/tempPolyfills.js"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 90,
-        "lines": 90,
-        "statements": 90
-      }
-    }
   }
 }
