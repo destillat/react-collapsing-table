@@ -1,24 +1,21 @@
 {
   "name": "react-collapsing-table",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Put a description here",
   "main": "build/index.js",
   "peerDependencies": {
-    "react": "^16.1.0"
+    "react": "^16.x.x"
   },
   "dependencies": {
     "react": "^16.1.0",
     "webpack": "^2.6.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack --watch",
     "build": "webpack"
   },
-  "author": {
-    "name": "Your name",
-    "email": "your email"
-  },
+  "author": "Paul Darragh <pmd6624@rit.edu>",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
@@ -30,7 +27,50 @@
     "babel-preset-env": "^1.5.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
+    "jest": "^21.2.1",
     "lodash": "^4.17.4",
+    "react-dom": "^16.1.1",
     "react-icons": "^2.2.7"
-  }
+  },
+  "jest": {
+    "setupFiles": [
+      "./src/setupTests.js"
+    ],
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/api/**",
+      "!**/stylesheets/**",
+      "!**/build/**",
+      "!**/coverage/**",
+      "!**/store/**",
+      "!**/vendor/**",
+      "!**/ActionTypes.js",
+      "!**/index.js",
+      "!**/registerServiceWorker.js",
+      "!**/setupTests.js",
+      "!**/tempPolyfills.js",
+      "!**/webpack*.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/massmutual/react-collapsing-table.git"
+  },
+  "keywords": [
+    "reactjs"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/massmutual/react-collapsing-table/issues"
+  },
+  "homepage": "https://github.com/massmutual/react-collapsing-table#readme"
 }
