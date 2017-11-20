@@ -1,26 +1,41 @@
 {
   "name": "react-collapsing-table",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.2",
+  "description": "Put a description here",
+  "main": "build/index.js",
+  "peerDependencies": {
+    "react": "^16.x.x"
+  },
   "dependencies": {
-    "lodash": "^4.17.4",
     "react": "^16.1.0",
-    "react-dom": "^16.1.0",
-    "react-scripts": "1.0.17"
+    "webpack": "^2.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "jest",
+    "start": "webpack --watch",
+    "build": "webpack"
   },
+  "author": "Paul Darragh <pmd6624@rit.edu>",
   "devDependencies": {
-    "babel-polyfill": "^6.26.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.5.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
+    "jest": "^21.2.1",
+    "lodash": "^4.17.4",
+    "react-dom": "^16.1.1",
     "react-icons": "^2.2.7"
   },
   "jest": {
+    "setupFiles": [
+      "./src/setupTests.js"
+    ],
     "collectCoverageFrom": [
       "**/*.js",
       "!**/node_modules/**",
@@ -32,10 +47,10 @@
       "!**/vendor/**",
       "!**/ActionTypes.js",
       "!**/index.js",
-      "!**/App.js",
       "!**/registerServiceWorker.js",
       "!**/setupTests.js",
-      "!**/tempPolyfills.js"
+      "!**/tempPolyfills.js",
+      "!**/webpack*.js"
     ],
     "coverageThreshold": {
       "global": {
@@ -45,5 +60,17 @@
         "statements": 90
       }
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/massmutual/react-collapsing-table.git"
+  },
+  "keywords": [
+    "reactjs"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/massmutual/react-collapsing-table/issues"
+  },
+  "homepage": "https://github.com/massmutual/react-collapsing-table#readme"
 }
