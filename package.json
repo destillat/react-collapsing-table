@@ -12,11 +12,16 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "webpack --watch",
-    "build": "webpack"
+    "start": "webpack --watch & yarn run storybook",
+    "build": "webpack",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "author": "Paul Darragh <pmd6624@rit.edu>",
   "devDependencies": {
+    "@storybook/addon-actions": "^3.2.16",
+    "@storybook/addon-links": "^3.2.16",
+    "@storybook/react": "^3.2.16",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
@@ -27,6 +32,7 @@
     "babel-preset-env": "^1.5.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
+    "faker": "^4.1.0",
     "jest": "^21.2.1",
     "lodash": "^4.17.4",
     "react-dom": "^16.1.1",
