@@ -11,7 +11,7 @@
     "webpack": "^2.6.1"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch --env=jsdom",
     "start": "webpack --watch",
     "build": "webpack"
   },

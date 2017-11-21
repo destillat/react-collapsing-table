@@ -82,8 +82,7 @@ export class Table extends Component {
       this.setState(expandRow({ rowIndex, state: this.state }));
     }
 
-    searchRows(event) {
-        const { value } = event.target;
+    searchRows({ target: { value }}) {
         this.setState(searchRows({ searchString: value, state: this.state }));
     }
 
