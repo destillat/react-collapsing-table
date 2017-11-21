@@ -1,7 +1,7 @@
 //React
 import React, { Component }  from 'react';
 import { array, arrayOf, shape, string, number, func } from 'prop-types';
-// import '../assets/styles/react-table.css';
+import '../assets/styles/react-table.css';
 //Components
 import Search from './Search';
 import Columns from './Columns';
