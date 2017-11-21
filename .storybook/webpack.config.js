@@ -12,7 +12,15 @@ module.exports = {
   ],
   module: {
     rules: [
-      // add your custom rules.
+      {
+        test: /\.css$/,
+        include: path.resolve(__dirname, '..', 'src', 'assets', 'styles'),
+        exclude: /(node_modules|bower_components|build)/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" }
+        ]
+      }
     ],
   },
 };

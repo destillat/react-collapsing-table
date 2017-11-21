@@ -1,4 +1,5 @@
 var path = require('path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -18,10 +19,22 @@ module.exports = {
             presets: ['env']
           }
         }
+      },
+      {
+        test: /\.css$/,
+        include: path.resolve(__dirname, 'src', 'assets', 'styles'),
+        exclude: /(node_modules|bower_components|build)/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" }
+        ]
       }
     ]
   },
   externals: {
     'react': 'commonjs react' // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin("react-table.css"),
+  ]
 };
