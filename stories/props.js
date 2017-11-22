@@ -14,7 +14,6 @@ export const generateFakeData = ({ totalRows }) => {
                 country: faker.address.country(),
                 zipCode: faker.address.zipCode(),
                 bio: faker.lorem.sentence(),
-                isOpen: false,
             }
         )
     }
