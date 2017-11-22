@@ -20,9 +20,11 @@ export class Table extends Component {
         rows = [],
         rowSize = 10,
         currentPage = 1,
-        defaultSortColumn = '',
-        column = '',
-        direction = 'none'
+        defaultSortColumn = columns.reduce((prev, curr) => {
+            return prev.priorityLevel < curr.priorityLevel ? prev : curr;
+        }).accessor,
+        column = defaultSortColumn,
+        direction = 'ascending'
       } = props;
 
       this.state = {
@@ -92,11 +94,11 @@ export class Table extends Component {
     }
 
     render(){
-      const { columns, pagination: { currentPage, rowSize }, rows } = this.state;
+      const { columns, pagination: { currentPage, rowSize }, rows, } = this.state;
       const displayedRows = calculateRows({ state: this.state })
       const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
       const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
-
+      console.log(this.state);
       return (
           <div>
               <Search searchString={ this.state.searchString }

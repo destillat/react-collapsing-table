@@ -20,8 +20,8 @@
   },
   "author": "Paul Darragh <pmd6624@rit.edu>",
   "devDependencies": {
-    "@storybook/addon-actions": "^3.2.16",
     "@storybook/addon-links": "^3.2.16",
+    "@storybook/addon-options": "^3.2.16",
     "@storybook/react": "^3.2.16",
     "@storybook/storybook-deployer": "^2.0.0",
     "babel-cli": "^6.24.1",
