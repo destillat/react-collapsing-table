@@ -1,7 +1,6 @@
 //React
 import React, { Component }  from 'react';
 import { array, arrayOf, shape, string, number, func } from 'prop-types';
-import '../assets/styles/react-table.css';
 //Components
 import Search from './Search';
 import Columns from './Columns';
@@ -16,13 +15,15 @@ export class Table extends Component {
     constructor(props) {
       super()
       const {
-        columns = [],
+        columns,
         rows = [],
         rowSize = 10,
         currentPage = 1,
-        defaultSortColumn = '',
-        column = '',
-        direction = 'none'
+        defaultSortColumn = props.columns.reduce((prev, curr) => {
+            return prev.priorityLevel < curr.priorityLevel ? prev : curr;
+        }).accessor,
+        column = defaultSortColumn,
+        direction = 'ascending'
       } = props;
 
       this.state = {
@@ -92,7 +93,7 @@ export class Table extends Component {
     }
 
     render(){
-      const { columns, pagination: { currentPage, rowSize }, rows } = this.state;
+      const { columns, pagination: { currentPage, rowSize }, rows, } = this.state;
       const displayedRows = calculateRows({ state: this.state })
       const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
       const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
