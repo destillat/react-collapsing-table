@@ -1,7 +1,6 @@
 //React
 import React, { Component }  from 'react';
 import { array, arrayOf, shape, string, number, func } from 'prop-types';
-import '../assets/styles/react-table.css';
 //Components
 import Search from './Search';
 import Columns from './Columns';
@@ -16,11 +15,11 @@ export class Table extends Component {
     constructor(props) {
       super()
       const {
-        columns = [],
+        columns,
         rows = [],
         rowSize = 10,
         currentPage = 1,
-        defaultSortColumn = columns.reduce((prev, curr) => {
+        defaultSortColumn = props.columns.reduce((prev, curr) => {
             return prev.priorityLevel < curr.priorityLevel ? prev : curr;
         }).accessor,
         column = defaultSortColumn,
@@ -98,7 +97,7 @@ export class Table extends Component {
       const displayedRows = calculateRows({ state: this.state })
       const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
       const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
-      console.log(this.state);
+
       return (
           <div>
               <Search searchString={ this.state.searchString }

@@ -686,7 +686,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-jest@^21.2.0:
+babel-jest@>5.0.0, babel-jest@^21.2.0:
   version "21.2.0"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-21.2.0.tgz#2ce059519a9374a2c46f2455b6fbef5ad75d863e"
   dependencies:
@@ -6008,6 +6008,12 @@ webidl-conversions@^3.0.0:
 webidl-conversions@^4.0.0:
   version "4.0.2"
   resolved "http://artifactory.m38.io/artifactory/api/npm/npm-virtual/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
+
+webpack-babel-jest@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/webpack-babel-jest/-/webpack-babel-jest-1.0.4.tgz#1046d362f11416b20725b8c98e67f2f0f252aa9e"
+  dependencies:
+    babel-jest ">5.0.0"
 
 webpack-dev-middleware@^1.12.0:
   version "1.12.0"

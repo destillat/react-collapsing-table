@@ -10,14 +10,14 @@ describe('Table', () => {
 
     beforeEach(() => {
         props = {
-            table: {
-                globalSearchString: '',
-                sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
-                pagination: { currentPage: 1, rowSize: 5, },
-                columns: { initial: [], visible: [], hidden: [] },
-                rows: [],
-            },
-            actions: {},
+          searchString: '',
+          sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
+          pagination: { currentPage: 1, rowSize: 5, },
+          columns: [
+            { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
+            { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
+            { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
+          ],,
         };
 
         wrapper = shallow(<Table { ...props } />);

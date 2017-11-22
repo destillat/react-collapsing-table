@@ -41,7 +41,8 @@
     "lodash": "^4.17.4",
     "react-dom": "^16.1.1",
     "react-icons": "^2.2.7",
-    "style-loader": "^0.19.0"
+    "style-loader": "^0.19.0",
+    "webpack-babel-jest": "^1.0.4"
   },
   "jest": {
     "setupFiles": [
@@ -61,6 +62,7 @@
       "!**/registerServiceWorker.js",
       "!**/setupTests.js",
       "!**/tempPolyfills.js",
+      "!**/stories/**",
       "!**/webpack*.js"
     ],
     "coverageThreshold": {
