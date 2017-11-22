@@ -35,15 +35,9 @@ export const getColumns = () => {
     ]
 };
 
-export const test = () => {
-    return [{ firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
-    { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
-    { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },]
-};
-
 export const basicTableProps = {
     columns: getColumns(),
-    rows: test(),
+    rows: generateFakeData({ totalRows: 1000 }),
 }
 
 export const defaultColumnSetProps = {
