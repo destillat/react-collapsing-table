@@ -27,7 +27,7 @@ export const sortColumn = ({ column, state }) => {
 
 export const changeSortFieldAndDirection = ({ newColumn, state }) => {
     let newDirection;
-    const { sort: { column, direction } } = state;
+    const { sort: { column, direction, defaultSortColumn } } = state;
 
     if(column === newColumn) {
         switch (direction) {
@@ -38,7 +38,8 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
                 newDirection = 'descending';
                 break;
             case 'descending':
-                newDirection = 'none';
+                newDirection = 'ascending';
+                newColumn = defaultSortColumn;
                 break;
             default:
                 newDirection = 'none';
