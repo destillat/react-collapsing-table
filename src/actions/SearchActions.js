@@ -22,22 +22,23 @@ export const insert = (str, index, value) => {
 
 export const searchRows = ({ searchString, state }) => {
   let rows = _.cloneDeep(state.initialRows);
+  const { columns } = state;
   const upperCaseSearchString = searchString.toUpperCase();
 
   rows = rows.filter( row => {
-    const { flag, updatedRow } = searchRow({ row, upperCaseSearchString })
+    const { flag, updatedRow } = searchRow({ row, upperCaseSearchString, columns })
 
     return flag ? updatedRow : false;
     });
   return { ...state, searchString, rows };
 }
 
-export const searchRow = ({ row, upperCaseSearchString }) => {
+export const searchRow = ({ row, upperCaseSearchString, columns }) => {
   let flag = false;
-  Object.entries(row).forEach(([key, value]) => {
-    const { anyIndexes, newRowValue } = checkForSearchTerm({ key, value, upperCaseSearchString });
+  columns.map(({ accessor }) => {
+    const { anyIndexes, newRowValue } = checkForSearchTerm({ key: accessor, value: row[accessor], upperCaseSearchString });
     if(anyIndexes) flag = true;
-    row[key] = newRowValue;
+    row[accessor] = newRowValue;
   });
   return { updatedRow: row, flag }
 };

@@ -61,6 +61,10 @@ describe('Search Actions', () => {
   it('should find no rows that match the search criteria', () => {
       const given = {
         state: {
+          columns: [
+            { accessor: 'firstName' },
+            { accessor: 'lastName' },
+          ],
           initialRows: [
             { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
             { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -76,6 +80,10 @@ describe('Search Actions', () => {
       };
       const expected = {
         searchString: 'matthew',
+        columns: [
+          { accessor: 'firstName' },
+          { accessor: 'lastName' },
+        ],
         initialRows: [
           { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
           { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -89,6 +97,10 @@ describe('Search Actions', () => {
   it('should find one row that match the search criteria', () => {
       const given = {
         state: {
+          columns: [
+            { accessor: 'firstName' },
+            { accessor: 'lastName' },
+          ],
           initialRows: [
             { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
             { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -104,6 +116,10 @@ describe('Search Actions', () => {
       };
       const expected = {
         searchString: 'g',
+        columns: [
+          { accessor: 'firstName' },
+          { accessor: 'lastName' },
+        ],
         initialRows: [
           { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
           { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -119,6 +135,10 @@ describe('Search Actions', () => {
   it('should find multiple rows that match the search criteria', () => {
       const given = {
         state: {
+          columns: [
+            { accessor: 'firstName' },
+            { accessor: 'lastName' },
+          ],
           initialRows: [
             { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
             { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -134,6 +154,10 @@ describe('Search Actions', () => {
       };
       const expected = {
         searchString: 'm',
+        columns: [
+          { accessor: 'firstName' },
+          { accessor: 'lastName' },
+        ],
         initialRows: [
           { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
           { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -147,11 +171,53 @@ describe('Search Actions', () => {
       expect(actions.searchRows(given)).toEqual(expected);
   });
 
+  it('should ignore data that is not viewable by a search', () => {
+      const given = {
+        state: {
+          columns: [
+            { accessor: 'firstName' },
+            { accessor: 'lastName' },
+          ],
+          initialRows: [
+            { firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
+            { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
+            { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },
+          ],
+          rows: [
+            { firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
+            { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
+            { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },
+          ],
+        },
+        searchString: 'W',
+      };
+      const expected = {
+        searchString: 'W',
+        columns: [
+          { accessor: 'firstName' },
+          { accessor: 'lastName' },
+        ],
+        initialRows: [
+          { firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
+          { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
+          { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },
+        ],
+        rows: [
+          { firstName: '<span class="highlight">W</span>inston', lastName: 'Smith', email: 'smith@gmail.com' },
+        ],
+      };
+      expect(actions.searchRows(given)).toEqual(expected);
+  });
+
   //SEARCH ROW
   it('should should find no search row attributes that match the search criteria', () => {
       const given = {
         row: { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
         upperCaseSearchString: 'MATT',
+        columns: [
+          { accessor: 'firstName' },
+          { accessor: 'lastName' },
+        ],
       };
       const expected = {
         updatedRow: { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
@@ -164,6 +230,10 @@ describe('Search Actions', () => {
       const given = {
         row: { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
         upperCaseSearchString: 'L',
+        columns: [
+          { accessor: 'firstName' },
+          { accessor: 'lastName' },
+        ],
       };
       const expected = {
         updatedRow: { firstName: 'Pau<span class="highlight">l</span>', lastName: 'Darragh', isOpen: true },
@@ -176,6 +246,10 @@ describe('Search Actions', () => {
       const given = {
         row: { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
         upperCaseSearchString: 'A',
+        columns: [
+          { accessor: 'firstName' },
+          { accessor: 'lastName' },
+        ],
       };
       const expected = {
         updatedRow: { firstName: 'P<span class="highlight">a</span>ul', lastName: 'D<span class="highlight">a</span>rr<span class="highlight">a</span>gh', isOpen: true },

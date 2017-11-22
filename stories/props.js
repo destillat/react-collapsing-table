@@ -14,7 +14,6 @@ export const generateFakeData = ({ totalRows }) => {
                 country: faker.address.country(),
                 zipCode: faker.address.zipCode(),
                 bio: faker.lorem.sentence(),
-                isOpen: false,
             }
         )
     }
@@ -36,9 +35,15 @@ export const getColumns = () => {
     ]
 };
 
+export const test = () => {
+    return [{ firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
+    { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
+    { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },]
+};
+
 export const basicTableProps = {
     columns: getColumns(),
-    rows: generateFakeData({ totalRows: 1000 }),
+    rows: test(),
 }
 
 export const defaultColumnSetProps = {
