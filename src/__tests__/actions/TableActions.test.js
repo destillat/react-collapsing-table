@@ -139,12 +139,13 @@ describe('Table Actions', () => {
           sort: {
             direction: 'descending',
             column: 'firstName',
+            defaultSortColumn: 'email',
           }
         }
       };
       const expected = {
-        sortedColumn: 'firstName',
-        sortedDirection: 'none'
+        sortedColumn: 'email',
+        sortedDirection: 'ascending',
       };
 
       expect(actions.changeSortFieldAndDirection(given)).toEqual(expected);

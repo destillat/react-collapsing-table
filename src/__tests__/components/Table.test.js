@@ -13,27 +13,24 @@ describe('Table', () => {
 
     beforeEach(() => {
         props = {
-            table: {
-                globalSearchString: '',
-                sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
-                pagination: { currentPage: 1, rowSize: 5, },
-                columns: [
-                  {accessor:'firstName',label:'First Name',priorityLevel:1,position:1,minWidth:150},
-                  {accessor:'lastName',label:'Last Name',priorityLevel:2,position:2,minWidth:150},
-                  {accessor:'email',label:'Email',priorityLevel:3,position:3,minWidth:250},
-                ],
-                initialRows: [
-                  { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                  { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                  { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-                ],
-                rows: [
-                  { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                  { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                  { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-                ],
-            },
-        };
+          sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
+          pagination: { currentPage: 1, rowSize: 5, },
+          columns: [
+            { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
+            { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
+            { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
+          ],
+          initialRows: [
+            { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+            { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+            { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+          ],
+          rows: [
+            { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+            { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+            { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+          ],
+      };
 
         searchActions.clearSearch = jest.fn();
         searchActions.searchRows = jest.fn();
@@ -50,6 +47,28 @@ describe('Table', () => {
     });
 
     it('should have all of the basic table components', () => {
+        wrapper = mount(<Table { ...props }/>)
+        const searches = wrapper.find('Search');
+        const columns = wrapper.find('Columns');
+        const rows = wrapper.find('Rows');
+        const paginations = wrapper.find('Pagination');
+
+        expect(paginations.length).toBe(1);
+        expect(rows.length).toBe(1);
+        expect(columns.length).toBe(1);
+        expect(searches.length).toBe(1);
+    });
+
+    it('should render correctly with no rows', () => {
+        props = {
+          sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
+          pagination: { currentPage: 1, rowSize: 5, },
+          columns: [
+            { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
+            { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
+            { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
+          ],
+        };
         wrapper = mount(<Table { ...props }/>)
         const searches = wrapper.find('Search');
         const columns = wrapper.find('Columns');
