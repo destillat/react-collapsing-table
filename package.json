@@ -11,7 +11,7 @@
     "webpack": "^3.4.1"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch --env=jsdom",
     "start": "webpack --watch & yarn run storybook",
     "build": "webpack",
     "storybook": "start-storybook -p 6006",
