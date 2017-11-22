@@ -273,9 +273,9 @@ describe('Search Actions', () => {
       expect(actions.checkForSearchTerm(given)).toEqual(expected);
   });
 
-  it('should catch and handle the boolean value of isOpen', () => {
-      const given = { key: 'isOpen', value: true, upperCaseSearchString: 'MATT'};
-      const expected = { anyIndexes: false, newRowValue: true };
+  it('should catch and handle an undefined value', () => {
+      const given = { key: 'firstName', value: undefined, upperCaseSearchString: 'MATT'};
+      const expected = { anyIndexes: false, newRowValue: '' };
 
       expect(actions.checkForSearchTerm(given)).toEqual(expected);
   });

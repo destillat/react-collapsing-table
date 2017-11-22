@@ -46,7 +46,7 @@ export const searchRow = ({ row, upperCaseSearchString, columns }) => {
 //TODO: handle more than strings
 export const checkForSearchTerm = ({ key, value, upperCaseSearchString }) => {
   let indexes;
-  if (key === 'isOpen') return { anyIndexes: false, newRowValue: value }
+  if (value === undefined) return { anyIndexes: false, newRowValue: '' }
   let rowValue = value;
   const currentCell = rowValue.toUpperCase();
   indexes = indexesOf(upperCaseSearchString).in(currentCell);
