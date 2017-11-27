@@ -9,6 +9,13 @@ export const Column = shape({
 
 export const Columns = arrayOf(Column)
 
+export const InitialColumn = shape({
+    accessor: string.isRequired,
+    label: string.isRequired,
+})
+
+export const InitialColumns = arrayOf(InitialColumn)
+
 export const Sort = shape({
     direction: string.isRequired,
     column: string.isRequired,
@@ -45,9 +52,9 @@ export const ExpandedRowPropType = {
 };
 
 export const PaginationPropType = {
-    // currentPage: number.isRequierd,
-    // totalRows: number.isRequierd,
-    // rowSize: number.isRequierd,
+    currentPage: number.isRequired,
+    totalRows: number.isRequired,
+    rowSize: number.isRequired,
     previousPage: func.isRequired,
     nextPage: func.isRequired,
 };
@@ -61,7 +68,7 @@ export const RowPropType = {
 };
 
 export const RowsPropType = {
-    // rows: array.isRequierd,
+    rows: array.isRequired,
     visibleColumns: Columns.isRequired,
     hiddenColumns: Columns.isRequired,
     expandRow: func.isRequired,
@@ -75,7 +82,7 @@ export const SearchPropType = {
 
 export const TablePropType = {
     rows: array,
-    // columns: Columns.isRequired,
+    columns: InitialColumns.isRequired,
     rowSize: number,
     currentPage: number,
     defaultSortColumn: string,

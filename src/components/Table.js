@@ -96,7 +96,7 @@ export class Table extends Component {
       const displayedRows = calculateRows({ state: this.state })
       const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
       const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
-
+      
       return (
           <div>
               <Search searchString={ this.state.searchString }
