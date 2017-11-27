@@ -11,16 +11,23 @@ describe('Columns', () => {
     beforeEach(() => {
         props = {
             columns: [
-                { accessor: 'firstName', label: 'First Name' },
-                { accessor: 'lastName', label: 'Last Name' },
-                { accessor: 'email', label: 'Email' },
-                { accessor: 'address', label: 'Address' },
-                { accessor: 'city', label: 'City' },
-                { accessor: 'state', label: 'State' },
-                { accessor: 'country', label: 'Country' },
-                { accessor: 'zipCode', label: 'Zip Code' },
-                { accessor: 'bio', label: 'Bio' },
+                { accessor: 'firstName', label: 'First Name', isVisible: true },
+                { accessor: 'lastName', label: 'Last Name', isVisible: true },
+                { accessor: 'email', label: 'Email', isVisible: false },
+                { accessor: 'address', label: 'Address', isVisible: true },
+                { accessor: 'city', label: 'City', isVisible: true },
+                { accessor: 'state', label: 'State', isVisible: false },
+                { accessor: 'country', label: 'Country', isVisible: true },
+                { accessor: 'zipCode', label: 'Zip Code', isVisible: true },
+                { accessor: 'bio', label: 'Bio', isVisible: true },
             ],
+            sortRows: jest.fn(),
+            clearSearch: jest.fn(),
+            sort: {
+                direction: 'ascending',
+                column: 'firstName',
+                defaultSortColumn: 'email',
+            }
         };
 
         wrapper = shallow(<Columns { ...props } />);

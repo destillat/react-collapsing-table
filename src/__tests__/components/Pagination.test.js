@@ -33,10 +33,8 @@ describe('Pagination', () => {
             currentPage: 1,
             totalRows: 6,
             rowSize: 5,
-            actions: {
-                nextPage: jest.fn(),
-                previousPage: jest.fn(),
-            }
+            nextPage: jest.fn(),
+            previousPage: jest.fn(),
         };
 
         wrapper = shallow(<Pagination { ...props } />);
@@ -52,10 +50,8 @@ describe('Pagination', () => {
             currentPage: 2,
             totalRows: 10,
             rowSize: 5,
-            actions: {
-                nextPage: jest.fn(),
-                previousPage: jest.fn(),
-            }
+            nextPage: jest.fn(),
+            previousPage: jest.fn(),
         };
 
         wrapper = shallow(<Pagination { ...props } />);

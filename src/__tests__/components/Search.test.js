@@ -12,6 +12,7 @@ describe('Search', () => {
         props = {
             searchRows: jest.fn(),
             clearSearch: jest.fn(),
+            searchString: '',
         };
 
         wrapper = shallow(<Search { ...props } />);
