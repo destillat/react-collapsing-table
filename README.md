@@ -77,7 +77,7 @@ We tried to make each this table easy to make your own and have added a number o
 ### Props
 ##### Rows (default: [])
 This is a list of objects. You can pass more data in than you use and the table will ignorethe extra values passed in.
-##### Columns (default: [])
+##### Columns (default: none as the default soft column value requires that this cannot be empty)
 This is a list of objects that define what data from each row that you want to show the user and where this row should line up.
 
 Each object in this list has the following **required attributes** that define how and when a column should be hidden or what to display to the user.

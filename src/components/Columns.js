@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import { arrayOf, shape, string, func } from 'prop-types';
+import { ColumnsPropType } from '../utils/propTypes';
 //Components
 import Column from './Column';
 
@@ -21,12 +21,6 @@ const Columns = ({ columns, sortRows, sort }) => {
     );
 };
 
-Columns.PropTypes = {
-    columns: arrayOf(shape({
-        accessor: string.isRequired,
-        label: string.isRequired,
-    })),
-    onClick: func,
-};
+Columns.propTypes = ColumnsPropType;
 
 export default Columns

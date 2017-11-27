@@ -1,6 +1,6 @@
 //React
 import React, { Component }  from 'react';
-import { array, arrayOf, shape, string, number, func } from 'prop-types';
+import { TablePropType } from '../utils/propTypes';
 //Components
 import Search from './Search';
 import Columns from './Columns';
@@ -96,7 +96,7 @@ export class Table extends Component {
       const displayedRows = calculateRows({ state: this.state })
       const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
       const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
-      
+
       return (
           <div>
               <Search searchString={ this.state.searchString }
@@ -121,6 +121,6 @@ export class Table extends Component {
     }
 };
 
-Table.PropTypes = {};
+Table.propTypes = TablePropType;
 
 export default Table

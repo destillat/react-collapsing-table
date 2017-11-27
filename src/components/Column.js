@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import { string } from 'prop-types';
+import { ColumnPropType } from '../utils/propTypes';
 //Components
 import { sortDirection } from '../assets/icons/Icon';
 
@@ -15,9 +15,6 @@ const Column = ({ accessor, label, onClick, sort }) => {
     );
 };
 
-Column.PropTypes = {
-    accessor: string.isRequired,
-    label: string.isRequired,
-};
+Column.propTypes = ColumnPropType;
 
 export default Column

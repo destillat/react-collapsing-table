@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import { object, arrayOf, shape, string } from 'prop-types';
+import { ExpandedRowPropType } from '../utils/propTypes';
 //Components
 
 const ExpandedRow = ({ row, columns, colspan }) => {
@@ -18,12 +18,6 @@ const ExpandedRow = ({ row, columns, colspan }) => {
     );
 };
 
-ExpandedRow.PropTypes = {
-    row: object.isRequired,
-    columns: arrayOf(shape({
-        accessor: string.isRequired,
-        label: string.isRequired,
-    }))
-};
+ExpandedRow.propTypes = ExpandedRowPropType;
 
 export default ExpandedRow

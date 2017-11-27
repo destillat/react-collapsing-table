@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import { shape, string, func } from 'prop-types'
+import { SearchPropType } from '../utils/propTypes'
 //Components
 
 const Search = ({ searchString, searchRows, clearSearch }) => {
@@ -12,13 +12,6 @@ const Search = ({ searchString, searchRows, clearSearch }) => {
     );
 };
 
-Search.PropTypes = {
-    searchString: string.isRequired,
-    actions: shape({
-        sortColumn: func.isRequired,
-        previousPage: func.isRequired,
-        nextPage: func.isRequired,
-    })
-};
+Search.propTypes = SearchPropType;
 
 export default Search

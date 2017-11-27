@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import { shape, func, number } from 'prop-types'
+import { PaginationPropType } from '../utils/propTypes'
 //Components
 import { getIcon } from '../assets/icons/Icon';
 
@@ -23,12 +23,6 @@ const Pagination = ({ currentPage, totalRows, rowSize, nextPage, previousPage })
     );
 };
 
-Pagination.PropTypes = {
-    currentPage: number.isRequierd,
-    actions: shape({
-        previousPage: func.isRequired,
-        nextPage: func.isRequired,
-    })
-};
+Pagination.propTypes = PaginationPropType;
 
 export default Pagination
