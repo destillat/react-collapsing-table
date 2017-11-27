@@ -12,6 +12,7 @@
   },
   "scripts": {
     "test": "jest --watch --env=jsdom",
+    "coverage": "jest --coverage",
     "start": "webpack --watch & yarn run storybook",
     "build": "webpack",
     "storybook": "start-storybook -p 6006",
