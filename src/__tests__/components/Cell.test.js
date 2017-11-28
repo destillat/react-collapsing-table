@@ -20,8 +20,13 @@ describe('Cell', () => {
               country: 'India',
               zipCode: '21758-1323',
               bio: 'Et quo iste quo facere sit tenetur deleniti.',
+              isOpen: false,
             },
             accessor: 'firstName',
+            cellIndex: 2,
+            rowIndex: 2,
+            expandRow: jest.fn(),
+            hiddenColumnsLength: 4,
         };
 
         wrapper = shallow(<Cell { ...props } />);

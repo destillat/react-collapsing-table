@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import { object, arrayOf, string, shape } from 'prop-types';
+import { RowPropType } from '../utils/propTypes';
 //Components
 import Cell from './Cell';
 import ExpandedRow from './ExpandedRow';
@@ -17,7 +17,7 @@ const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex }) => {
                      expandRow={ expandRow }
                      hiddenColumnsLength={ hiddenColumnsLength } />
     });
-    
+
     const expandedRow = row.isOpen ?
         <tr className="expanded-row" key='expandedRow'>
             <ExpandedRow row={ row }
@@ -35,12 +35,6 @@ const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex }) => {
     );
 };
 
-Row.PropTypes = {
-    row: object.isRequired,
-    columns: arrayOf(shape({
-        accessor: string.isRequired,
-        label: string.isRequired,
-    }))
-};
+Row.propTypes = RowPropType;
 
 export default Row

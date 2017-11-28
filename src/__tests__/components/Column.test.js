@@ -16,6 +16,7 @@ describe('Column', () => {
             sort: {
                 direction: 'ascending',
                 column: 'lastName',
+                defaultSortColumn: 'email',
             },
         };
 

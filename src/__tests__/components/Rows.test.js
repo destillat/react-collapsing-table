@@ -10,21 +10,27 @@ describe('Rows', () => {
 
     beforeEach(() => {
         props = {
-            rows: [1, 2, 3, 4, 5],
+            rows: [
+              { firstName: 'Paul', }, 
+              { firstName: 'Matt', },
+              { firstName: 'Michelle', },
+              { firstName: 'David', },
+              { firstName: 'Tiffany', }
+            ],
             visibleColumns: [
-                { accessor: 'firstName', label: 'First Name' },
-                { accessor: 'lastName', label: 'Last Name' },
-                { accessor: 'email', label: 'Email' },
-                { accessor: 'address', label: 'Address' },
-                { accessor: 'city', label: 'City' },
-                { accessor: 'state', label: 'State' },
-                { accessor: 'country', label: 'Country' },
+                { accessor: 'firstName', label: 'First Name', isVisible: true, },
+                { accessor: 'lastName', label: 'Last Name', isVisible: true, },
+                { accessor: 'email', label: 'Email', isVisible: true, },
+                { accessor: 'address', label: 'Address', isVisible: true, },
+                { accessor: 'city', label: 'City', isVisible: true, },
+                { accessor: 'state', label: 'State', isVisible: true, },
+                { accessor: 'country', label: 'Country', isVisible: true, },
             ],
             hiddenColumns: [
-                { accessor: 'zipCode', label: 'Zip Code' },
-                { accessor: 'bio', label: 'Bio' },
+                { accessor: 'zipCode', label: 'Zip Code', isVisible: false, },
+                { accessor: 'bio', label: 'Bio', isVisible: false, },
             ],
-            actions: {},
+            expandRow: jest.fn(),
         };
 
         wrapper = shallow(<Rows { ...props } />);

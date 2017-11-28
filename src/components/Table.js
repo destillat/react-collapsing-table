@@ -1,6 +1,6 @@
 //React
 import React, { Component }  from 'react';
-import { array, arrayOf, shape, string, number, func } from 'prop-types';
+import { TablePropType } from '../utils/propTypes';
 //Components
 import Search from './Search';
 import Columns from './Columns';
@@ -121,6 +121,6 @@ export class Table extends Component {
     }
 };
 
-Table.PropTypes = {};
+Table.propTypes = TablePropType;
 
 export default Table

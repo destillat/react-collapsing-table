@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import { array, arrayOf, string, shape } from 'prop-types';
+import { RowsPropType } from '../utils/propTypes';
 //Components
 import Row from './Row';
 
@@ -21,12 +21,6 @@ const Rows = ({ rows, visibleColumns, hiddenColumns, expandRow }) => {
     );
 };
 
-Rows.PropTypes = {
-  rows: array.isRequierd,
-  columns: arrayOf(shape({
-    accessor: string.isRequired,
-    label: string.isRequired,
-  }))
-};
+Rows.propTypes = RowsPropType;
 
 export default Rows
