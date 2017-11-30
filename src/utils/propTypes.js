@@ -49,6 +49,7 @@ export const ExpandedRowPropType = {
     row: object.isRequired,
     columns: Columns.isRequired,
     colspan: number.isRequired,
+    callbacks: object.isRequired,
 };
 
 export const PaginationPropType = {
@@ -65,6 +66,7 @@ export const RowPropType = {
     hiddenColumns: Columns.isRequired,
     expandRow: func.isRequired,
     rowIndex: number.isRequired,
+    callbacks: object.isRequired,
 };
 
 export const RowsPropType = {
@@ -72,6 +74,7 @@ export const RowsPropType = {
     visibleColumns: Columns.isRequired,
     hiddenColumns: Columns.isRequired,
     expandRow: func.isRequired,
+    callbacks: object.isRequired,
 };
 
 export const SearchPropType = {
@@ -88,4 +91,5 @@ export const TablePropType = {
     defaultSortColumn: string,
     column: string,
     direction: string,
+    callbacks: object,
 };

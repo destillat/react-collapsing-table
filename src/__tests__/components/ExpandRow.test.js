@@ -4,6 +4,7 @@ import React from 'react';
 import ExpandedRow from '../../components/ExpandedRow';
 //Testing
 import { shallow, } from 'enzyme';
+import Button from '../../testUtils/components/Button';
 
 describe('ExpandedRow', () => {
     let wrapper, props;
@@ -22,7 +23,7 @@ describe('ExpandedRow', () => {
               bio: 'Et quo iste quo facere sit tenetur deleniti.',
             },
             columns: [
-                { accessor: 'firstName', label: 'First Name', isVisible: true },
+                { accessor: 'firstName', label: 'First Name', isVisible: true, CustomComponent: Button },
                 { accessor: 'lastName', label: 'Last Name', isVisible: true },
                 { accessor: 'email', label: 'Email', isVisible: false },
                 { accessor: 'address', label: 'Address', isVisible: true },
@@ -33,6 +34,7 @@ describe('ExpandedRow', () => {
                 { accessor: 'bio', label: 'Bio', isVisible: true },
             ],
             colspan: 3,
+            callbacks: { firstName: jest.fn() },
         };
 
         wrapper = shallow(<ExpandedRow { ...props } />);
@@ -48,5 +50,11 @@ describe('ExpandedRow', () => {
         const ps = wrapper.find('p');
 
         expect(ps.length).toBe(9);
+    });
+
+    it('should display 1 custom component', () => {
+        const customComponents = wrapper.find('Button');
+
+        expect(customComponents.length).toBe(1);
     });
 });

@@ -65,7 +65,8 @@
       "!**/setupTests.js",
       "!**/tempPolyfills.js",
       "!**/stories/**",
-      "!**/webpack*.js"
+      "!**/webpack*.js",
+      "!**/testUtils/**"
     ],
     "coverageThreshold": {
       "global": {

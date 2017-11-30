@@ -11,7 +11,7 @@ describe('Rows', () => {
     beforeEach(() => {
         props = {
             rows: [
-              { firstName: 'Paul', }, 
+              { firstName: 'Paul', },
               { firstName: 'Matt', },
               { firstName: 'Michelle', },
               { firstName: 'David', },
@@ -31,6 +31,7 @@ describe('Rows', () => {
                 { accessor: 'bio', label: 'Bio', isVisible: false, },
             ],
             expandRow: jest.fn(),
+            callbacks: {},
         };
 
         wrapper = shallow(<Rows { ...props } />);

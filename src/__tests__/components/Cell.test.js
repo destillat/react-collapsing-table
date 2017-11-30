@@ -2,6 +2,7 @@
 import React from 'react';
 //Component
 import Cell from '../../components/Cell';
+import Button from '../../testUtils/components/Button';
 //Testing
 import { shallow, } from 'enzyme';
 
@@ -36,5 +37,13 @@ describe('Cell', () => {
         const tds = wrapper.find('td');
 
         expect(tds.length).toBe(1);
+    });
+
+    it('should render 1 custom component', () => {
+        props = { ...props, CustomComponent: Button, CustomFunction: jest.fn }
+        wrapper = shallow(<Cell { ...props } />);
+        const customComponents = wrapper.find('Button');
+
+        expect(customComponents.length).toBe(1);
     });
 });
