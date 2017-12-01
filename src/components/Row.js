@@ -5,23 +5,26 @@ import { RowPropType } from '../utils/propTypes';
 import Cell from './Cell';
 import ExpandedRow from './ExpandedRow';
 
-const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex }) => {
+const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callbacks }) => {
     const hiddenColumnsLength = hiddenColumns.length;
 
-    const cells = visibleColumns.map(({ accessor }, index) => {
+    const cells = visibleColumns.map(({ accessor, CustomComponent }, index) => {
         return <Cell key={ accessor }
                      row={ row }
                      rowIndex={ rowIndex }
                      cellIndex={ index }
                      accessor={ accessor }
                      expandRow={ expandRow }
-                     hiddenColumnsLength={ hiddenColumnsLength } />
+                     hiddenColumnsLength={ hiddenColumnsLength }
+                     CustomComponent={ CustomComponent }
+                     CustomFunction={ callbacks[accessor] } />
     });
 
     const expandedRow = row.isOpen ?
         <tr className="expanded-row" key='expandedRow'>
             <ExpandedRow row={ row }
                          columns={ hiddenColumns }
+                         callbacks={ callbacks }
                          colspan={ visibleColumns.length } />
         </tr> : null;
 

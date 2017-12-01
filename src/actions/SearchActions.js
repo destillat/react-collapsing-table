@@ -45,13 +45,17 @@ export const searchRow = ({ row, upperCaseSearchString, columns }) => {
 
 //TODO: handle more than strings
 export const checkForSearchTerm = ({ key, value, upperCaseSearchString }) => {
-  let indexes;
-  if (value === undefined) return { anyIndexes: false, newRowValue: '' }
-  let rowValue = value;
-  const currentCell = rowValue.toUpperCase();
-  indexes = indexesOf(upperCaseSearchString).in(currentCell);
-  const { anyIndexes, newRowValue } = tryToInsertSpan({ indexes, rowValue: value, searchString: upperCaseSearchString });
-  return { anyIndexes, newRowValue }
+  try {
+    let indexes;
+    if (value === undefined) return { anyIndexes: false, newRowValue: '' }
+    let rowValue = value;
+    const currentCell = rowValue.toUpperCase();
+    indexes = indexesOf(upperCaseSearchString).in(currentCell);
+    const { anyIndexes, newRowValue } = tryToInsertSpan({ indexes, rowValue: value, searchString: upperCaseSearchString });
+    return { anyIndexes, newRowValue }
+  } catch(error) {
+    return { anyIndexes: false, newRowValue: '' }
+  }
 };
 
 export const tryToInsertSpan = ({ indexes, rowValue, searchString }) => {

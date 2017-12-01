@@ -23,7 +23,8 @@ export class Table extends Component {
             return prev.priorityLevel < curr.priorityLevel ? prev : curr;
         }).accessor,
         column = defaultSortColumn,
-        direction = 'ascending'
+        direction = 'ascending',
+        callbacks = {},
       } = props;
 
       this.state = {
@@ -39,7 +40,8 @@ export class Table extends Component {
           defaultSortColumn,
           column,
           direction,
-        }
+        },
+        callbacks,
       }
 
       this.resizeTable = this.resizeTable.bind(this);
@@ -57,6 +59,10 @@ export class Table extends Component {
 
     componentDidMount(){
         this.resizeTable();
+    }
+
+    componentWillReceiveProps({ rows }){
+        this.setState({ ...this.state, initialRows: _.cloneDeep(rows), rows: _.cloneDeep(rows), })
     }
 
     componentWillUnmount() {
@@ -92,11 +98,11 @@ export class Table extends Component {
     }
 
     render(){
-      const { columns, pagination: { currentPage, rowSize }, rows, } = this.state;
+      const { columns, pagination: { currentPage, rowSize }, rows, callbacks } = this.state;
       const displayedRows = calculateRows({ state: this.state })
       const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
       const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
-      
+
       return (
           <div>
               <Search searchString={ this.state.searchString }
@@ -109,7 +115,8 @@ export class Table extends Component {
                   <Rows rows={ displayedRows }
                         visibleColumns={ visibleColumns }
                         hiddenColumns={ hiddenColumns }
-                        expandRow={ this.expandRow } />
+                        expandRow={ this.expandRow }
+                        callbacks={ callbacks } />
               </table>
               <Pagination currentPage={ currentPage }
                           totalRows={ rows.length }

@@ -280,6 +280,13 @@ describe('Search Actions', () => {
       expect(actions.checkForSearchTerm(given)).toEqual(expected);
   });
 
+  it('should catch and handle any non string', () => {
+      const given = { key: 'date', value: { d: '28', m: '05', y: '1992' }, upperCaseSearchString: 'MATT'};
+      const expected = { anyIndexes: false, newRowValue: '' };
+
+      expect(actions.checkForSearchTerm(given)).toEqual(expected);
+  });
+
   //TRY TO INSERT
   it('should insert a span opening and closing tag for one found results', () => {
       const given = { indexes: [1], rowValue: 'Paul', searchString: 'a' };

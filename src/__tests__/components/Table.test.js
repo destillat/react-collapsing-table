@@ -124,4 +124,17 @@ describe('Table', () => {
       expect(didMount).toHaveBeenCalled();
       expect(willUnmount).toHaveBeenCalled();
     })
+
+    it('should test that when new params are passed they are set', () => {
+      const willReceiveProps = jest.spyOn(Table.prototype, 'componentWillReceiveProps');
+
+      wrapper = mount(<Table { ...props } />);
+      instance = wrapper.instance();
+
+      wrapper.setProps({ rows: [] });
+
+      expect(wrapper.state().initialRows.length).toBe(0);
+      expect(wrapper.state().rows.length).toBe(0);
+      expect(willReceiveProps).toHaveBeenCalled();
+    })
 });

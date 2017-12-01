@@ -1,4 +1,6 @@
 import faker from 'faker';
+import Button from './button';
+import Link from './link';
 
 export const generateFakeData = ({ totalRows }) => {
     let data = [];
@@ -21,6 +23,14 @@ export const generateFakeData = ({ totalRows }) => {
     return data
 };
 
+const onClickPressed = ({ rowIndex, cellIndex }) => {
+  console.log(`hi there from row ${rowIndex + 1} and cell ${cellIndex + 1}`);
+};
+
+const linkUrl = () => {
+  return 'https://www.google.com/';
+}
+
 export const getColumns = () => {
     return [
         { accessor: 'firstName', label: 'First Name', priorityLevel: 1, position: 1, minWidth: 150, },
@@ -31,6 +41,20 @@ export const getColumns = () => {
         { accessor: 'state', label: 'State', priorityLevel: 6, position: 6, minWidth: 100, },
         { accessor: 'country', label: 'Country', priorityLevel: 8, position: 7, minWidth: 120, },
         { accessor: 'zipCode', label: 'Zip Code', priorityLevel: 7, position: 8, minWidth: 50, },
+        { accessor: 'bio', label: 'Bio', priorityLevel: 5, position: 9, minWidth: 300, },
+    ]
+};
+
+export const getColumnsCustomComponents = () => {
+    return [
+        { accessor: 'firstName', label: 'First Name', priorityLevel: 1, position: 1, minWidth: 150, },
+        { accessor: 'lastName', label: 'Last Name', priorityLevel: 7, position: 2, minWidth: 150, },
+        { accessor: 'email', label: 'Email', priorityLevel: 3, position: 3, minWidth: 250, CustomComponent: Button, },
+        { accessor: 'address', label: 'Address', priorityLevel: 4, position: 4, minWidth: 150, },
+        { accessor: 'city', label: 'City', priorityLevel: 9, position: 5, minWidth: 120, },
+        { accessor: 'state', label: 'State', priorityLevel: 6, position: 6, minWidth: 100, },
+        { accessor: 'country', label: 'Country', priorityLevel: 8, position: 7, minWidth: 120, },
+        { accessor: 'zipCode', label: 'Zip Code', priorityLevel: 2, position: 8, minWidth: 50, CustomComponent: Link, },
         { accessor: 'bio', label: 'Bio', priorityLevel: 5, position: 9, minWidth: 300, },
     ]
 };
@@ -51,4 +75,16 @@ export const sortColumnAndDirectionProps = {
     rows: generateFakeData({ totalRows: 1000 }),
     column: 'firstName',
     direction: 'ascending',
+}
+
+export const rowSizeProps = {
+  columns: getColumns(),
+  rows: generateFakeData({ totalRows: 1000 }),
+  rowSize: 25,
+}
+
+export const customComponentProps = {
+  columns: getColumnsCustomComponents(),
+  rows: generateFakeData({ totalRows: 1000 }),
+  callbacks: { email: onClickPressed, zipCode: linkUrl }
 }
