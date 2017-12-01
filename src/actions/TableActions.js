@@ -21,7 +21,7 @@ export const calculateRows = ({ state }) => {
 export const sortColumn = ({ column, state }) => {
     const { sortedColumn, sortedDirection } = changeSortFieldAndDirection({ newColumn: column, state });
     state = { ...state, sort: { ...state.sort, column: sortedColumn, direction: sortedDirection } };
-    const { sortedRows } = changeRowOrder({ column, state });
+    const { sortedRows } = changeRowOrder({ column: sortedColumn, state });
     return { ...state, rows: sortedRows };
 };
 
