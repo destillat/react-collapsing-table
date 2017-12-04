@@ -1,4 +1,10 @@
 language: node_js
 node_js:
-  - "6"
+- '6'
 script: npm run coverage
+deploy:
+  api_key:
+    secure: J4riSpoffyY+EPXTDpDW9fzyhLOxMUVtfd/OEilBQc3RPaJmo8dB3kQ60hRGD3e4l84wS0ySr1ZqMLDgut8Xv2+mpXDAmhrYodKT6FSjBohsmLZBFITzuGS2tSpFXQvs6f1g/N1f8xo/vzpNU2mdxtyM1KAhbLm0Z/MtOZ3YJAdEcoEYGPiW9TJ5vVyjvW8wUWzDc/eKiosiv8d/jVsYlBc3wNwDu1fXhqZOIpWf9OgQzbnzt/saVVFmbKCZALhjocGtXQhXfM+IO3oHkQN+lPaqNlwiIqeCXsu93/T37O3cOfg8z8chL6WDKKaiO56nsGL8mRsrZb6pjv72kowqdxUZNY3yJlnZLKZkIVhSx8SlZ9GxyQ6UpTYoOqiCY+e0l26QlaoGwymdabxd4uNObGLaYLZMmct44Y8xKPN2Iei5EPwY71iMae1SxwZM94qcYpaiiojGZSP5Fw8CPUh35sMnZ+6G/Gl2mzgpRS7L+XiA0KsIeUYtNBJBkaIn49eWiiOD53hgpZdXzi04W/9EoCL7HR3JRaQ/Aii4ctFZW5NaFFwIH6yJ61dHpRui6SZEQECpVmAR0uao3d1PXWFRt2dY1kD5p/vTNj9/Tmv6nJS9I+zWpWTPJXBRXJ+Fy+AUz4G/gqgYKsw+xs36CYtqMkYXgXFWMbhNHK/PtRJ3uN4=
+  on:
+  
+    branch: master
