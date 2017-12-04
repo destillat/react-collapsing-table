@@ -2,5 +2,3 @@
 /src
 /stories
 .travis.yml
-webpack.config.js
-.babelrc
