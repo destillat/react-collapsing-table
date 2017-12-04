@@ -209,6 +209,46 @@ describe('Search Actions', () => {
       expect(actions.searchRows(given)).toEqual(expected);
   });
 
+    it('should not change anything when an empty string is entered', () => {
+        const given = {
+            state: {
+                columns: [
+                    { accessor: 'firstName' },
+                    { accessor: 'lastName' },
+                ],
+                initialRows: [
+                    { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                    { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                    { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+                ],
+                rows: [
+                    { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                    { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                    { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+                ],
+            },
+            searchString: '',
+        };
+        const expected = {
+            searchString: '',
+            columns: [
+                { accessor: 'firstName' },
+                { accessor: 'lastName' },
+            ],
+            initialRows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
+            rows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
+        };
+        expect(actions.searchRows(given)).toEqual(expected);
+    });
+
   //SEARCH ROW
   it('should should find no search row attributes that match the search criteria', () => {
       const given = {

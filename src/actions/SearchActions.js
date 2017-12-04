@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
-export const length = (x) => x.length
-export const sum = (a, b) => a+b
+export const length = (x) => x.length;
+export const sum = (a, b) => a+b;
 export const indexesOf = (substr) => ({
   in: (str) => (
     str
@@ -18,20 +18,22 @@ export const indexesOf = (substr) => ({
 
 export const insert = (str, index, value) => {
     return str.substr(0, index) + value + str.substr(index);
-}
+};
 
 export const searchRows = ({ searchString, state }) => {
   let rows = _.cloneDeep(state.initialRows);
-  const { columns } = state;
-  const upperCaseSearchString = searchString.toUpperCase();
+  if(searchString !== '' ) {
+      const {columns} = state;
+      const upperCaseSearchString = searchString.toUpperCase();
 
-  rows = rows.filter( row => {
-    const { flag, updatedRow } = searchRow({ row, upperCaseSearchString, columns })
+      rows = rows.filter(row => {
+          const {flag, updatedRow} = searchRow({row, upperCaseSearchString, columns})
 
-    return flag ? updatedRow : false;
-    });
+          return flag ? updatedRow : false;
+      });
+  }
   return { ...state, searchString, rows };
-}
+};
 
 export const searchRow = ({ row, upperCaseSearchString, columns }) => {
   let flag = false;
@@ -67,7 +69,7 @@ export const tryToInsertSpan = ({ indexes, rowValue, searchString }) => {
     return { anyIndexes: true, newRowValue: rowValue }
   }
   return { anyIndexes: false, newRowValue: rowValue }
-}
+};
 
 export const clearSearch = ({ state }) => {
     return {
