@@ -3,10 +3,10 @@ const _ = require('lodash');
 //What rows should be displayed?
 export const calculateRows = ({ state }) => {
     const {
-      rows,
-      pagination: { currentPage, rowSize }
+        rows,
+        pagination: { currentPage, rowSize }
     } = state;
-    let selectedRows = []
+    let selectedRows = [];
     //pagination
     if( rows.length > 0 ) {
         const startingPoint = ((currentPage - 1) * rowSize);
@@ -77,23 +77,23 @@ export const changeRowOrder = ({ column, state }) => {
 };
 
 export const dynamicSort = ({ column }) => {
-  return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
+    return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
 };
 
 //Pagination
 export const nextPage = ({ state }) => {
-   return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage + 1 } }
+    return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage + 1 } }
 };
 
 export const previousPage = ({ state }) => {
-   return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage - 1 } }
+    return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage - 1 } }
 };
 
 //Hide or Show Rows
 export const expandRow = ({ rowIndex, state }) => {
-  const actualIndex = rowIndex + ((state.pagination.currentPage - 1) * state.pagination.rowSize);
-  const newRows = state.rows.map((row, index) => {
-       return (index === actualIndex) ? { ...row, isOpen: !row.isOpen } : row
-    })
+    const actualIndex = rowIndex + ((state.pagination.currentPage - 1) * state.pagination.rowSize);
+    const newRows = state.rows.map((row, index) => {
+        return (index === actualIndex) ? { ...row, isOpen: !row.isOpen } : row
+    });
     return { ...state, rows: newRows };
 };
