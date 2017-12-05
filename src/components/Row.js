@@ -20,21 +20,10 @@ const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callback
                      CustomFunction={ callbacks[accessor] } />
     });
 
-    const expandedRow = row.isOpen ?
-        <tr className="expanded-row" key='expandedRow'>
-            <ExpandedRow row={ row }
-                         columns={ hiddenColumns }
-                         callbacks={ callbacks }
-                         colspan={ visibleColumns.length } />
-        </tr> : null;
-
     return (
-        [
             <tr key='normalRow'>
                 { cells }
-            </tr>,
-            expandedRow
-        ]
+            </tr>
     );
 };
 
