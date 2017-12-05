@@ -32,7 +32,7 @@ export const searchRows = ({ searchString, state }) => {
           return flag ? updatedRow : false;
       });
   }
-  return { ...state, searchString, rows };
+  return { ...state, searchString, rows, pagination: { ...state.pagination, currentPage: 1 } };
 };
 
 export const searchRow = ({ row, upperCaseSearchString, columns }) => {

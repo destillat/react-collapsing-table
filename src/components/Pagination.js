@@ -5,7 +5,7 @@ import { PaginationPropType } from '../utils/propTypes'
 import { getIcon } from '../assets/icons/Icon';
 
 const Pagination = ({ currentPage, totalRows, rowSize, nextPage, previousPage }) => {
-    const totalPages = Math.ceil(totalRows / rowSize)
+    const totalPages = totalRows === 0 ? 1 : Math.ceil(totalRows / rowSize);
 
     const previousPageIcon = currentPage > 1 ?
         getIcon({ name: 'leftChevron', onClick: previousPage }) : null;
