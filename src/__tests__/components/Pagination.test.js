@@ -28,6 +28,15 @@ describe('Pagination', () => {
         expect(chevronRights.length).toBe(1);
     });
 
+    it('should not display 0 as the total number of pages', () => {
+        props = { ...props, totalRows: 0, currentPage: 1 };
+        wrapper = shallow(<Pagination { ...props } />);
+        console.log(wrapper.debug());
+        const content = wrapper.find('p').first().text();
+
+        expect(content).toBe('Page 1 of 1');
+    });
+
     it('should display the page with only the next arrows', () => {
         props = {
             currentPage: 1,
