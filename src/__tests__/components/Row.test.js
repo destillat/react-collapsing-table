@@ -54,20 +54,4 @@ describe('Row', () => {
 
         expect(cells.length).toBe(1);
     });
-
-    it('should have 2 table rows when the row has been expanded', () => {
-        props = { ...props, row: { ...props.row, isOpen: true } };
-        wrapper = mount(<Row { ...props } />);
-        const cells = wrapper.find('tr');
-
-        expect(cells.length).toBe(2);
-    });
-
-    it('should show 2 columns that were hidden', () => {
-        props = { ...props, row: { ...props.row, isOpen: true } };
-        wrapper = mount(<Row { ...props } />);
-        const cells = wrapper.find('p');
-
-        expect(cells.length).toBe(2);
-    });
 });
