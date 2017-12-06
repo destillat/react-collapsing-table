@@ -102,7 +102,6 @@ export class Table extends Component {
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
         const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
 
-        console.log(this.state);
         return (
             <div>
                 <Search searchString={ this.state.searchString }
