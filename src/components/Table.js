@@ -24,6 +24,8 @@ export class Table extends Component {
             }).accessor,
             direction = 'ascending',
             callbacks = {},
+            showSearch = true,
+            showPagination = true,
         } = props;
 
         this.state = {
@@ -39,6 +41,8 @@ export class Table extends Component {
                 direction,
             },
             callbacks,
+            showSearch,
+            showPagination,
         };
 
         this.resizeTable = this.resizeTable.bind(this);
@@ -95,16 +99,23 @@ export class Table extends Component {
     }
 
     render(){
-        const { columns, pagination: { currentPage, rowSize }, rows, callbacks } = this.state;
+        const { columns, pagination: { currentPage, rowSize }, rows, callbacks, showSearch, showPagination } = this.state;
         const displayedRows = calculateRows({ state: this.state });
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
         const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
 
+        const PaginationComponent = showPagination && <Pagination currentPage={ currentPage }
+                                        totalRows={ rows.length }
+                                        rowSize={ rowSize }
+                                        nextPage={ this.nextPage }
+                                        previousPage={ this.previousPage } />;
+        const SearchComponent = showSearch && <Search searchString={ this.state.searchString }
+                                                      searchRows={ this.searchRows }
+                                                      clearSearch={ this.clearSearch } />;
+
         return (
             <div>
-                <Search searchString={ this.state.searchString }
-                        searchRows={ this.searchRows }
-                        clearSearch={ this.clearSearch } />
+                { SearchComponent }
                 <table className="react-collapsible">
                     <Columns columns={ visibleColumns }
                              sortRows={ this.sortRows }
@@ -115,11 +126,7 @@ export class Table extends Component {
                           expandRow={ this.expandRow }
                           callbacks={ callbacks } />
                 </table>
-                <Pagination currentPage={ currentPage }
-                            totalRows={ rows.length }
-                            rowSize={ rowSize }
-                            nextPage={ this.nextPage }
-                            previousPage={ this.previousPage } />
+                { PaginationComponent }
             </div>
         );
     }

@@ -46,8 +46,8 @@ describe('Table', () => {
         instance = wrapper.instance();
     });
 
-    it('should have all of the basic table components', () => {
-        wrapper = mount(<Table { ...props }/>)
+    it('should have all of the basic default table components', () => {
+        wrapper = mount(<Table { ...props }/>);
         const searches = wrapper.find('Search');
         const columns = wrapper.find('Columns');
         const rows = wrapper.find('Rows');
@@ -57,6 +57,40 @@ describe('Table', () => {
         expect(rows.length).toBe(1);
         expect(columns.length).toBe(1);
         expect(searches.length).toBe(1);
+    });
+
+    it('should render Search component', () => {
+        props = { ...props, showSearch: true };
+        wrapper = shallow(<Table { ...props }/>);
+        const searches = wrapper.find('Search');
+
+        expect(searches.length).toBe(1);
+    });
+
+    it('should render Pagination component', () => {
+        props = { ...props, showPagination: true };
+        wrapper = shallow(<Table { ...props }/>);
+
+        const paginations = wrapper.find('Pagination');
+
+        expect(paginations.length).toBe(1);
+    });
+
+    it('should not render Search component', () => {
+        props = { ...props, showSearch: false };
+        wrapper = shallow(<Table { ...props }/>);
+        const searches = wrapper.find('Search');
+
+        expect(searches.length).toBe(0);
+    });
+
+    it('should not render Pagination component', () => {
+        props = { ...props, showPagination: false };
+        wrapper = shallow(<Table { ...props }/>);
+
+        const paginations = wrapper.find('Pagination');
+
+        expect(paginations.length).toBe(0);
     });
 
     it('should render correctly with no rows', () => {
@@ -69,7 +103,7 @@ describe('Table', () => {
                 { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
             ],
         };
-        wrapper = mount(<Table { ...props }/>)
+        wrapper = mount(<Table { ...props }/>);
         const searches = wrapper.find('Search');
         const columns = wrapper.find('Columns');
         const rows = wrapper.find('Rows');
