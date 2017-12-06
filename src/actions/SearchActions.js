@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import cloneDeep from 'lodash.clonedeep';
 
 export const length = (x) => x.length;
 export const sum = (a, b) => a+b;
@@ -21,7 +21,7 @@ export const insert = (str, index, value) => {
 };
 
 export const searchRows = ({ searchString, state }) => {
-  let rows = _.cloneDeep(state.initialRows);
+  let rows = cloneDeep(state.initialRows);
   if(searchString !== '' ) {
       const {columns} = state;
       const upperCaseSearchString = searchString.toUpperCase();
@@ -49,7 +49,7 @@ export const searchRow = ({ row, upperCaseSearchString, columns }) => {
 export const checkForSearchTerm = ({ key, value, upperCaseSearchString }) => {
   try {
     let indexes;
-    if (value === undefined) return { anyIndexes: false, newRowValue: '' }
+    if (value === undefined) return { anyIndexes: false, newRowValue: '' };
     let rowValue = value;
     const currentCell = rowValue.toUpperCase();
     indexes = indexesOf(upperCaseSearchString).in(currentCell);
@@ -63,7 +63,7 @@ export const checkForSearchTerm = ({ key, value, upperCaseSearchString }) => {
 export const tryToInsertSpan = ({ indexes, rowValue, searchString }) => {
   if( indexes.length > 0){
     for(let i = indexes.length -1; i >= 0; i--){
-      rowValue = insert(rowValue, indexes[i] + searchString.length, '</span>')
+      rowValue = insert(rowValue, indexes[i] + searchString.length, '</span>');
       rowValue = insert(rowValue, indexes[i], '<span class="highlight">')
     }
     return { anyIndexes: true, newRowValue: rowValue }
@@ -75,7 +75,7 @@ export const clearSearch = ({ state }) => {
     return {
       ...state,
       searchString: '',
-      rows: _.cloneDeep(state.initialRows),
+      rows: cloneDeep(state.initialRows),
       pagination: { ...state.pagination, currentPage: 1, }
     };
 };

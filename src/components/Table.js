@@ -9,7 +9,8 @@ import Pagination from './Pagination';
 import { calculateRows, sortColumn, nextPage, previousPage, expandRow } from '../actions/TableActions'
 import { resizeTable } from '../actions/ResizeTableActions'
 import { searchRows, clearSearch } from '../actions/SearchActions';
-const _ = require('lodash');
+import throttle from 'lodash.throttle';
+import cloneDeep from 'lodash.clonedeep';
 
 export class Table extends Component {
     constructor(props) {
@@ -29,8 +30,8 @@ export class Table extends Component {
 
         this.state = {
             columns: columns.map(column => { return { ...column, isVisible: true } }),
-            initialRows: _.cloneDeep(rows),
-            rows: _.cloneDeep(rows),
+            initialRows: cloneDeep(rows),
+            rows: cloneDeep(rows),
             searchString: '',
             pagination: {
                 rowSize,
@@ -54,7 +55,7 @@ export class Table extends Component {
     }
 
     componentWillMount(){
-        window.addEventListener('resize', _.throttle(this.resizeTable, 150));
+        window.addEventListener('resize', throttle(this.resizeTable, 150));
     }
 
     componentDidMount(){
@@ -62,7 +63,7 @@ export class Table extends Component {
     }
 
     componentWillReceiveProps({ rows }){
-        this.setState({ ...this.state, initialRows: _.cloneDeep(rows), rows: _.cloneDeep(rows), })
+        this.setState({ ...this.state, initialRows: cloneDeep(rows), rows: cloneDeep(rows), })
     }
 
     componentWillUnmount() {
