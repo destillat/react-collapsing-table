@@ -1,4 +1,6 @@
 var path = require('path');
+var webpack = require('webpack');
+
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: './src/index.js',
@@ -36,5 +38,14 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin("react-table.css"),
+        new webpack.DefinePlugin({
+            // A common mistake is not stringifying the "production" string.
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
     ]
 };

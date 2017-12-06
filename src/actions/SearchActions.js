@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 export const length = (x) => x.length;
 export const sum = (a, b) => a+b;
 export const indexesOf = (substr) => ({
@@ -20,14 +18,14 @@ export const insert = (str, index, value) => {
     return str.substr(0, index) + value + str.substr(index);
 };
 
-export const searchRows = ({ searchString, state }) => {
-  let rows = _.cloneDeep(state.initialRows);
+export const searchRows = ({ searchString, state, initialRows=[] }) => {
+  let rows = initialRows;
   if(searchString !== '' ) {
       const {columns} = state;
       const upperCaseSearchString = searchString.toUpperCase();
 
       rows = rows.filter(row => {
-          const {flag, updatedRow} = searchRow({row, upperCaseSearchString, columns})
+          const {flag, updatedRow} = searchRow({row, upperCaseSearchString, columns});
 
           return flag ? updatedRow : false;
       });
@@ -49,7 +47,7 @@ export const searchRow = ({ row, upperCaseSearchString, columns }) => {
 export const checkForSearchTerm = ({ key, value, upperCaseSearchString }) => {
   try {
     let indexes;
-    if (value === undefined) return { anyIndexes: false, newRowValue: '' }
+    if (value === undefined) return { anyIndexes: false, newRowValue: '' };
     let rowValue = value;
     const currentCell = rowValue.toUpperCase();
     indexes = indexesOf(upperCaseSearchString).in(currentCell);
@@ -63,7 +61,7 @@ export const checkForSearchTerm = ({ key, value, upperCaseSearchString }) => {
 export const tryToInsertSpan = ({ indexes, rowValue, searchString }) => {
   if( indexes.length > 0){
     for(let i = indexes.length -1; i >= 0; i--){
-      rowValue = insert(rowValue, indexes[i] + searchString.length, '</span>')
+      rowValue = insert(rowValue, indexes[i] + searchString.length, '</span>');
       rowValue = insert(rowValue, indexes[i], '<span class="highlight">')
     }
     return { anyIndexes: true, newRowValue: rowValue }
@@ -71,11 +69,11 @@ export const tryToInsertSpan = ({ indexes, rowValue, searchString }) => {
   return { anyIndexes: false, newRowValue: rowValue }
 };
 
-export const clearSearch = ({ state }) => {
+export const clearSearch = ({ state, initialRows=[] }) => {
     return {
       ...state,
       searchString: '',
-      rows: _.cloneDeep(state.initialRows),
+      rows: initialRows,
       pagination: { ...state.pagination, currentPage: 1, }
     };
 };

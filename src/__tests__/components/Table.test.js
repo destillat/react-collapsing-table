@@ -13,24 +13,24 @@ describe('Table', () => {
 
     beforeEach(() => {
         props = {
-          sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
-          pagination: { currentPage: 1, rowSize: 5, },
-          columns: [
-            { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
-            { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
-            { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
-          ],
-          initialRows: [
-            { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-            { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-            { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-          ],
-          rows: [
-            { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-            { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-            { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-          ],
-      };
+            sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
+            pagination: { currentPage: 1, rowSize: 5, },
+            columns: [
+                { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
+                { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
+                { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
+            ],
+            initialRows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
+            rows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
+        };
 
         searchActions.clearSearch = jest.fn();
         searchActions.searchRows = jest.fn();
@@ -61,13 +61,13 @@ describe('Table', () => {
 
     it('should render correctly with no rows', () => {
         props = {
-          sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
-          pagination: { currentPage: 1, rowSize: 5, },
-          columns: [
-            { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
-            { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
-            { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
-          ],
+            sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
+            pagination: { currentPage: 1, rowSize: 5, },
+            columns: [
+                { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
+                { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
+                { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
+            ],
         };
         wrapper = mount(<Table { ...props }/>)
         const searches = wrapper.find('Search');
@@ -109,32 +109,31 @@ describe('Table', () => {
     });
 
     it('should test that the mounting and unmounting of the component is called', () => {
-      const willMount = jest.spyOn(Table.prototype, 'componentWillMount');
-      const didMount = jest.spyOn(Table.prototype, 'componentDidMount');
-      const willUnmount = jest.spyOn(Table.prototype, 'componentWillUnmount');
+        const willMount = jest.spyOn(Table.prototype, 'componentWillMount');
+        const didMount = jest.spyOn(Table.prototype, 'componentDidMount');
+        const willUnmount = jest.spyOn(Table.prototype, 'componentWillUnmount');
 
-      wrapper = mount(<Table { ...props } />);
-      instance = wrapper.instance();
+        wrapper = mount(<Table { ...props } />);
+        instance = wrapper.instance();
 
-      expect(willMount).toHaveBeenCalled();
-      expect(didMount).toHaveBeenCalled();
-      expect(willUnmount.mock.calls).toEqual([]);
-      wrapper.unmount();
-      expect(willMount).toHaveBeenCalled();
-      expect(didMount).toHaveBeenCalled();
-      expect(willUnmount).toHaveBeenCalled();
-    })
+        expect(willMount).toHaveBeenCalled();
+        expect(didMount).toHaveBeenCalled();
+        expect(willUnmount.mock.calls).toEqual([]);
+        wrapper.unmount();
+        expect(willMount).toHaveBeenCalled();
+        expect(didMount).toHaveBeenCalled();
+        expect(willUnmount).toHaveBeenCalled();
+    });
 
     it('should test that when new params are passed they are set', () => {
-      const willReceiveProps = jest.spyOn(Table.prototype, 'componentWillReceiveProps');
+        const willReceiveProps = jest.spyOn(Table.prototype, 'componentWillReceiveProps');
 
-      wrapper = mount(<Table { ...props } />);
-      instance = wrapper.instance();
+        wrapper = mount(<Table { ...props } />);
+        instance = wrapper.instance();
 
-      wrapper.setProps({ rows: [] });
+        wrapper.setProps({ rows: [] });
 
-      expect(wrapper.state().initialRows.length).toBe(0);
-      expect(wrapper.state().rows.length).toBe(0);
-      expect(willReceiveProps).toHaveBeenCalled();
+        expect(wrapper.state().rows.length).toBe(0);
+        expect(willReceiveProps).toHaveBeenCalled();
     })
 });

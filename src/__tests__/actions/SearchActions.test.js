@@ -65,11 +65,6 @@ describe('Search Actions', () => {
                     { accessor: 'firstName' },
                     { accessor: 'lastName' },
                 ],
-                initialRows: [
-                    { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                    { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                    { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-                ],
                 rows: [
                     { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -78,17 +73,17 @@ describe('Search Actions', () => {
                 pagination: { currentPage: 1 }
             },
             searchString: 'matthew',
+            initialRows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
         };
         const expected = {
             searchString: 'matthew',
             columns: [
                 { accessor: 'firstName' },
                 { accessor: 'lastName' },
-            ],
-            initialRows: [
-                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
             ],
             rows: [],
             pagination: { currentPage: 1 }
@@ -103,11 +98,6 @@ describe('Search Actions', () => {
                     { accessor: 'firstName' },
                     { accessor: 'lastName' },
                 ],
-                initialRows: [
-                    { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                    { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                    { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-                ],
                 rows: [
                     { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -115,7 +105,12 @@ describe('Search Actions', () => {
                 ],
             },
             searchString: 'g',
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1 },
+            initialRows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
         };
         const expected = {
             searchString: 'g',
@@ -123,11 +118,7 @@ describe('Search Actions', () => {
                 { accessor: 'firstName' },
                 { accessor: 'lastName' },
             ],
-            initialRows: [
-                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-            ],
+
             rows: [
                 { firstName: 'Paul', lastName: 'Darra<span class="highlight">g</span>h', isOpen: true },
             ],
@@ -143,11 +134,6 @@ describe('Search Actions', () => {
                     { accessor: 'firstName' },
                     { accessor: 'lastName' },
                 ],
-                initialRows: [
-                    { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                    { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                    { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-                ],
                 rows: [
                     { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -156,17 +142,17 @@ describe('Search Actions', () => {
                 pagination: { currentPage: 1 }
             },
             searchString: 'm',
+            initialRows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
         };
         const expected = {
             searchString: 'm',
             columns: [
                 { accessor: 'firstName' },
                 { accessor: 'lastName' },
-            ],
-            initialRows: [
-                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
             ],
             rows: [
                 { firstName: '<span class="highlight">M</span>att', lastName: 'S<span class="highlight">m</span>ith', isOpen: true },
@@ -184,11 +170,6 @@ describe('Search Actions', () => {
                     { accessor: 'firstName' },
                     { accessor: 'lastName' },
                 ],
-                initialRows: [
-                    { firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
-                    { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
-                    { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },
-                ],
                 rows: [
                     { firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
                     { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
@@ -196,18 +177,18 @@ describe('Search Actions', () => {
                 ],
             },
             searchString: 'W',
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1 },
+            initialRows: [
+                { firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
+                { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
+                { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },
+            ],
         };
         const expected = {
             searchString: 'W',
             columns: [
                 { accessor: 'firstName' },
                 { accessor: 'lastName' },
-            ],
-            initialRows: [
-                { firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
-                { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
-                { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },
             ],
             rows: [
                 { firstName: '<span class="highlight">W</span>inston', lastName: 'Smith', email: 'smith@gmail.com' },
@@ -224,11 +205,6 @@ describe('Search Actions', () => {
                     { accessor: 'firstName' },
                     { accessor: 'lastName' },
                 ],
-                initialRows: [
-                    { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                    { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                    { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-                ],
                 rows: [
                     { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -236,18 +212,18 @@ describe('Search Actions', () => {
                 ],
             },
             searchString: '',
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1 },
+            initialRows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
         };
         const expected = {
             searchString: '',
             columns: [
                 { accessor: 'firstName' },
                 { accessor: 'lastName' },
-            ],
-            initialRows: [
-                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
             ],
             rows: [
                 { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
@@ -266,10 +242,42 @@ describe('Search Actions', () => {
                     { accessor: 'firstName' },
                     { accessor: 'lastName' },
                 ],
-                initialRows: [
+                rows: [
                     { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                     { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+                ],
+            },
+            searchString: '',
+            pagination: { currentPage: 4 },
+            initialRows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
+        };
+        const expected = {
+            searchString: '',
+            columns: [
+                { accessor: 'firstName' },
+                { accessor: 'lastName' },
+            ],
+            rows: [
+                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
+                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
+                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
+            ],
+            pagination: { currentPage: 1 }
+        };
+        expect(actions.searchRows(given)).toEqual(expected);
+    });
+
+    it('should not crash if no initialRows are passed in to search rows', () => {
+        const given = {
+            state: {
+                columns: [
+                    { accessor: 'firstName' },
+                    { accessor: 'lastName' },
                 ],
                 rows: [
                     { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
@@ -278,7 +286,7 @@ describe('Search Actions', () => {
                 ],
             },
             searchString: '',
-            pagination: { currentPage: 4 }
+            pagination: { currentPage: 4 },
         };
         const expected = {
             searchString: '',
@@ -286,16 +294,7 @@ describe('Search Actions', () => {
                 { accessor: 'firstName' },
                 { accessor: 'lastName' },
             ],
-            initialRows: [
-                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-            ],
-            rows: [
-                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
-            ],
+            rows: [],
             pagination: { currentPage: 1 }
         };
         expect(actions.searchRows(given)).toEqual(expected);
@@ -405,11 +404,6 @@ describe('Search Actions', () => {
         const given = {
             state: {
                 searchString: 'Matt',
-                initialRows: [
-                    { isOpen: false, firstName: 'Paul', },
-                    { isOpen: true, firstName: 'Matt', },
-                    { isOpen: false, firstName: 'Michelle', },
-                ],
                 rows: [
                     { isOpen: true, firstName: 'Matt', },
                 ],
@@ -417,20 +411,45 @@ describe('Search Actions', () => {
                     currentPage: 3,
                     pageSize: 15,
                 },
-            }
-        };
-        const expected = {
-            searchString: '',
+            },
             initialRows: [
                 { isOpen: false, firstName: 'Paul', },
                 { isOpen: true, firstName: 'Matt', },
                 { isOpen: false, firstName: 'Michelle', },
             ],
+        };
+        const expected = {
+            searchString: '',
             rows: [
                 { isOpen: false, firstName: 'Paul', },
                 { isOpen: true, firstName: 'Matt', },
                 { isOpen: false, firstName: 'Michelle', },
             ],
+            pagination: {
+                currentPage: 1,
+                pageSize: 15,
+            },
+        };
+
+        expect(actions.clearSearch(given)).toEqual(expected);
+    });
+
+    it('should not crash if no initialRows are passed in to clear search', () => {
+        const given = {
+            state: {
+                searchString: 'Matt',
+                rows: [
+                    { isOpen: true, firstName: 'Matt', },
+                ],
+                pagination: {
+                    currentPage: 3,
+                    pageSize: 15,
+                },
+            },
+        };
+        const expected = {
+            searchString: '',
+            rows: [],
             pagination: {
                 currentPage: 1,
                 pageSize: 15,

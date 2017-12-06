@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 //What rows should be displayed?
 export const calculateRows = ({ state }) => {
     const {
@@ -55,7 +53,7 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
 export const changeRowOrder = ({ column, state }) => {
     // TODO: search columns for priority level 1 as deafult search field
     const { sort: { direction, defaultSortColumn } } = state;
-    let rows = _.cloneDeep(state.rows);
+    let rows = state.rows;
 
     switch (direction) {
         case 'ascending':
