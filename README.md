@@ -70,7 +70,7 @@ We tried to make each this table easy to make your own and have added a number o
 - **class name**: `react-collapsible-search`
 
 ##### Clear Search (button)
-- **class name**: `clear`
+- **class name**: `react-collapsible-clear`
 
 ##### Pagination (div)
 - **class name**: `react-collapsible-page`
@@ -79,8 +79,8 @@ We tried to make each this table easy to make your own and have added a number o
 
 ### Props
 ##### Rows (default: [])
-This is a list of objects. You can pass more data in than you use and the table will ignorethe extra values passed in.
-##### Columns (default: none as the default soft column value requires that this cannot be empty)
+This is a list of objects. You can pass more data in than you use and the table will ignore the extra values passed in.
+##### Columns (default: this is required with the following keys also required on each column object)
 This is a list of objects that define what data from each row that you want to show the user and where this row should line up.
 
 Each object in this list has the following **required attributes** that define how and when a column should be hidden or what to display to the user.
@@ -94,12 +94,10 @@ Each object in this list has the following **required attributes** that define h
 This is a number that tells the table how many rows it should display on a table.
 ##### Current Page (default: 1)
 This is used to tell the row what page to display if the results are on a different page on the initial load.
-##### Default Sort Column (first column in array)
-This is used to tell the column sort what the row to sory by when the direction of the sort is not ascending or descending
-##### Column (first column in array)
+##### Column (default: first column in array)
 This is used to tell the table if sorting which column should be displayed as sorted (use accessor of the column as the value)
-##### Direction ('ascending')
-This is used to tell the table which direction the sorted column is displayed in. The 3 valid options are 'ascending', 'descending' and 'none'
+##### Direction (default: 'ascending')
+This is used to tell the table which direction the sorted column is displayed in. The 2 valid options are 'ascending' and 'descending'
 
 ---
 

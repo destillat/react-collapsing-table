@@ -51,7 +51,7 @@ table.react-collapsible {
 .react-collapsible-search {
   margin: 3.2rem 0;
 }
-.react-collapsible-search .clear {
+.react-collapsible-search .react-collapsible-clear {
   color: #009cde;
   border: 0;
   background-color: #fff;
