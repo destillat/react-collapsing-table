@@ -25,7 +25,7 @@ export const searchRows = ({ searchString, state, initialRows=[] }) => {
       const upperCaseSearchString = searchString.toUpperCase();
 
       rows = rows.filter(row => {
-          const {flag, updatedRow} = searchRow({row, upperCaseSearchString, columns})
+          const {flag, updatedRow} = searchRow({row, upperCaseSearchString, columns});
 
           return flag ? updatedRow : false;
       });
