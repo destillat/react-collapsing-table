@@ -19,6 +19,11 @@ table.react-collapsible {
   min-width: 10rem;
   padding-bottom: .8rem;
 }
+
+.react-collapsible thead tr th:hover {
+  cursor: pointer;
+}
+
 .react-collapsible tr {
   border-bottom: 0.1rem #e0e4ea solid;
 }
