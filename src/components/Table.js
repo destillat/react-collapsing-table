@@ -10,7 +10,6 @@ import { calculateRows, sortColumn, nextPage, previousPage, expandRow } from '..
 import { resizeTable } from '../actions/ResizeTableActions'
 import { searchRows, clearSearch } from '../actions/SearchActions';
 import throttle from 'lodash.throttle';
-import cloneDeep from 'lodash.clonedeep';
 
 export class Table extends Component {
     constructor(props) {
@@ -30,8 +29,7 @@ export class Table extends Component {
 
         this.state = {
             columns: columns.map(column => { return { ...column, isVisible: true } }),
-            initialRows: cloneDeep(rows),
-            rows: cloneDeep(rows),
+            rows,
             searchString: '',
             pagination: {
                 rowSize,
@@ -63,7 +61,7 @@ export class Table extends Component {
     }
 
     componentWillReceiveProps({ rows }){
-        this.setState({ ...this.state, initialRows: cloneDeep(rows), rows: cloneDeep(rows), })
+        this.setState({ ...this.state, rows, })
     }
 
     componentWillUnmount() {
@@ -91,11 +89,11 @@ export class Table extends Component {
     }
 
     searchRows({ target: { value }}) {
-        this.setState(searchRows({ searchString: value, state: this.state }));
+        this.setState(searchRows({ searchString: value, state: this.state, initialRows: this.props.rows }));
     }
 
     clearSearch() {
-        this.setState(clearSearch({ state: this.state }));
+        this.setState(clearSearch({ state: this.state, initialRows: this.props.rows }));
     }
 
     render(){
@@ -104,6 +102,7 @@ export class Table extends Component {
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
         const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
 
+        console.log(this.state);
         return (
             <div>
                 <Search searchString={ this.state.searchString }

@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash.clonedeep';
-
 export const length = (x) => x.length;
 export const sum = (a, b) => a+b;
 export const indexesOf = (substr) => ({
@@ -20,8 +18,8 @@ export const insert = (str, index, value) => {
     return str.substr(0, index) + value + str.substr(index);
 };
 
-export const searchRows = ({ searchString, state }) => {
-  let rows = cloneDeep(state.initialRows);
+export const searchRows = ({ searchString, state, initialRows=[] }) => {
+  let rows = initialRows;
   if(searchString !== '' ) {
       const {columns} = state;
       const upperCaseSearchString = searchString.toUpperCase();
@@ -71,11 +69,11 @@ export const tryToInsertSpan = ({ indexes, rowValue, searchString }) => {
   return { anyIndexes: false, newRowValue: rowValue }
 };
 
-export const clearSearch = ({ state }) => {
+export const clearSearch = ({ state, initialRows=[] }) => {
     return {
       ...state,
       searchString: '',
-      rows: cloneDeep(state.initialRows),
+      rows: initialRows,
       pagination: { ...state.pagination, currentPage: 1, }
     };
 };
