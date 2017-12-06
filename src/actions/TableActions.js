@@ -25,7 +25,7 @@ export const sortColumn = ({ column, state }) => {
 
 export const changeSortFieldAndDirection = ({ newColumn, state }) => {
     let newDirection;
-    const { sort: { column, direction, defaultSortColumn } } = state;
+    const { sort: { column, direction } } = state;
 
     if(column === newColumn) {
         switch (direction) {
@@ -37,7 +37,6 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
                 break;
             case 'descending':
                 newDirection = 'ascending';
-                newColumn = defaultSortColumn;
                 break;
             default:
                 newDirection = 'none';
@@ -52,7 +51,7 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
 
 export const changeRowOrder = ({ column, state }) => {
     // TODO: search columns for priority level 1 as deafult search field
-    const { sort: { direction, defaultSortColumn } } = state;
+    const { sort: { direction } } = state;
     let rows = state.rows;
 
     switch (direction) {
@@ -61,11 +60,6 @@ export const changeRowOrder = ({ column, state }) => {
             break;
         case 'descending':
             rows.sort(dynamicSort({ column })).reverse();
-            break;
-        case 'none':
-            // TODO: added in priority level to figure out the default search field
-            // newRows = allRows.sort(dynamicSort({ column: 'firstName'}));
-            rows.sort(dynamicSort({ column: defaultSortColumn }));
             break;
         default:
             rows.sort(dynamicSort({ column }));

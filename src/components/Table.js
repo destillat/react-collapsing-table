@@ -19,10 +19,9 @@ export class Table extends Component {
             rows = [],
             rowSize = 10,
             currentPage = 1,
-            defaultSortColumn = props.columns.reduce((prev, curr) => {
+            column = props.columns.reduce((prev, curr) => {
                 return prev.priorityLevel < curr.priorityLevel ? prev : curr;
             }).accessor,
-            column = defaultSortColumn,
             direction = 'ascending',
             callbacks = {},
         } = props;
@@ -36,7 +35,6 @@ export class Table extends Component {
                 currentPage,
             },
             sort: {
-                defaultSortColumn,
                 column,
                 direction,
             },

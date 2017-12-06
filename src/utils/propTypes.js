@@ -5,22 +5,21 @@ export const Column = shape({
     accessor: string.isRequired,
     label: string.isRequired,
     isVisible: bool.isRequired,
-})
+});
 
-export const Columns = arrayOf(Column)
+export const Columns = arrayOf(Column);
 
 export const InitialColumn = shape({
     accessor: string.isRequired,
     label: string.isRequired,
-})
+});
 
-export const InitialColumns = arrayOf(InitialColumn)
+export const InitialColumns = arrayOf(InitialColumn);
 
 export const Sort = shape({
     direction: string.isRequired,
     column: string.isRequired,
-    defaultSortColumn: string.isRequired,
-})
+});
 
 //Components
 export const CellPropType = {
@@ -33,10 +32,10 @@ export const CellPropType = {
 };
 
 export const ColumnPropType = {
-  accessor: string.isRequired,
-  label: string.isRequired,
-  onClick: func.isRequired,
-  sort: Sort.isRequired,
+    accessor: string.isRequired,
+    label: string.isRequired,
+    onClick: func.isRequired,
+    sort: Sort.isRequired,
 };
 
 export const ColumnsPropType = {

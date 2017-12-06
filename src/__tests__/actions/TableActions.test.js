@@ -69,7 +69,6 @@ describe('Table Actions', () => {
           sort: {
             direction: 'none',
             column: 'firstName',
-            defaultSortColumn: 'email',
           },
           rows: [
             { firstName: 'Paul', email: 'p@gmail.com' },
@@ -83,7 +82,6 @@ describe('Table Actions', () => {
         sort: {
           direction: 'ascending',
           column: 'firstName',
-          defaultSortColumn: 'email',
         },
         rows: [
           { firstName: 'Adam', email: 'd@gmail.com' },
@@ -132,19 +130,18 @@ describe('Table Actions', () => {
       expect(actions.changeSortFieldAndDirection(given)).toEqual(expected);
   });
 
-  it('should return none if the new column matches the old column and there was the previous sort direction was descending', () => {
+  it('should return ascending if the new column matches the old column and there was the previous sort direction was descending', () => {
       const given = {
         newColumn: 'firstName',
         state: {
           sort: {
             direction: 'descending',
             column: 'firstName',
-            defaultSortColumn: 'email',
           }
         }
       };
       const expected = {
-        sortedColumn: 'email',
+        sortedColumn: 'firstName',
         sortedDirection: 'ascending',
       };
 
@@ -199,7 +196,6 @@ describe('Table Actions', () => {
           ],
           sort: {
             direction: 'ascending',
-            defaultSortColumn: 'email',
           }
         }
       };
@@ -227,7 +223,6 @@ describe('Table Actions', () => {
           ],
           sort: {
             direction: 'descending',
-            defaultSortColumn: 'email',
           }
         }
       };
@@ -237,34 +232,6 @@ describe('Table Actions', () => {
           { firstName: 'Matt', email: 'a@gmail.com' },
           { firstName: 'Matt', email: 'm@gmail.com' },
           { firstName: 'Adam', email: 'd@gmail.com' },
-        ]
-      };
-
-      expect(actions.changeRowOrder(given)).toEqual(expected);
-  });
-
-  it('should return the rows listed in ascending order based on the default column', () => {
-      const given = {
-        column: 'firstName',
-        state: {
-          rows: [
-            { firstName: 'Paul', email: 'p@gmail.com' },
-            { firstName: 'Adam', email: 'd@gmail.com' },
-            { firstName: 'Matt', email: 'm@gmail.com' },
-            { firstName: 'Matt', email: 'a@gmail.com' },
-          ],
-          sort: {
-            direction: 'none',
-            defaultSortColumn: 'email',
-          }
-        }
-      };
-      const expected = {
-        sortedRows: [
-          { firstName: 'Matt', email: 'a@gmail.com' },
-          { firstName: 'Adam', email: 'd@gmail.com' },
-          { firstName: 'Matt', email: 'm@gmail.com' },
-          { firstName: 'Paul', email: 'p@gmail.com' },
         ]
       };
 
@@ -283,7 +250,6 @@ describe('Table Actions', () => {
           ],
           sort: {
             direction: 'IAmALittleTeaPot',
-            defaultSortColumn: 'email',
           }
         }
       };
@@ -311,7 +277,6 @@ describe('Table Actions', () => {
           ],
           sort: {
             direction: 'asecending',
-            defaultSortColumn: 'email',
           }
         }
       };
