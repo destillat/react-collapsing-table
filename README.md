@@ -46,22 +46,22 @@ We tried to make each this table easy to make your own and have added a number o
 
 ##### Table Data Cell (td)
 - **id**: `td-${currentRowIndex}-${currentColumnIndex} `
--- This uses the generated row and column indexes
+  - This uses the generated row and column indexes
 - **class name**: `${ accessor }`
--- This uses the column defined attribute as the class name so that you can see all of the attributes that line up to a class name
+  - This uses the column defined attribute as the class name so that you can see all of the attributes that line up to a class name
 ##### Table Row (tr)
 - **id**: `tr-normal-${ rowIndex }`
--- This uses the genereated row index to define which row it is on
+  - This uses the genereated row index to define which row it is on
 - **class name**: `normal-row`
 
 ##### Expanded Table Row (tr)
 - **id**: `tr-expanded-${ rowIndex }`
--- This uses the genereated row index to define which row it is on
+  - This uses the genereated row index to define which row it is on
 - **class name**: `expanded-row`
 
 ##### Columns (th)
 - **id**: `column-${accessor}`
--- This uses the data accessor as a unique column name
+  - This uses the data accessor as a unique column name
 
 ##### Table (table)
 - **class name**: `react-collapsible`
@@ -85,7 +85,7 @@ This is a list of objects that define what data from each row that you want to s
 
 Each object in this list has the following **required attributes** that define how and when a column should be hidden or what to display to the user.
 - **accessor**: This is used to extra the correct value from a row by setting this to the row's key
--- `row: { firstName: 'Paul' }` The accessor to get the value Paul would be `accessor: 'firstName'`
+  - `row: { firstName: 'Paul' }` The accessor to get the value Paul would be `accessor: 'firstName'`
 - **label**: This is what a user sees at the top of each column
 - **priorityLevel**: This tells the table in which order should the columns be popped off in. The higher the number the sooner it will be popped of.
 - **position**: This tells the table where to put each column, do you want this to be the first column or the fourth?
@@ -113,9 +113,9 @@ To suggest a feature, create an issue if it does not already exist. If you would
 - Fork this repo
 - Install dependencies with `npm i`
 - Run `npm link` if testing with another project
--- This will provide a global symlink and allow other local projects to get immediate updates as you chance code in the src folder
+  - This will provide a global symlink and allow other local projects to get immediate updates as you chance code in the src folder
 - Create the required build folder and see a storybook instance running by running ` npm start`
--- That will build and watch the components and provide a local storybook instance so that you can view the application by going to `localhost:6006`.
+  - That will build and watch the components and provide a local storybook instance so that you can view the application by going to `localhost:6006`.
 - Implement your changes to files in the `src/` directory
 - Submit PR for review when the feature is complete
 

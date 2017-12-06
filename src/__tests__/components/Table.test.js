@@ -53,10 +53,10 @@ describe('Table', () => {
         const rows = wrapper.find('Rows');
         const paginations = wrapper.find('Pagination');
 
-        expect(paginations.length).toBe(1);
+        expect(paginations.length).toBe(0);
         expect(rows.length).toBe(1);
         expect(columns.length).toBe(1);
-        expect(searches.length).toBe(1);
+        expect(searches.length).toBe(0);
     });
 
     it('should render Search component', () => {
@@ -109,10 +109,10 @@ describe('Table', () => {
         const rows = wrapper.find('Rows');
         const paginations = wrapper.find('Pagination');
 
-        expect(paginations.length).toBe(1);
+        expect(paginations.length).toBe(0);
         expect(rows.length).toBe(1);
         expect(columns.length).toBe(1);
-        expect(searches.length).toBe(1);
+        expect(searches.length).toBe(0);
     });
 
     it('should test all of the Search Actions', () => {

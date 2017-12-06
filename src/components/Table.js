@@ -24,8 +24,8 @@ export class Table extends Component {
             }).accessor,
             direction = 'ascending',
             callbacks = {},
-            showSearch = true,
-            showPagination = true,
+            showSearch = false,
+            showPagination = false,
         } = props;
 
         this.state = {
