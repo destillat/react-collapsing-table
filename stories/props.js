@@ -24,12 +24,12 @@ export const generateFakeData = ({ totalRows }) => {
 };
 
 const onClickPressed = ({ rowIndex, cellIndex }) => {
-  console.log(`hi there from row ${rowIndex + 1} and cell ${cellIndex + 1}`);
+    console.log(`hi there from row ${rowIndex + 1} and cell ${cellIndex + 1}`);
 };
 
 const linkUrl = () => {
-  return 'https://www.google.com/';
-}
+    return 'https://www.google.com/';
+};
 
 export const getColumns = () => {
     return [
@@ -78,13 +78,13 @@ export const sortColumnAndDirectionProps = {
 }
 
 export const rowSizeProps = {
-  columns: getColumns(),
-  rows: generateFakeData({ totalRows: 1000 }),
-  rowSize: 25,
+    columns: getColumns(),
+    rows: generateFakeData({ totalRows: 1000 }),
+    rowSize: 25,
 }
 
 export const customComponentProps = {
-  columns: getColumnsCustomComponents(),
-  rows: generateFakeData({ totalRows: 1000 }),
-  callbacks: { email: onClickPressed, zipCode: linkUrl }
+    columns: getColumnsCustomComponents(),
+    rows: generateFakeData({ totalRows: 1000 }),
+    callbacks: { email: onClickPressed, zipCode: linkUrl }
 }
