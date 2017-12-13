@@ -7,7 +7,7 @@ const Search = ({ searchString, searchRows, clearSearch }) => {
     return (
         <div className="react-collapsible-search">
             <input onChange={ searchRows } value={ searchString } placeholder="search"/>
-            <button className="clear" onClick={ clearSearch }>&#9587;</button>
+            <button className="react-collapsible-clear" onClick={ clearSearch }>&#9587;</button>
         </div>
     );
 };

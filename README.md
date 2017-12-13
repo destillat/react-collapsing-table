@@ -8,7 +8,7 @@ Thanks for taking a look at the react collapsping table. This was inspired by th
 - Installing
 - Styling
 - Props
-- Examples
+- Add your Own Components
 - Contributing
 
 ---
@@ -70,7 +70,7 @@ We tried to make each this table easy to make your own and have added a number o
 - **class name**: `react-collapsible-search`
 
 ##### Clear Search (button)
-- **class name**: `clear`
+- **class name**: `react-collapsible-clear`
 
 ##### Pagination (div)
 - **class name**: `react-collapsible-page`
@@ -79,8 +79,8 @@ We tried to make each this table easy to make your own and have added a number o
 
 ### Props
 ##### Rows (default: [])
-This is a list of objects. You can pass more data in than you use and the table will ignorethe extra values passed in.
-##### Columns (default: none as the default soft column value requires that this cannot be empty)
+This is a list of objects. You can pass more data in than you use and the table will ignore the extra values passed in.
+##### Columns (default: this is required with the following keys also required on each column object)
 This is a list of objects that define what data from each row that you want to show the user and where this row should line up.
 
 Each object in this list has the following **required attributes** that define how and when a column should be hidden or what to display to the user.
@@ -90,20 +90,61 @@ Each object in this list has the following **required attributes** that define h
 - **priorityLevel**: This tells the table in which order should the columns be popped off in. The higher the number the sooner it will be popped of.
 - **position**: This tells the table where to put each column, do you want this to be the first column or the fourth?
 - **minWidth**: This tells the table how wide the table can be total and is used to calculate when to pop off columns when the screen width is smaller than the total minWidths of the visible columns
-##### Row Size (default: 15)
+
+These objects also have several optional attributes that can make the cells displayed under each column do extra work
+- **CustomComponent**: This lets you write your own component and pass it to the table
+  - You must import this component into the file you define where you columns.
+- **CustomFunction**: This lets you pass a custom function to help enhance the cell. 
+  - You must pass this to the table as a callbacks object with the key as the `accessor` and you function as the value. 
+
+##### showSearch (default: false)
+This is a boolean to tell the table whether or not show the search component
+##### showPagination (default: false)
+This is a boolean to tell the table whether or not show the pagination component
+##### rowSize (default: 15)
 This is a number that tells the table how many rows it should display on a table.
-##### Current Page (default: 1)
+##### currentPage (default: 1)
 This is used to tell the row what page to display if the results are on a different page on the initial load.
-##### Default Sort Column (first column in array)
-This is used to tell the column sort what the row to sory by when the direction of the sort is not ascending or descending
-##### Column (first column in array)
+##### column (default: first column in array)
 This is used to tell the table if sorting which column should be displayed as sorted (use accessor of the column as the value)
-##### Direction ('ascending')
-This is used to tell the table which direction the sorted column is displayed in. The 3 valid options are 'ascending', 'descending' and 'none'
+##### direction (default: 'ascending')
+This is used to tell the table which direction the sorted column is displayed in. The 2 valid options are 'ascending' and 'descending'
+##### callbacks 
+This is an object that is expecting keys that match the accessors of the columns and will allow each column access to a custom function that is mapped to that key. 
 
 ---
 
-### Examples
+### Add your Own Components
+This table allows you to create and display your own components. Each column can have their own component and you can pass custom functions or extra information into it.
+
+To pass a custom component you must pass it in a columns prop with the key being `CustomComponent` and the value being the imported component
+Example from the [travel-receipts](https://github.com/Salinn/travel-receipts/blob/master/src/store/initialState.js) initial state
+```
+import EmailIcon from '../components/EmailIcon';
+
+columns[
+    { accessor: 'email', label: 'Email', priorityLevel: 6, position: 3, minWidth: 150, CustomComponent: EmailIcon },
+]        
+```
+
+
+If you decide that you want to pass that custom component the ability to do something you can by passing the table a callBack object with the accessor name as the key and the function you defined as the value
+Example from the [travel-receipts](https://github.com/Salinn/travel-receipts/blob/master/src/containers/ReceiptsScreen.js) container
+```
+import { getEmailIcon } from '../assets/icons/Icon';
+
+clickedImage = ({ imageURL }) => {
+    this.props.actions.clickedImage({ imageURL });
+}
+    
+getEmailLogo = ({ email }) => {
+    return getEmailIcon({ email });
+}
+
+const tableCallbacks = { photo: this.clickedImage, email: this.getEmailLogo }
+
+<ReactCollapsingTable callbacks={ tableCallbacks } />
+```
 
 ---
 
