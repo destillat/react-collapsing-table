@@ -96,6 +96,8 @@ These objects also have several optional attributes that can make the cells disp
   - You must import this component into the file you define where you columns.
 - **CustomFunction**: This lets you pass a custom function to help enhance the cell. 
   - You must pass this to the table as a callbacks object with the key as the `accessor` and you function as the value. 
+- **sortType**: This allows you to pass an additional sort type
+  - currently only the allowed option is 'date' and that sorts assuming the date format is `mm/dd/yyyy`
 
 ##### showSearch (default: false)
 This is a boolean to tell the table whether or not show the search component

@@ -4,18 +4,17 @@ import { storiesOf } from '@storybook/react';
 
 import ReactCollapsingTable from '../src/index';
 import {
-  basicTableProps,
+    basicTableProps,
     basicTablePropsPaginationAndSearchShow,
-  sortColumnAndDirectionProps,
-  tonsofDataProps,
-  rowSizeProps,
-  customComponentProps,
+    sortColumnAndDirectionProps,
+    rowSizeProps,
+    customComponentProps,
 } from './props';
 
 
 storiesOf('React Collapsing Table', module)
-  .add('Basic Table', () => <ReactCollapsingTable {...basicTableProps} />)
-  .add('Set Pagination and Search', () => <ReactCollapsingTable {...basicTablePropsPaginationAndSearchShow } />)
-  .add('Set Column and Direction for initial load of Table', () => <ReactCollapsingTable {...sortColumnAndDirectionProps} />)
-  .add('Set the total rows displayed for initial load of Table', () => <ReactCollapsingTable {...rowSizeProps} />)
-  .add('Set the a custom component for initial load of Table', () => <ReactCollapsingTable {...customComponentProps} />);
+    .add('Basic Table', () => <ReactCollapsingTable {...basicTableProps} />)
+    .add('Turn Pagination and Search On', () => <ReactCollapsingTable {...basicTablePropsPaginationAndSearchShow } />)
+    .add('Set Column and Direction displayed on load', () => <ReactCollapsingTable {...sortColumnAndDirectionProps} />)
+    .add('Set the total rows displayed', () => <ReactCollapsingTable {...rowSizeProps} />)
+    .add('Set the a custom component and callback', () => <ReactCollapsingTable {...customComponentProps} />);

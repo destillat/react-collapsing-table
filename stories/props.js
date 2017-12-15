@@ -65,30 +65,30 @@ export const getColumnsCustomComponents = () => {
 export const basicTableProps = {
     columns: getColumns(),
     rows: generateFakeData({ totalRows: 1000 }),
-}
+};
 
 export const basicTablePropsPaginationAndSearchShow = {
     columns: getColumns(),
     rows: generateFakeData({ totalRows: 1000 }),
     showPagination: true,
     showSearch: true,
-}
+};
 
 export const sortColumnAndDirectionProps = {
     columns: getColumns(),
     rows: generateFakeData({ totalRows: 1000 }),
-    column: 'firstName',
-    direction: 'ascending',
-}
+    column: 'lastName',
+    direction: 'descending',
+};
 
 export const rowSizeProps = {
     columns: getColumns(),
     rows: generateFakeData({ totalRows: 1000 }),
     rowSize: 25,
-}
+};
 
 export const customComponentProps = {
     columns: getColumnsCustomComponents(),
     rows: generateFakeData({ totalRows: 1000 }),
     callbacks: { email: onClickPressed, zipCode: linkUrl }
-}
+};
