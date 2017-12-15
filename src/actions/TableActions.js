@@ -50,26 +50,38 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
 };
 
 export const changeRowOrder = ({ column, state }) => {
-    // TODO: search columns for priority level 1 as deafult search field
-    const { sort: { direction } } = state;
+    const { sort: { direction }, columns } = state;
     let rows = state.rows;
+    const [ columnBeingSorted, ...b ] = columns.filter(c => c.accessor === column);
+    const type = columnBeingSorted.sortType;
 
     switch (direction) {
         case 'ascending':
-            rows.sort(dynamicSort({ column }));
+            rows.sort(dynamicSort({ column, type }));
             break;
         case 'descending':
-            rows.sort(dynamicSort({ column })).reverse();
+            rows.sort(dynamicSort({ column, type })).reverse();
             break;
         default:
-            rows.sort(dynamicSort({ column }));
+            rows.sort(dynamicSort({ column, type }));
     }
 
     return { sortedRows: rows };
 };
 
-export const dynamicSort = ({ column }) => {
-    return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
+export const dynamicSort = ({ column, type }) => {
+    switch (type) {
+        case 'date':
+            return (a, b) => {
+                const [aMonth, aDay, aYear] = a[column].split('/');
+                const [bMonth, bDay, bYear] = b[column].split('/');
+                const aDate = [aYear, aMonth, aDay].join('');
+                const bDate = [bYear, bMonth, bDay].join('');
+                return ((aDate < bDate) ? -1 : (aDate > bDate) ? 1 : 0)
+            };
+        default:
+            return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
+    }
 };
 
 //Pagination
