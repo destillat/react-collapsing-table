@@ -19,7 +19,7 @@ export const insert = (str, index, value) => {
 };
 
 export const searchRows = ({ searchString, state, initialRows=[] }) => {
-  let rows = initialRows;
+    let rows = initialRows;
   if(searchString !== '' ) {
       const {columns} = state;
       const upperCaseSearchString = searchString.toUpperCase();
