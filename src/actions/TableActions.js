@@ -53,7 +53,7 @@ export const changeRowOrder = ({ column, state }) => {
     const { sort: { direction }, columns } = state;
     let rows = state.rows;
     const [ columnBeingSorted, ...b ] = columns.filter(c => c.accessor === column);
-    const type = columnBeingSorted.sortType;
+    const type = columnBeingSorted ? columnBeingSorted.sortType : null;
 
     switch (direction) {
         case 'ascending':
@@ -77,7 +77,7 @@ export const dynamicSort = ({ column, type }) => {
                 const [bMonth, bDay, bYear] = b[column].split('/');
                 const aDate = [aYear, aMonth, aDay].join('');
                 const bDate = [bYear, bMonth, bDay].join('');
-                return ((aDate < bDate) ? -1 : (aDate > bDate) ? 1 : 0)
+                return ((aDate < bDate) ? 1 : (aDate > bDate) ? -1 : 0)
             };
         default:
             return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
