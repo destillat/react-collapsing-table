@@ -10,6 +10,7 @@ import { calculateRows, sortColumn, nextPage, previousPage, expandRow } from '..
 import { resizeTable } from '../actions/ResizeTableActions'
 import { searchRows, clearSearch } from '../actions/SearchActions';
 import throttle from 'lodash.throttle';
+import cloneDeep from 'lodash.clonedeep';
 
 export class Table extends Component {
     constructor(props) {
@@ -91,11 +92,11 @@ export class Table extends Component {
     }
 
     searchRows({ target: { value }}) {
-        this.setState(searchRows({ searchString: value, state: this.state, initialRows: this.props.rows }));
+        this.setState(searchRows({ searchString: value, state: this.state, initialRows: cloneDeep(this.props.rows) }));
     }
 
     clearSearch() {
-        this.setState(clearSearch({ state: this.state, initialRows: this.props.rows }));
+        this.setState(clearSearch({ state: this.state, initialRows: cloneDeep(this.props.rows) }));
     }
 
     render(){

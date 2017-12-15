@@ -1,4 +1,5 @@
 import faker from 'faker';
+import moment from 'moment';
 import Button from './button';
 import Link from './link';
 
@@ -11,6 +12,7 @@ export const generateFakeData = ({ totalRows }) => {
                 lastName: faker.name.lastName(),
                 email: faker.internet.email(),
                 address: faker.address.streetAddress(),
+                date: moment(faker.date.past()).format('MM/DD/YYYY'),
                 city: faker.address.city(),
                 state: faker.address.state(),
                 country: faker.address.country(),
@@ -37,6 +39,7 @@ export const getColumns = () => {
         { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, position: 2, minWidth: 150, },
         { accessor: 'email', label: 'Email', priorityLevel: 3, position: 3, minWidth: 250, },
         { accessor: 'address', label: 'Address', priorityLevel: 4, position: 4, minWidth: 150, },
+        { accessor: 'date', label: 'Date', priorityLevel: 3, position: 6, minWidth: 150, sortType: 'date', },
         { accessor: 'city', label: 'City', priorityLevel: 9, position: 5, minWidth: 120, },
         { accessor: 'state', label: 'State', priorityLevel: 6, position: 6, minWidth: 100, },
         { accessor: 'country', label: 'Country', priorityLevel: 8, position: 7, minWidth: 120, },
@@ -64,10 +67,11 @@ export const basicTableProps = {
     rows: generateFakeData({ totalRows: 1000 }),
 }
 
-export const defaultColumnSetProps = {
+export const basicTablePropsPaginationAndSearchShow = {
     columns: getColumns(),
     rows: generateFakeData({ totalRows: 1000 }),
-    defaultSortColumn: 'email',
+    showPagination: true,
+    showSearch: true,
 }
 
 export const sortColumnAndDirectionProps = {
