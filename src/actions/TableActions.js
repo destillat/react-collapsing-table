@@ -86,11 +86,19 @@ export const dynamicSort = ({ column, type }) => {
 
 //Pagination
 export const nextPage = ({ state }) => {
-    return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage + 1 } }
+    const currentPage = state.pagination.currentPage + 1;
+    return changePage({ state, currentPage })
 };
 
 export const previousPage = ({ state }) => {
-    return { ...state, pagination: { ...state.pagination, currentPage: state.pagination.currentPage - 1 } }
+    const currentPage = state.pagination.currentPage - 1;
+    return changePage({ state, currentPage })
+};
+
+export const changePage = ({ state, currentPage }) => {
+    const pagination = { ...state.pagination, currentPage } ;
+    if(state.paginationEventListener) state.paginationEventListener({ pagination });
+    return { ...state, pagination }
 };
 
 //Hide or Show Rows

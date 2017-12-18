@@ -113,6 +113,8 @@ This is used to tell the table if sorting which column should be displayed as so
 This is used to tell the table which direction the sorted column is displayed in. The 2 valid options are 'ascending' and 'descending'
 ##### callbacks 
 This is an object that is expecting keys that match the accessors of the columns and will allow each column access to a custom function that is mapped to that key. 
+##### paginationEventListener
+This is a function that you can pass to the table and when the next or previous button is clicked it will invoke this function and pass a pagination object back that has the the current page, how many pages there are, and the row size
 
 ---
 

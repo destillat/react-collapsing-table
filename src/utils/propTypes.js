@@ -53,8 +53,7 @@ export const ExpandedRowPropType = {
 
 export const PaginationPropType = {
     currentPage: number.isRequired,
-    totalRows: number.isRequired,
-    rowSize: number.isRequired,
+    totalPages: number.isRequired,
     previousPage: func.isRequired,
     nextPage: func.isRequired,
 };
@@ -91,4 +90,5 @@ export const TablePropType = {
     column: string,
     direction: string,
     callbacks: object,
+    paginationEventListener: func,
 };
