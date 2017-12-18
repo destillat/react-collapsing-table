@@ -11,8 +11,7 @@ describe('Pagination', () => {
     beforeEach(() => {
         props = {
             currentPage: 3,
-            totalRows: 20,
-            rowSize: 5,
+            totalPages: 4,
             nextPage: jest.fn(),
             previousPage: jest.fn(),
         };
@@ -29,7 +28,7 @@ describe('Pagination', () => {
     });
 
     it('should not display 0 as the total number of pages', () => {
-        props = { ...props, totalRows: 0, currentPage: 1 };
+        props = { ...props, currentPage: 1, totalPages: 1 };
         wrapper = shallow(<Pagination { ...props } />);
 
         const content = wrapper.find('p').first().text();
@@ -40,8 +39,7 @@ describe('Pagination', () => {
     it('should display the page with only the next arrows', () => {
         props = {
             currentPage: 1,
-            totalRows: 6,
-            rowSize: 5,
+            totalPages: 2,
             nextPage: jest.fn(),
             previousPage: jest.fn(),
         };
@@ -57,8 +55,7 @@ describe('Pagination', () => {
     it('should display the page with only the next arrows', () => {
         props = {
             currentPage: 2,
-            totalRows: 10,
-            rowSize: 5,
+            totalPages: 2,
             nextPage: jest.fn(),
             previousPage: jest.fn(),
         };

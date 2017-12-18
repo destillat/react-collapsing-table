@@ -14,16 +14,11 @@ describe('Table', () => {
     beforeEach(() => {
         props = {
             sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
-            pagination: { currentPage: 1, rowSize: 5, },
+            pagination: { currentPage: 1, rowSize: 5, totalPages: 1 },
             columns: [
                 { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
                 { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
                 { accessor: 'email', label: 'Email', isVisible: false, minWidth: 90, priorityLevel: 3, position: 3, },
-            ],
-            initialRows: [
-                { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
-                { firstName: 'Matt', lastName: 'Smith', isOpen: true },
-                { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
             ],
             rows: [
                 { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
@@ -161,13 +156,33 @@ describe('Table', () => {
 
     it('should test that when new params are passed they are set', () => {
         const willReceiveProps = jest.spyOn(Table.prototype, 'componentWillReceiveProps');
+        props = { ...props, rowSize: 3, };
 
         wrapper = mount(<Table { ...props } />);
         instance = wrapper.instance();
 
+        expect(wrapper.state().rows.length).toBe(3);
+        expect(wrapper.state().pagination.totalPages).toBe(1);
+
+        wrapper.setProps({ rows: [{}, {}, {}, {},] });
+
+        expect(wrapper.state().rows.length).toBe(4);
+        expect(wrapper.state().pagination.totalPages).toBe(2);
+        expect(willReceiveProps).toHaveBeenCalled();
+    });
+
+    it('should test that when an empty array of rows is passed to the table that it updates the totalPages to 1', () => {
+        props = { ...props, rowSize: 2, };
+
+        wrapper = mount(<Table { ...props } />);
+        instance = wrapper.instance();
+
+        expect(wrapper.state().rows.length).toBe(3);
+        expect(wrapper.state().pagination.totalPages).toBe(2);
+
         wrapper.setProps({ rows: [] });
 
         expect(wrapper.state().rows.length).toBe(0);
-        expect(willReceiveProps).toHaveBeenCalled();
+        expect(wrapper.state().pagination.totalPages).toBe(1);
     })
 });

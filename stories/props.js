@@ -92,3 +92,11 @@ export const customComponentProps = {
     rows: generateFakeData({ totalRows: 1000 }),
     callbacks: { email: onClickPressed, zipCode: linkUrl }
 };
+
+export const paginationListenerProps = {
+    columns: getColumns(),
+    rowSize: 5,
+    showPagination: true,
+    rows: generateFakeData({ totalRows: 20 }),
+    paginationEventListener: ({ pagination }) => console.log(`I am on page ${ pagination.currentPage } of ${ pagination.totalPages }`)
+};

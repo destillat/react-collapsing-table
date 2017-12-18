@@ -15,6 +15,7 @@ import cloneDeep from 'lodash.clonedeep';
 export class Table extends Component {
     constructor(props) {
         super(props);
+
         const {
             columns,
             rows = [],
@@ -27,6 +28,8 @@ export class Table extends Component {
             callbacks = {},
             showSearch = false,
             showPagination = false,
+            paginationEventListener = null,
+            totalPages = (rows.length === 0) ? 1 : Math.ceil(rows.length / rowSize),
         } = props;
 
         this.state = {
@@ -36,6 +39,7 @@ export class Table extends Component {
             pagination: {
                 rowSize,
                 currentPage,
+                totalPages,
             },
             sort: {
                 column,
@@ -44,6 +48,7 @@ export class Table extends Component {
             callbacks,
             showSearch,
             showPagination,
+            paginationEventListener,
         };
 
         this.resizeTable = this.resizeTable.bind(this);
@@ -64,7 +69,16 @@ export class Table extends Component {
     }
 
     componentWillReceiveProps({ rows }){
-        this.setState({ ...this.state, rows, })
+        this.setState(currentState => {
+            return {
+                ...currentState,
+                rows,
+                pagination: {
+                    ...currentState.pagination,
+                    totalPages: (rows.length === 0) ? 1 : Math.ceil(rows.length / currentState.pagination.rowSize)
+                }
+            }
+        })
     }
 
     componentWillUnmount() {
@@ -72,44 +86,57 @@ export class Table extends Component {
     }
 
     resizeTable() {
-        this.setState(resizeTable({ width: window.innerWidth, state: this.state }))
+        this.setState(currentState => {
+            return resizeTable({ width: window.innerWidth, state: currentState })
+        })
     };
 
     sortRows({ column }) {
-        this.setState(sortColumn({ column, state: this.state }));
+        this.setState(currentState => {
+            return sortColumn({ column, state: currentState })
+        });
     }
 
     nextPage() {
-        this.setState(nextPage({ state: this.state }));
+        this.setState(currentState => {
+            return nextPage({ state: currentState })
+        });
     };
 
     previousPage() {
-        this.setState(previousPage({ state: this.state }));
+        this.setState(currentState => {
+            return previousPage({ state: currentState })
+        });
     };
 
     expandRow({ rowIndex }) {
-        this.setState(expandRow({ rowIndex, state: this.state }));
+        this.setState(currentState => {
+            return expandRow({ rowIndex, state: currentState })
+        });
     }
 
     searchRows({ target: { value }}) {
-        this.setState(searchRows({ searchString: value, state: this.state, initialRows: cloneDeep(this.props.rows) }));
+        this.setState((currentState, currentProps) => {
+            return searchRows({ searchString: value, state: currentState, initialRows: cloneDeep(currentProps.rows) })
+        });
     }
 
     clearSearch() {
-        this.setState(clearSearch({ state: this.state, initialRows: cloneDeep(this.props.rows) }));
+        this.setState((currentState, currentProps) => {
+            return clearSearch({ state: currentState, initialRows: cloneDeep(currentProps.rows) })
+        });
     }
 
     render(){
-        const { columns, pagination: { currentPage, rowSize }, rows, callbacks, showSearch, showPagination } = this.state;
+        const { columns, pagination: { currentPage, totalPages }, callbacks, showSearch, showPagination } = this.state;
         const displayedRows = calculateRows({ state: this.state });
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
         const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
 
         const PaginationComponent = showPagination && <Pagination currentPage={ currentPage }
-                                        totalRows={ rows.length }
-                                        rowSize={ rowSize }
-                                        nextPage={ this.nextPage }
-                                        previousPage={ this.previousPage } />;
+                                                                  totalPages={ totalPages }
+                                                                  nextPage={ this.nextPage }
+                                                                  previousPage={ this.previousPage } />;
         const SearchComponent = showSearch && <Search searchString={ this.state.searchString }
                                                       searchRows={ this.searchRows }
                                                       clearSearch={ this.clearSearch } />;

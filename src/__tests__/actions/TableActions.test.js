@@ -416,14 +416,14 @@ describe('Table Actions', () => {
                 pagination: {
                     currentPage: 2,
                     rowSize: 15,
-                }
+                },
             }
         };
         const expected = {
             pagination: {
                 currentPage: 3,
                 rowSize: 15,
-            }
+            },
         };
 
         expect(actions.nextPage(given)).toEqual(expected);
@@ -435,17 +435,40 @@ describe('Table Actions', () => {
                 pagination: {
                     currentPage: 2,
                     rowSize: 15,
-                }
+                },
             }
         };
         const expected = {
             pagination: {
                 currentPage: 1,
                 rowSize: 15,
-            }
+            },
         };
 
         expect(actions.previousPage(given)).toEqual(expected);
+    });
+
+    it('should call the event pagination event listener', () => {
+        const paginationEventListener = jest.fn();
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 2,
+                    rowSize: 15,
+                },
+                paginationEventListener,
+            },
+            currentPage: 3,
+        };
+        const expected = {
+            pagination: {
+                currentPage: 3,
+                rowSize: 15,
+            },
+        };
+
+        actions.changePage(given);
+        expect(paginationEventListener).toHaveBeenCalledWith(expected);
     });
 
     //EXPAND OR HIDE ROW
