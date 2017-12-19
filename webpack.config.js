@@ -14,7 +14,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 include: path.resolve(__dirname, 'src'),
-                exclude: /(node_modules|bower_components|build)/,
+                exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -25,7 +25,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 include: path.resolve(__dirname, 'src', 'assets', 'styles'),
-                exclude: /(node_modules|bower_components|build)/,
+                exclude: /(node_modules|bower_components)/,
                 use: [
                     { loader: "style-loader" },
                     { loader: "css-loader" }
