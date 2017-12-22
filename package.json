@@ -1,14 +1,13 @@
 {
   "name": "react-collapsing-table",
-  "version": "0.1.02",
+  "version": "0.1.03",
   "description": "react-collapsing-table: a React rewrite of the jQuery table plugin from 'datatables.net'. Inspired by a lack of similar table behaviors, notably collapsibility and responsivity.",
   "main": "build/index.js",
   "peerDependencies": {
     "react": "^15.x.x || ^16.x.x"
   },
   "dependencies": {
-    "react": "^16.1.0",
-    "webpack": "^3.4.1"
+    "react": "^16.1.0"
   },
   "scripts": {
     "test": "jest --watch --env=jsdom",
@@ -46,6 +45,7 @@
     "react-dom": "^16.1.1",
     "react-icons": "^2.2.7",
     "style-loader": "^0.19.0",
+    "webpack": "^3.4.1",
     "webpack-babel-jest": "^1.0.4"
   },
   "jest": {
