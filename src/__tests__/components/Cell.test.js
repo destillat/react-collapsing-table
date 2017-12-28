@@ -5,7 +5,6 @@ import Cell from '../../components/Cell';
 import Button from '../../testUtils/components/Button';
 //Testing
 import { shallow, } from 'enzyme';
-import { check, gen, property } from 'testcheck';
 
 describe('Cell', () => {
     let wrapper, props;

@@ -6,7 +6,7 @@ export const calculateRows = ({ state }) => {
     } = state;
     let selectedRows = [];
     //pagination
-    if( rows.length > 0 ) {
+    if( rows.length > 0 || currentPage < 1 ) {
         const startingPoint = ((currentPage - 1) * rowSize);
         const endingPoint = startingPoint + rowSize;
         selectedRows = rows.slice(startingPoint, endingPoint);
