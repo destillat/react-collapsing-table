@@ -9,7 +9,8 @@ import {
     sortColumnAndDirectionProps,
     rowSizeProps,
     customComponentProps,
-    paginationListenerProps
+    paginationListenerProps,
+    sortableColumnsProps,
 } from './props';
 
 
@@ -19,4 +20,5 @@ storiesOf('React Collapsing Table', module)
     .add('Set Column and Direction displayed on load', () => <ReactCollapsingTable {...sortColumnAndDirectionProps} />)
     .add('Set the total rows displayed', () => <ReactCollapsingTable {...rowSizeProps} />)
     .add('Set the a custom component and callback', () => <ReactCollapsingTable {...customComponentProps} />)
-    .add('Set a pagination listener function', () => <ReactCollapsingTable {...paginationListenerProps} />);
+    .add('Set a pagination listener function', () => <ReactCollapsingTable {...paginationListenerProps} />)
+    .add('Only certain columns can be sorted on', () => <ReactCollapsingTable {...sortableColumnsProps} />);

@@ -4,14 +4,16 @@ import { ColumnPropType } from '../utils/propTypes';
 //Components
 import { sortDirection } from '../assets/icons/Icon';
 
-const Column = ({ accessor, label, onClick, sort }) => {
+const Column = ({ accessor, label, sortable, onClick, sort }) => {
     const direction = sort.column === accessor ? sort.direction : 'none';
     const icon = sortDirection({ direction });
+    const sortFunction = sortable ? () => onClick({ column: accessor }) : () => {};
+    const cssClass = `column-${accessor} ${ sortable ? 'clickable' : '' }`;
 
     return (
             <th key={ accessor }
-                onClick={ () => onClick({ column: accessor })}
-                className={ `column-${accessor}` }>{ label }{ icon }</th>
+                onClick={ sortFunction }
+                className={ cssClass }>{ label }{ icon }</th>
     );
 };
 

@@ -5,11 +5,12 @@ import { ColumnsPropType } from '../utils/propTypes';
 import Column from './Column';
 
 const Columns = ({ columns, sortRows, sort }) => {
-    const tableColumns = columns.map(({ accessor, label }) => {
+    const tableColumns = columns.map(({ accessor, label, sortable }) => {
         return <Column key={ accessor }
                        accessor={ accessor }
                        label={ label }
                        sort={ sort }
+                       sortable={ sortable }
                        onClick={ sortRows } />;
     });
     return (

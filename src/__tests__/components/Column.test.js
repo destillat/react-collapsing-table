@@ -12,6 +12,7 @@ describe('Column', () => {
         props = {
             accessor: 'firstName',
             label: 'First Name',
+            sortable: true,
             onClick: jest.fn(),
             sort: {
                 direction: 'ascending',
@@ -64,9 +65,37 @@ describe('Column', () => {
         expect(caretDowns.length).toBe(1);
     });
 
+    it('should have the clickable cssClassName', () => {
+        const th = wrapper.find('th').first();
+
+        expect(th.hasClass('clickable')).toBe(true);
+    });
+
+    it('should not have the clickable cssClassName', () => {
+        props = {
+            ...props,
+            sortable: false,
+        };
+        wrapper = shallow(<Column { ...props } />);
+        const th = wrapper.find('th').first();
+
+        expect(th.hasClass('clickable')).toBe(false);
+    });
+
     it('should fire an action when the th is clicked', () => {
         wrapper.find('th').first().simulate('click');
 
         expect(props.onClick).toHaveBeenCalled();
+    });
+
+    it('should not fire an action when the th is clicked and sortable is false', () => {
+        props = {
+            ...props,
+            sortable: false,
+        };
+        wrapper = shallow(<Column { ...props } />);
+        wrapper.find('th').first().simulate('click');
+
+        expect(props.onClick.mock.calls).toEqual([]);
     });
 });

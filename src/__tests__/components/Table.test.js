@@ -184,5 +184,22 @@ describe('Table', () => {
 
         expect(wrapper.state().rows.length).toBe(0);
         expect(wrapper.state().pagination.totalPages).toBe(1);
-    })
+    });
+
+    it('should be able to handle a column with or without a sortable key', () => {
+        props = {
+            ...props,
+            columns: [
+                { sortable: true, accessor: 'firstName', label: 'First Name', minWidth: 100, priorityLevel: 3, position: 1, },
+                { sortable: false, accessor: 'lastName', label: 'Last Name', minWidth: 50, priorityLevel: 1, position: 2, },
+                { accessor: 'email', label: 'email', minWidth: 90, priorityLevel: 3, position: 3, },
+            ],
+        };
+        wrapper = mount(<Table { ...props }/>);
+        const [ firstName, lastName, email] = wrapper.state().columns;
+
+        expect(firstName.sortable).toBe(true);
+        expect(lastName.sortable).toBe(false);
+        expect(email.sortable).toBe(true);
+    });
 });
