@@ -62,6 +62,21 @@ export const getColumnsCustomComponents = () => {
     ]
 };
 
+export const sortableCoulmns = () => {
+    return [
+        { accessor: 'firstName', label: 'First Name', priorityLevel: 1, position: 1, minWidth: 150, sortable: true },
+        { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, position: 2, minWidth: 150, sortable: true },
+        { accessor: 'email', label: 'Email', priorityLevel: 3, position: 3, minWidth: 250, },
+        { accessor: 'address', label: 'Address', priorityLevel: 4, position: 4, minWidth: 150, },
+        { accessor: 'date', label: 'Date', priorityLevel: 3, position: 6, minWidth: 150, sortType: 'date', },
+        { accessor: 'city', label: 'City', priorityLevel: 9, position: 5, minWidth: 120, sortable: false },
+        { accessor: 'state', label: 'State', priorityLevel: 6, position: 6, minWidth: 100, sortable: false },
+        { accessor: 'country', label: 'Country', priorityLevel: 8, position: 7, minWidth: 120, },
+        { accessor: 'zipCode', label: 'Zip Code', priorityLevel: 7, position: 8, minWidth: 50, sortable: true },
+        { accessor: 'bio', label: 'Bio', priorityLevel: 5, position: 9, minWidth: 300, sortable: false },
+    ]
+};
+
 export const basicTableProps = {
     columns: getColumns(),
     rows: generateFakeData({ totalRows: 1000 }),
@@ -99,4 +114,9 @@ export const paginationListenerProps = {
     showPagination: true,
     rows: generateFakeData({ totalRows: 20 }),
     paginationEventListener: ({ pagination }) => console.log(`I am on page ${ pagination.currentPage } of ${ pagination.totalPages }`)
+};
+
+export const sortableColumnsProps = {
+    columns: sortableCoulmns(),
+    rows: generateFakeData({ totalRows: 1000 }),
 };

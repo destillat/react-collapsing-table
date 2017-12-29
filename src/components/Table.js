@@ -33,7 +33,9 @@ export class Table extends Component {
         } = props;
 
         this.state = {
-            columns: columns.map(column => { return { ...column, isVisible: true } }),
+            columns: columns.map(column => {
+                const sortable = column.hasOwnProperty('sortable') ? column.sortable : true;
+                return { ...column, isVisible: true, sortable } }),
             rows,
             searchString: '',
             pagination: {

@@ -20,7 +20,7 @@ table.react-collapsible {
   padding-bottom: .8rem;
 }
 
-.react-collapsible thead tr th:hover {
+.click-able {
   cursor: pointer;
 }
 
