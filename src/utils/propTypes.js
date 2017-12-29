@@ -34,6 +34,7 @@ export const CellPropType = {
 export const ColumnPropType = {
     accessor: string.isRequired,
     label: string.isRequired,
+    sortable: bool.isRequired,
     onClick: func.isRequired,
     sort: Sort.isRequired,
 };
