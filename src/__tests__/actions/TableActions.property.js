@@ -36,7 +36,7 @@ describe('Table Actions', () => {
             };
 
             const output = actions.calculateRows(given);
-            
+
             return output.length === rowSize || // If there are more rows than the currentPage * rowSize return an array of the rowSize
                 (currentPage < 1 && output.length === 0) || //If the page is less than 0 then does it return an empty array?
                 (rows.length === 0 && output.length === 0 ) ||  // If there are no rows does it return an empty array?
