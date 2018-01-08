@@ -42,515 +42,176 @@ describe('Table Actions', () => {
                 (rows.length === 0 && output.length === 0 ) ||  // If there are no rows does it return an empty array?
                 (rowSize > rows.length && rows.length === output.length) || // If there are less rows than the row size does it return all of the rows?
                 (rows.length <= ((currentPage - 1) * rowSize) && output.length === 0) || //If there are only the same number of rows as the starting point of the slice does it return an empty array?
-                (rows.length < (currentPage * rowSize) && output.length === ((currentPage * rowSize) - rows.length)) //If there are less rows than the ending point of the slice does it return the correct number of rows based on the difference?
+                (rows.length < (currentPage * rowSize) && output.length === ((currentPage * rowSize) - rows.length%rowSize)) //If there are less rows than the ending point of the slice does it return the correct number of rows based on the difference?
         }
     );
 
 
-    // //SORT COLUMN
-    // it('should return ascending if the new column matches the old column and there was no previous sort direction', () => {
-    //     const given = {
-    //         column: 'firstName',
-    //         state: {
-    //             sort: {
-    //                 direction: 'none',
-    //                 column: 'firstName',
-    //             },
-    //             rows: [
-    //                 { firstName: 'Paul', email: 'p@gmail.com' },
-    //                 { firstName: 'Adam', email: 'd@gmail.com' },
-    //                 { firstName: 'Matt', email: 'm@gmail.com' },
-    //                 { firstName: 'Matt', email: 'a@gmail.com' },
-    //             ],
-    //             columns: [
-    //                 { accessor: 'firstName', },
-    //                 { accessor: 'email', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         sort: {
-    //             direction: 'ascending',
+    //SORT COLUMN
+    // jsc.property('should ',
+    //     'string', 'nat', 'array', (column, currentPage, rows) => {
+    //         const given = {
     //             column: 'firstName',
-    //         },
-    //         rows: [
-    //             { firstName: 'Adam', email: 'd@gmail.com' },
-    //             { firstName: 'Matt', email: 'm@gmail.com' },
-    //             { firstName: 'Matt', email: 'a@gmail.com' },
-    //             { firstName: 'Paul', email: 'p@gmail.com' },
-    //         ],
-    //         columns: [
-    //             { accessor: 'firstName', },
-    //             { accessor: 'email', },
-    //         ],
-    //     };
-    //
-    //     expect(actions.sortColumn(given)).toEqual(expected);
-    // });
-    // //CHANGE SORT FIELD AND DIRECTION
-    // it('should return ascending if the new column matches the old column and there was no previous sort direction', () => {
-    //     const given = {
-    //         newColumn: 'firstName',
-    //         state: {
-    //             sort: {
-    //                 direction: 'none',
-    //                 column: 'firstName',
+    //             state: {
+    //                 sort: {
+    //                     direction: 'none',
+    //                     column: 'firstName',
+    //                 },
+    //                 rows: [
+    //                     {firstName: 'Paul', email: 'p@gmail.com'},
+    //                     {firstName: 'Adam', email: 'd@gmail.com'},
+    //                     {firstName: 'Matt', email: 'm@gmail.com'},
+    //                     {firstName: 'Matt', email: 'a@gmail.com'},
+    //                 ],
+    //                 columns: [
+    //                     {accessor: 'firstName',},
+    //                     {accessor: 'email',},
+    //                 ],
     //             }
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedColumn: 'firstName',
-    //         sortedDirection: 'ascending'
-    //     };
-    //
-    //     expect(actions.changeSortFieldAndDirection(given)).toEqual(expected);
-    // });
-    //
-    // it('should return descending if the new column matches the old column and there was the previous sort direction was ascending', () => {
-    //     const given = {
-    //         newColumn: 'firstName',
-    //         state: {
+    //         };
+    //         const expected = {
     //             sort: {
     //                 direction: 'ascending',
     //                 column: 'firstName',
+    //             },
+    //             rows: [
+    //                 {firstName: 'Adam', email: 'd@gmail.com'},
+    //                 {firstName: 'Matt', email: 'm@gmail.com'},
+    //                 {firstName: 'Matt', email: 'a@gmail.com'},
+    //                 {firstName: 'Paul', email: 'p@gmail.com'},
+    //             ],
+    //             columns: [
+    //                 {accessor: 'firstName',},
+    //                 {accessor: 'email',},
+    //             ],
+    //         };
+    //         const output = actions.sortColumn(given);
+    //     }
+    // );
+
+    //CHANGE SORT FIELD AND DIRECTION
+    // jsc.property('should ',
+    //     'string', 'nat', 'array', (column, currentPage, rows) => {
+    //         const given = {
+    //             newColumn: 'firstName',
+    //             state: {
+    //                 sort: {
+    //                     direction: 'none',
+    //                     column: 'firstName',
+    //                 }
     //             }
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedColumn: 'firstName',
-    //         sortedDirection: 'descending'
-    //     };
+    //         };
     //
-    //     expect(actions.changeSortFieldAndDirection(given)).toEqual(expected);
-    // });
-    //
-    // it('should return ascending if the new column matches the old column and there was the previous sort direction was descending', () => {
-    //     const given = {
-    //         newColumn: 'firstName',
-    //         state: {
-    //             sort: {
-    //                 direction: 'descending',
+    //         const expected = {
+    //             sortedColumn: 'firstName',
+    //             sortedDirection: 'ascending'
+    //         };
+    //         const output = actions.changeSortFieldAndDirection(given);
+    //     }
+    // );
+
+    //CHANGE ROW ORDER
+    // jsc.property('should ',
+    //     'string', 'nat', 'array', (column, currentPage, rows) => {
+    //             const given = {
     //                 column: 'firstName',
-    //             }
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedColumn: 'firstName',
-    //         sortedDirection: 'ascending',
-    //     };
+    //                 state: {
+    //                     rows: [
+    //                         { firstName: 'Paul', email: 'p@gmail.com' },
+    //                         { firstName: 'Adam', email: 'd@gmail.com' },
+    //                         { firstName: 'Matt', email: 'm@gmail.com' },
+    //                         { firstName: 'Matt', email: 'a@gmail.com' },
+    //                     ],
+    //                     sort: {
+    //                         direction: 'ascending',
+    //                     },
+    //                     columns: [
+    //                         { accessor: 'firstName', },
+    //                         { accessor: 'email', },
+    //                     ],
+    //                 }
+    //             };
+    //             const expected = {
+    //                 sortedRows: [
+    //                     { firstName: 'Adam', email: 'd@gmail.com' },
+    //                     { firstName: 'Matt', email: 'm@gmail.com' },
+    //                     { firstName: 'Matt', email: 'a@gmail.com' },
+    //                     { firstName: 'Paul', email: 'p@gmail.com' },
+    //                 ]
+    //             };
+    //         const output = actions.changeRowOrder(given);
+    //     }
+    // );
+
+    //Pagination
+    jsc.property('should always increment the current page by one',
+        'nat', (currentPage) => {
+            const given = {
+                state: {
+                    pagination: {
+                        currentPage,
+                    },
+                }
+            };
+
+            const expected = {
+                pagination: {
+                    currentPage: currentPage + 1,
+                },
+            };
+
+            const output = actions.nextPage(given);
+
+            return output.pagination.currentPage === expected.pagination.currentPage
+        }
+    );
+
+    jsc.property('should always decrement the current page by one',
+        'nat', (currentPage) => {
+            const given = {
+                state: {
+                    pagination: {
+                        currentPage,
+                    },
+                }
+            };
+
+            const expected = {
+                pagination: {
+                    currentPage: currentPage - 1,
+                },
+            };
+
+            const output = actions.previousPage(given);
+
+            return output.pagination.currentPage === expected.pagination.currentPage
+        }
+    );
+
+    //EXPAND OR HIDE ROW
+    // jsc.property('should ',
+    //     'array', 'nat', (generatedRows, rowIndex) => {
+    //         const rows = generatedRows.map(row => { return { ...row, isOpen: Math.random() >= 0.5 } });
+    //         const given = {
+    //                     rowIndex,
+    //                     state: {
+    //                         pagination: {
+    //                             currentPage: 1,
+    //                             rowSize: 15,
+    //                         },
+    //                         rows
+    //                     }
+    //                 };
     //
-    //     expect(actions.changeSortFieldAndDirection(given)).toEqual(expected);
-    // });
     //
-    // it('should return none if the new column matches the old column and there was the previous sort direction was not defined', () => {
-    //     const given = {
-    //         newColumn: 'firstName',
-    //         state: {
-    //             sort: {
-    //                 direction: 'EyeOfTheTiger',
-    //                 column: 'firstName',
-    //             }
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedColumn: 'firstName',
-    //         sortedDirection: 'none'
-    //     };
+    //         const output = actions.expandRow(given);
+    //         console.log('row index', rowIndex);
+    //         console.log('output', output.rows[rowIndex]);
+    //         console.log('rows', rows[rowIndex], rows.length);
     //
-    //     expect(actions.changeSortFieldAndDirection(given)).toEqual(expected);
-    // });
+    //         return rows.length === 0 ||
     //
-    // it('should return ascending if the new column does not match the old column', () => {
-    //     const given = {
-    //         newColumn: 'firstName',
-    //         state: {
-    //             sort: {
-    //                 direction: 'ascending',
-    //                 column: 'email',
-    //             }
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedColumn: 'firstName',
-    //         sortedDirection: 'ascending'
-    //     };
-    //
-    //     expect(actions.changeSortFieldAndDirection(given)).toEqual(expected);
-    // });
-    // //CHANGE ROW ORDER
-    // it('should return the rows listed in ascending order based on the column clicked', () => {
-    //     const given = {
-    //         column: 'firstName',
-    //         state: {
-    //             rows: [
-    //                 { firstName: 'Paul', email: 'p@gmail.com' },
-    //                 { firstName: 'Adam', email: 'd@gmail.com' },
-    //                 { firstName: 'Matt', email: 'm@gmail.com' },
-    //                 { firstName: 'Matt', email: 'a@gmail.com' },
-    //             ],
-    //             sort: {
-    //                 direction: 'ascending',
-    //             },
-    //             columns: [
-    //                 { accessor: 'firstName', },
-    //                 { accessor: 'email', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedRows: [
-    //             { firstName: 'Adam', email: 'd@gmail.com' },
-    //             { firstName: 'Matt', email: 'm@gmail.com' },
-    //             { firstName: 'Matt', email: 'a@gmail.com' },
-    //             { firstName: 'Paul', email: 'p@gmail.com' },
-    //         ]
-    //     };
-    //
-    //     expect(actions.changeRowOrder(given)).toEqual(expected);
-    // });
-    //
-    // it('should return the rows listed in descending order based on the column clicked', () => {
-    //     const given = {
-    //         column: 'firstName',
-    //         state: {
-    //             rows: [
-    //                 { firstName: 'Paul', email: 'p@gmail.com' },
-    //                 { firstName: 'Adam', email: 'd@gmail.com' },
-    //                 { firstName: 'Matt', email: 'm@gmail.com' },
-    //                 { firstName: 'Matt', email: 'a@gmail.com' },
-    //             ],
-    //             sort: {
-    //                 direction: 'descending',
-    //             },
-    //             columns: [
-    //                 { accessor: 'firstName', },
-    //                 { accessor: 'email', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedRows: [
-    //             { firstName: 'Paul', email: 'p@gmail.com' },
-    //             { firstName: 'Matt', email: 'a@gmail.com' },
-    //             { firstName: 'Matt', email: 'm@gmail.com' },
-    //             { firstName: 'Adam', email: 'd@gmail.com' },
-    //         ]
-    //     };
-    //
-    //     expect(actions.changeRowOrder(given)).toEqual(expected);
-    // });
-    //
-    // it('should return the rows listed in ascending order based on the column clicked if direction is not one of the described states', () => {
-    //     const given = {
-    //         column: 'firstName',
-    //         state: {
-    //             rows: [
-    //                 { firstName: 'Paul', email: 'p@gmail.com' },
-    //                 { firstName: 'Adam', email: 'd@gmail.com' },
-    //                 { firstName: 'Matt', email: 'm@gmail.com' },
-    //                 { firstName: 'Matt', email: 'a@gmail.com' },
-    //             ],
-    //             sort: {
-    //                 direction: 'IAmALittleTeaPot',
-    //             },
-    //             columns: [
-    //                 { accessor: 'firstName', },
-    //                 { accessor: 'email', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedRows: [
-    //             { firstName: 'Adam', email: 'd@gmail.com' },
-    //             { firstName: 'Matt', email: 'm@gmail.com' },
-    //             { firstName: 'Matt', email: 'a@gmail.com' },
-    //             { firstName: 'Paul', email: 'p@gmail.com' },
-    //         ]
-    //     };
-    //
-    //     expect(actions.changeRowOrder(given)).toEqual(expected);
-    // });
-    //
-    // it('should return the rows listed in the same order if it is not sure of how to sort the columns', () => {
-    //     const given = {
-    //         column: 'IAmALittleTeaPot',
-    //         state: {
-    //             rows: [
-    //                 { firstName: 'Paul', email: 'p@gmail.com' },
-    //                 { firstName: 'Adam', email: 'd@gmail.com' },
-    //                 { firstName: 'Matt', email: 'm@gmail.com' },
-    //                 { firstName: 'Matt', email: 'a@gmail.com' },
-    //             ],
-    //             sort: {
-    //                 direction: 'ascending',
-    //             },
-    //             columns: [
-    //                 { accessor: 'firstName', },
-    //                 { accessor: 'email', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedRows: [
-    //             { firstName: 'Paul', email: 'p@gmail.com' },
-    //             { firstName: 'Adam', email: 'd@gmail.com' },
-    //             { firstName: 'Matt', email: 'm@gmail.com' },
-    //             { firstName: 'Matt', email: 'a@gmail.com' },
-    //         ]
-    //     };
-    //
-    //     expect(actions.changeRowOrder(given)).toEqual(expected);
-    // });
-    //
-    // it('should order dates from newest to oldest', () => {
-    //     const given = {
-    //         column: 'date',
-    //         state: {
-    //             rows: [
-    //                 { date: '12/30/2016', email: 'p@gmail.com' },
-    //                 { date: '01/01/2017', email: 'd@gmail.com' },
-    //                 { date: '12/31/2016', email: 'm@gmail.com' },
-    //                 { date: '01/01/2016', email: 'a@gmail.com' },
-    //             ],
-    //             sort: {
-    //                 direction: 'ascending',
-    //             },
-    //             columns: [
-    //                 { accessor: 'date', sortType: 'date' },
-    //                 { accessor: 'email', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedRows: [
-    //             { date: '01/01/2017', email: 'd@gmail.com' },
-    //             { date: '12/31/2016', email: 'm@gmail.com' },
-    //             { date: '12/30/2016', email: 'p@gmail.com' },
-    //             { date: '01/01/2016', email: 'a@gmail.com' },
-    //         ]
-    //     };
-    //
-    //     expect(actions.changeRowOrder(given)).toEqual(expected);
-    // });
-    //
-    // it('should order dates from oldest to newest', () => {
-    //     const given = {
-    //         column: 'date',
-    //         state: {
-    //             rows: [
-    //                 { date: '12/30/2016', email: 'p@gmail.com' },
-    //                 { date: '01/01/2017', email: 'd@gmail.com' },
-    //                 { date: '12/31/2016', email: 'm@gmail.com' },
-    //                 { date: '01/01/2016', email: 'a@gmail.com' },
-    //             ],
-    //             sort: {
-    //                 direction: 'descending',
-    //             },
-    //             columns: [
-    //                 { accessor: 'date', sortType: 'date' },
-    //                 { accessor: 'email', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedRows: [
-    //             { date: '01/01/2016', email: 'a@gmail.com' },
-    //             { date: '12/30/2016', email: 'p@gmail.com' },
-    //             { date: '12/31/2016', email: 'm@gmail.com' },
-    //             { date: '01/01/2017', email: 'd@gmail.com' },
-    //         ]
-    //     };
-    //
-    //     expect(actions.changeRowOrder(given)).toEqual(expected);
-    // });
-    //
-    // it('should order dates from oldest to newest and handle the same date', () => {
-    //     const given = {
-    //         column: 'date',
-    //         state: {
-    //             rows: [
-    //                 { date: '12/30/2016', email: 'p@gmail.com' },
-    //                 { date: '01/01/2017', email: 'd@gmail.com' },
-    //                 { date: '12/30/2016', email: 'm@gmail.com' },
-    //                 { date: '01/01/2016', email: 'a@gmail.com' },
-    //             ],
-    //             sort: {
-    //                 direction: 'descending',
-    //             },
-    //             columns: [
-    //                 { accessor: 'date', sortType: 'date' },
-    //                 { accessor: 'email', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         sortedRows: [
-    //             { date: '01/01/2016', email: 'a@gmail.com' },
-    //             { date: '12/30/2016', email: 'm@gmail.com' },
-    //             { date: '12/30/2016', email: 'p@gmail.com' },
-    //             { date: '01/01/2017', email: 'd@gmail.com' },
-    //         ]
-    //     };
-    //
-    //     expect(actions.changeRowOrder(given)).toEqual(expected);
-    // });
-    //
-    // //Pagination
-    // it('should update the currentPage to the next page', () => {
-    //     const given = {
-    //         state: {
-    //             pagination: {
-    //                 currentPage: 2,
-    //                 rowSize: 15,
-    //             },
-    //         }
-    //     };
-    //     const expected = {
-    //         pagination: {
-    //             currentPage: 3,
-    //             rowSize: 15,
-    //         },
-    //     };
-    //
-    //     expect(actions.nextPage(given)).toEqual(expected);
-    // });
-    //
-    // it('should update the currentPage to the previous page', () => {
-    //     const given = {
-    //         state: {
-    //             pagination: {
-    //                 currentPage: 2,
-    //                 rowSize: 15,
-    //             },
-    //         }
-    //     };
-    //     const expected = {
-    //         pagination: {
-    //             currentPage: 1,
-    //             rowSize: 15,
-    //         },
-    //     };
-    //
-    //     expect(actions.previousPage(given)).toEqual(expected);
-    // });
-    //
-    // it('should call the event pagination event listener', () => {
-    //     const paginationEventListener = jest.fn();
-    //     const given = {
-    //         state: {
-    //             pagination: {
-    //                 currentPage: 2,
-    //                 rowSize: 15,
-    //             },
-    //             paginationEventListener,
-    //         },
-    //         currentPage: 3,
-    //     };
-    //     const expected = {
-    //         pagination: {
-    //             currentPage: 3,
-    //             rowSize: 15,
-    //         },
-    //     };
-    //
-    //     actions.changePage(given);
-    //     expect(paginationEventListener).toHaveBeenCalledWith(expected);
-    // });
-    //
-    // //EXPAND OR HIDE ROW
-    // it('should hide a shown row', () => {
-    //     const given = {
-    //         rowIndex: 1,
-    //         state: {
-    //             pagination: {
-    //                 currentPage: 1,
-    //                 rowSize: 15,
-    //             },
-    //             rows: [
-    //                 { isOpen: false, firstName: 'Paul', },
-    //                 { isOpen: true, firstName: 'Matt', },
-    //                 { isOpen: false, firstName: 'Michelle', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         pagination: {
-    //             currentPage: 1,
-    //             rowSize: 15,
-    //         },
-    //         rows: [
-    //             { isOpen: false, firstName: 'Paul', },
-    //             { isOpen: false, firstName: 'Matt', },
-    //             { isOpen: false, firstName: 'Michelle', },
-    //         ],
-    //     };
-    //
-    //     expect(actions.expandRow(given)).toEqual(expected);
-    // });
-    //
-    // it('should show a hidden row', () => {
-    //     const given = {
-    //         rowIndex: 2,
-    //         state: {
-    //             pagination: {
-    //                 currentPage: 1,
-    //                 rowSize: 15,
-    //             },
-    //             rows: [
-    //                 { isOpen: false, firstName: 'Paul', },
-    //                 { isOpen: true, firstName: 'Matt', },
-    //                 { isOpen: false, firstName: 'Michelle', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         pagination: {
-    //             currentPage: 1,
-    //             rowSize: 15,
-    //         },
-    //         rows: [
-    //             { isOpen: false, firstName: 'Paul', },
-    //             { isOpen: true, firstName: 'Matt', },
-    //             { isOpen: true, firstName: 'Michelle', },
-    //         ],
-    //     };
-    //
-    //     expect(actions.expandRow(given)).toEqual(expected);
-    // });
-    //
-    // it('should show a hidden row on a different page', () => {
-    //     const given = {
-    //         rowIndex: 0,
-    //         state: {
-    //             pagination: {
-    //                 currentPage: 2,
-    //                 rowSize: 5,
-    //             },
-    //             rows: [
-    //                 { isOpen: false, firstName: 'Paul', },
-    //                 { isOpen: true, firstName: 'Matt', },
-    //                 { isOpen: false, firstName: 'Michelle', },
-    //                 { isOpen: false, firstName: 'Walter', },
-    //                 { isOpen: true, firstName: 'Tony', },
-    //                 { isOpen: false, firstName: 'Tina', },
-    //             ],
-    //         }
-    //     };
-    //     const expected = {
-    //         pagination: {
-    //             currentPage: 2,
-    //             rowSize: 5,
-    //         },
-    //         rows: [
-    //             { isOpen: false, firstName: 'Paul', },
-    //             { isOpen: true, firstName: 'Matt', },
-    //             { isOpen: false, firstName: 'Michelle', },
-    //             { isOpen: false, firstName: 'Walter', },
-    //             { isOpen: true, firstName: 'Tony', },
-    //             { isOpen: true, firstName: 'Tina', },
-    //         ],
-    //     };
-    //
-    //     expect(actions.expandRow(given)).toEqual(expected);
-    // });
+    //             output.rows[rowIndex].isOpen !== rows[rowIndex].isOpen
+    //     }
+    // );
 });
