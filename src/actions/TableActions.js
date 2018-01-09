@@ -86,17 +86,54 @@ export const dynamicSort = ({ column, type }) => {
 
 //Pagination
 export const nextPage = ({ state }) => {
-    const currentPage = state.pagination.currentPage + 1;
-    return changePage({ state, currentPage })
+    const { totalPages, currentPage } = state.pagination;
+    const validatedCurrentPage = checkPageState({ newPage: currentPage + 1, totalPages, currentPage });
+
+    return changePage({ state, currentPage: validatedCurrentPage })
 };
 
 export const previousPage = ({ state }) => {
-    const currentPage = state.pagination.currentPage - 1;
-    return changePage({ state, currentPage })
+    const { totalPages, currentPage } = state.pagination;
+    const validatedCurrentPage = checkPageState({ newPage: currentPage - 1, totalPages, currentPage });
+
+    return changePage({ state, currentPage: validatedCurrentPage })
+};
+
+export const goToPage = ({ state, newPage, shouldCall }) => {
+    const { totalPages, currentPage } = state.pagination;
+    const validatedCurrentPage = checkPageState({ newPage, totalPages, currentPage, shouldCall });
+
+    return changePage({ state, currentPage: validatedCurrentPage })
+};
+
+export const setTempPaginationPage = ({ state, newPage, shouldCall }) => {
+    const { totalPages, currentPage } = state.pagination;
+    const validatedCurrentPage = checkPageState({ newPage, totalPages, currentPage, shouldCall });
+
+    return { ...state, pagination: { ...state.pagination, currentPageTemp: validatedCurrentPage } };
+};
+
+export const checkPageState = ({ newPage, currentPage, totalPages, shouldCall }) => {
+    const isBelowZero = newPage < 0;
+    const isAboveTotalPages = newPage > totalPages;
+    const isNotANumber = isNaN(newPage);
+    const isEmpty = newPage.length === 0;
+
+    if(isNotANumber) {
+        return currentPage;
+    } else if(isBelowZero) {
+        return 1;
+    } else if(isAboveTotalPages) {
+        return totalPages;
+    } else if(isEmpty && shouldCall){
+        return currentPage;
+    } else {
+        return newPage;
+    }
 };
 
 export const changePage = ({ state, currentPage }) => {
-    const pagination = { ...state.pagination, currentPage } ;
+    const pagination = { ...state.pagination, currentPage, currentPageTemp: currentPage } ;
     if(state.paginationEventListener) state.paginationEventListener({ pagination });
     return { ...state, pagination }
 };

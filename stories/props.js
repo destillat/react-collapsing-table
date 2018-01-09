@@ -2,6 +2,7 @@ import faker from 'faker';
 import moment from 'moment';
 import Button from './button';
 import Link from './link';
+import TextInputPagination from './TextInputPagination';
 
 export const generateFakeData = ({ totalRows }) => {
     let data = [];
@@ -119,4 +120,12 @@ export const paginationListenerProps = {
 export const sortableColumnsProps = {
     columns: sortableCoulmns(),
     rows: generateFakeData({ totalRows: 1000 }),
+};
+
+export const customPaginationComponent = {
+    columns: getColumns(),
+    rows: generateFakeData({ totalRows: 1000 }),
+    showPagination: true,
+    showSearch: true,
+    CustomPagination: TextInputPagination,
 };
