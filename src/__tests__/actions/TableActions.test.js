@@ -422,6 +422,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 3,
+                currentPageTemp: 3,
                 rowSize: 15,
             },
         };
@@ -441,6 +442,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 1,
+                currentPageTemp: 1,
                 rowSize: 15,
             },
         };
@@ -454,6 +456,7 @@ describe('Table Actions', () => {
             state: {
                 pagination: {
                     currentPage: 2,
+                    currentPageTemp: 2,
                     rowSize: 15,
                 },
                 paginationEventListener,
@@ -463,6 +466,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 3,
+                currentPageTemp: 3,
                 rowSize: 15,
             },
         };

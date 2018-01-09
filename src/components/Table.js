@@ -163,10 +163,12 @@ export class Table extends Component {
                                 goToPage={ this.goToPage }
                                 nextPage={ this.nextPage }
                                 previousPage={ this.previousPage } />
-            : <Pagination currentPage={ currentPage }
-                          totalPages={ totalPages }
-                          nextPage={ this.nextPage }
-                          previousPage={ this.previousPage } />;
+            : showPagination
+                ? <Pagination currentPage={ currentPage }
+                              totalPages={ totalPages }
+                              nextPage={ this.nextPage }
+                              previousPage={ this.previousPage } />
+                : null;
 
         const SearchComponent = showSearch && <Search searchString={ this.state.searchString }
                                                       searchRows={ this.searchRows }
