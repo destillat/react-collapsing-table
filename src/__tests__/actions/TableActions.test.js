@@ -555,6 +555,30 @@ describe('Table Actions', () => {
         expect(actions.checkPageState(given)).toBe(expected);
     });
 
+    it('should test the "0" being entered and receive the currentPage number back when should call is true', () => {
+        const given = {
+            newPage: "0",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: true,
+        };
+        const expected = 31;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test the "0" being entered and receive the "0" back when should call is false', () => {
+        const given = {
+            newPage: "0",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = "0";
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
     it('should test if the new page is below zero and return back to the first page', () => {
         const given = {
             newPage: "-2",

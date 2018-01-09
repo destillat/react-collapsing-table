@@ -126,11 +126,14 @@ export const setTempPaginationPage = ({ state, newPage, shouldCall }) => {
 
 export const checkPageState = ({ newPage, currentPage, totalPages, shouldCall }) => {
     const isBelowZero = newPage < 0;
+    const isZero = newPage === "0";
     const isAboveTotalPages = newPage > totalPages;
     const isNotANumber = isNaN(newPage);
     const isEmpty = newPage.length === 0;
 
     if(isNotANumber) {
+        return currentPage;
+    } else if( isZero && shouldCall) {
         return currentPage;
     } else if(isBelowZero) {
         return 1;
