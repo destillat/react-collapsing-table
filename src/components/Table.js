@@ -121,15 +121,9 @@ export class Table extends Component {
         const shouldCall = (newPage !== undefined || charCode === ENTER_WAS_PRESSED );
         const pageNumber = newPage === undefined ? target === undefined ? this.state.pagination.currentPage : target.value : newPage;
 
-        if(shouldCall){
-            this.setState(currentState => {
-                return goToPage({ newPage: pageNumber, state: currentState, shouldCall })
-            })
-        } else {
-            this.setState(currentState => {
-                return setTempPaginationPage({ newPage: pageNumber, state: currentState, shouldCall: false })
-            })
-        }
+        this.setState(currentState => {
+            return goToPage({newPage: pageNumber, state: currentState, shouldCall})
+        })
     }
 
     expandRow({ rowIndex }) {

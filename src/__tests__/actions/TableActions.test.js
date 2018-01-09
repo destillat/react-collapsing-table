@@ -450,6 +450,171 @@ describe('Table Actions', () => {
         expect(actions.previousPage(given)).toEqual(expected);
     });
 
+    it('should decide when shouldCall is true to call setPage', () => {
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 31,
+                    currentPageTemp: 31,
+                    totalPages: 150,
+                },
+            },
+            newPage: "33",
+            shouldCall: true,
+        };
+        const expected = {
+            pagination: {
+                currentPage: "33",
+                currentPageTemp: "33",
+                totalPages: 150,
+            },
+        };
+
+        expect(actions.goToPage(given)).toEqual(expected);
+    });
+
+    it('should decide when shouldCall is false to call setTempPaginationPage', () => {
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 31,
+                    currentPageTemp: 31,
+                    totalPages: 150,
+                },
+            },
+            newPage: "33",
+            shouldCall: false,
+        };
+        const expected = {
+            pagination: {
+                currentPage: 31,
+                currentPageTemp: "33",
+                totalPages: 150,
+            },
+        };
+
+        expect(actions.goToPage(given)).toEqual(expected);
+    });
+
+
+    it('should test the states pagination currentPage and currentPageTemp to be set to the new page value', () => {
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 31,
+                    currentPageTemp: 31,
+                    totalPages: 150,
+                },
+            },
+            newPage: "33",
+            shouldCall: true,
+        };
+        const expected = {
+            pagination: {
+                currentPage: "33",
+                currentPageTemp: "33",
+                totalPages: 150,
+            },
+        };
+
+        expect(actions.setCurrentPage(given)).toEqual(expected);
+    });
+
+    it('should test the states pagination currentPageTemp to be set to the new page value', () => {
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 31,
+                    currentPageTemp: 31,
+                    totalPages: 150,
+                },
+            },
+            newPage: "33",
+            shouldCall: false,
+        };
+        const expected = {
+            pagination: {
+                currentPage: 31,
+                currentPageTemp: "33",
+                totalPages: 150,
+            },
+        };
+
+        expect(actions.setTempPaginationPage(given)).toEqual(expected);
+    });
+
+    it('should test not a number and receive the currentPage number back', () => {
+        const given = {
+            newPage: "Not A Number!",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = 31;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is below zero and return back to the first page', () => {
+        const given = {
+            newPage: "-2",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = 1;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is greater than the total pages and return back to the last page', () => {
+        const given = {
+            newPage: "234",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = 150;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is empty and if enter was clicked and return back to the current page', () => {
+        const given = {
+            newPage: "",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: true,
+        };
+        const expected = 31;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is empty and if enter was not clicked and return back an empty string', () => {
+        const given = {
+            newPage: "",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = "";
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is 54 and return 54 back as the page to go to', () => {
+        const given = {
+            newPage: "54",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = "54";
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
     it('should call the event pagination event listener', () => {
         const paginationEventListener = jest.fn();
         const given = {

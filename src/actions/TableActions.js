@@ -99,11 +99,22 @@ export const previousPage = ({ state }) => {
     return changePage({ state, currentPage: validatedCurrentPage })
 };
 
-export const goToPage = ({ state, newPage, shouldCall }) => {
+export const goToPage = (props) => {
+    return props.shouldCall ? setCurrentPage(props) : setTempPaginationPage(props);
+};
+
+export const setCurrentPage = ({ state, newPage, shouldCall }) => {
     const { totalPages, currentPage } = state.pagination;
     const validatedCurrentPage = checkPageState({ newPage, totalPages, currentPage, shouldCall });
 
-    return changePage({ state, currentPage: validatedCurrentPage })
+    return {
+        ...state,
+        pagination: {
+            ...state.pagination,
+            currentPage: validatedCurrentPage,
+            currentPageTemp: validatedCurrentPage
+        }
+    };
 };
 
 export const setTempPaginationPage = ({ state, newPage, shouldCall }) => {
