@@ -6,11 +6,13 @@ import Search from './Search';
 import Columns from './Columns';
 import Rows from './Rows';
 import Pagination from './Pagination';
-import { calculateRows, sortColumn, nextPage, previousPage, expandRow } from '../actions/TableActions'
+import { calculateRows, sortColumn, nextPage, previousPage, goToPage, expandRow, setInputtedPage } from '../actions/TableActions'
 import { resizeTable } from '../actions/ResizeTableActions'
 import { searchRows, clearSearch } from '../actions/SearchActions';
 import throttle from 'lodash.throttle';
 import cloneDeep from 'lodash.clonedeep';
+
+const ENTER_WAS_PRESSED = 13;
 
 export class Table extends Component {
     constructor(props) {
@@ -30,6 +32,7 @@ export class Table extends Component {
             showPagination = false,
             paginationEventListener = null,
             totalPages = (rows.length === 0) ? 1 : Math.ceil(rows.length / rowSize),
+            CustomPagination = null,
         } = props;
 
         this.state = {
@@ -41,6 +44,7 @@ export class Table extends Component {
             pagination: {
                 rowSize,
                 currentPage,
+                inputtedPage: currentPage,
                 totalPages,
             },
             sort: {
@@ -51,12 +55,14 @@ export class Table extends Component {
             showSearch,
             showPagination,
             paginationEventListener,
+            CustomPagination
         };
 
         this.resizeTable = this.resizeTable.bind(this);
         this.sortRows = this.sortRows.bind(this);
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
+        this.goToPage = this.goToPage.bind(this);
         this.expandRow = this.expandRow.bind(this);
         this.searchRows = this.searchRows.bind(this);
         this.clearSearch = this.clearSearch.bind(this);
@@ -111,6 +117,15 @@ export class Table extends Component {
         });
     };
 
+    goToPage({ newPage, charCode, target }) {
+        const shouldCall = (newPage !== undefined || charCode === ENTER_WAS_PRESSED );
+        const pageNumber = newPage === undefined ? target === undefined ? this.state.pagination.currentPage : target.value : newPage;
+
+        this.setState(currentState => {
+            return goToPage({newPage: pageNumber, state: currentState, shouldCall})
+        })
+    }
+
     expandRow({ rowIndex }) {
         this.setState(currentState => {
             return expandRow({ rowIndex, state: currentState })
@@ -130,15 +145,25 @@ export class Table extends Component {
     }
 
     render(){
-        const { columns, pagination: { currentPage, totalPages }, callbacks, showSearch, showPagination } = this.state;
+        const { columns, pagination: { currentPage, totalPages, inputtedPage }, callbacks, showSearch, showPagination, CustomPagination } = this.state;
         const displayedRows = calculateRows({ state: this.state });
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
         const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
 
-        const PaginationComponent = showPagination && <Pagination currentPage={ currentPage }
-                                                                  totalPages={ totalPages }
-                                                                  nextPage={ this.nextPage }
-                                                                  previousPage={ this.previousPage } />;
+        const PaginationComponent = showPagination && CustomPagination
+            ? <CustomPagination currentPage={ currentPage }
+                                inputtedPage={ inputtedPage }
+                                totalPages={ totalPages }
+                                goToPage={ this.goToPage }
+                                nextPage={ this.nextPage }
+                                previousPage={ this.previousPage } />
+            : showPagination
+                ? <Pagination currentPage={ currentPage }
+                              totalPages={ totalPages }
+                              nextPage={ this.nextPage }
+                              previousPage={ this.previousPage } />
+                : null;
+
         const SearchComponent = showSearch && <Search searchString={ this.state.searchString }
                                                       searchRows={ this.searchRows }
                                                       clearSearch={ this.clearSearch } />;

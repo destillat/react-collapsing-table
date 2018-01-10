@@ -5,6 +5,8 @@ import Table from '../../components/Table';
 import * as searchActions from '../../actions/SearchActions';
 import * as resizeTableActions from '../../actions/ResizeTableActions';
 import * as tableActions from '../../actions/TableActions';
+import TextInputPagination from '../../../stories/TextInputPagination';
+
 //Testing
 import { mount, shallow, } from 'enzyme';
 
@@ -14,7 +16,7 @@ describe('Table', () => {
     beforeEach(() => {
         props = {
             sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
-            pagination: { currentPage: 1, rowSize: 5, totalPages: 1 },
+            pagination: { currentPage: 1, inputtedPage: 1, rowSize: 5, totalPages: 1 },
             columns: [
                 { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
                 { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
@@ -34,6 +36,7 @@ describe('Table', () => {
 
         tableActions.sortColumn = jest.fn();
         tableActions.nextPage = jest.fn();
+        tableActions.goToPage = jest.fn();
         tableActions.previousPage = jest.fn();
         tableActions.expandRow = jest.fn();
 
@@ -88,6 +91,15 @@ describe('Table', () => {
         expect(paginations.length).toBe(0);
     });
 
+    it('should render a Custom Pagination component', () => {
+        props = { ...props, showPagination: true, CustomPagination: TextInputPagination };
+        wrapper = shallow(<Table { ...props }/>);
+
+        const paginations = wrapper.find('TextInputPagination');
+
+        expect(paginations.length).toBe(1);
+    });
+
     it('should render correctly with no rows', () => {
         props = {
             sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
@@ -135,6 +147,26 @@ describe('Table', () => {
 
         instance.expandRow({ rowIndex: 3 });
         expect(tableActions.expandRow).toHaveBeenCalled();
+    });
+
+    it('should test the goToPage Table Actions if a page number is given to it', () => {
+        instance.goToPage({ newPage: '4' });
+        expect(tableActions.goToPage).toHaveBeenCalledWith({ newPage: '4', shouldCall: true, state: instance.state });
+    });
+
+    it('should test the goToPage Table Actions if an input is received', () => {
+        instance.goToPage({ target: { value: '44' } });
+        expect(tableActions.goToPage).toHaveBeenCalledWith({ newPage: '44', shouldCall: false, state: instance.state });
+    });
+
+    it('should test the goToPage Table Actions if an input is received and the charCode is enter', () => {
+        instance.goToPage({ charCode: 13, target: { value: '44' } });
+        expect(tableActions.goToPage).toHaveBeenCalledWith({ newPage: '44', shouldCall: true, state: instance.state });
+    });
+
+    it('should test the goToPage Table Actions if an there is no input and the charCode is enter', () => {
+        instance.goToPage({ charCode: 13, });
+        expect(tableActions.goToPage).toHaveBeenCalledWith({ newPage: 1, shouldCall: true, state: instance.state });
     });
 
     it('should test that the mounting and unmounting of the component is called', () => {

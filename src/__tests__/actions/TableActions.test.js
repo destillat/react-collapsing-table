@@ -422,6 +422,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 3,
+                inputtedPage: 3,
                 rowSize: 15,
             },
         };
@@ -441,11 +442,201 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 1,
+                inputtedPage: 1,
                 rowSize: 15,
             },
         };
 
         expect(actions.previousPage(given)).toEqual(expected);
+    });
+
+    it('should decide when shouldCall is true to call setPage', () => {
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 31,
+                    inputtedPage: 31,
+                    totalPages: 150,
+                },
+            },
+            newPage: "33",
+            shouldCall: true,
+        };
+        const expected = {
+            pagination: {
+                currentPage: "33",
+                inputtedPage: "33",
+                totalPages: 150,
+            },
+        };
+
+        expect(actions.goToPage(given)).toEqual(expected);
+    });
+
+    it('should decide when shouldCall is false to call setInputtedPage', () => {
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 31,
+                    inputtedPage: 31,
+                    totalPages: 150,
+                },
+            },
+            newPage: "33",
+            shouldCall: false,
+        };
+        const expected = {
+            pagination: {
+                currentPage: 31,
+                inputtedPage: "33",
+                totalPages: 150,
+            },
+        };
+
+        expect(actions.goToPage(given)).toEqual(expected);
+    });
+
+
+    it('should test the states pagination currentPage and inputtedPage to be set to the new page value', () => {
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 31,
+                    inputtedPage: 31,
+                    totalPages: 150,
+                },
+            },
+            newPage: "33",
+            shouldCall: true,
+        };
+        const expected = {
+            pagination: {
+                currentPage: "33",
+                inputtedPage: "33",
+                totalPages: 150,
+            },
+        };
+
+        expect(actions.setCurrentPage(given)).toEqual(expected);
+    });
+
+    it('should test the states pagination inputtedPage to be set to the new page value', () => {
+        const given = {
+            state: {
+                pagination: {
+                    currentPage: 31,
+                    inputtedPage: 31,
+                    totalPages: 150,
+                },
+            },
+            newPage: "33",
+            shouldCall: false,
+        };
+        const expected = {
+            pagination: {
+                currentPage: 31,
+                inputtedPage: "33",
+                totalPages: 150,
+            },
+        };
+
+        expect(actions.setInputtedPage(given)).toEqual(expected);
+    });
+
+    it('should test not a number and receive the currentPage number back', () => {
+        const given = {
+            newPage: "Not A Number!",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = 31;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test the "0" being entered and receive the currentPage number back when should call is true', () => {
+        const given = {
+            newPage: "0",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: true,
+        };
+        const expected = 31;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test the "0" being entered and receive the "0" back when should call is false', () => {
+        const given = {
+            newPage: "0",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = "0";
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is below zero and return back to the first page', () => {
+        const given = {
+            newPage: "-2",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = 1;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is greater than the total pages and return back to the last page', () => {
+        const given = {
+            newPage: "234",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = 150;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is empty and if enter was clicked and return back to the current page', () => {
+        const given = {
+            newPage: "",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: true,
+        };
+        const expected = 31;
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is empty and if enter was not clicked and return back an empty string', () => {
+        const given = {
+            newPage: "",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = "";
+
+        expect(actions.checkPageState(given)).toBe(expected);
+    });
+
+    it('should test if the new page is 54 and return 54 back as the page to go to', () => {
+        const given = {
+            newPage: "54",
+            currentPage: 31,
+            totalPages: 150,
+            shouldCall: false,
+        };
+        const expected = "54";
+
+        expect(actions.checkPageState(given)).toBe(expected);
     });
 
     it('should call the event pagination event listener', () => {
@@ -454,6 +645,7 @@ describe('Table Actions', () => {
             state: {
                 pagination: {
                     currentPage: 2,
+                    inputtedPage: 2,
                     rowSize: 15,
                 },
                 paginationEventListener,
@@ -463,6 +655,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 3,
+                inputtedPage: 3,
                 rowSize: 15,
             },
         };

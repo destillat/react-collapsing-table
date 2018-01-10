@@ -11,6 +11,7 @@ import {
     customComponentProps,
     paginationListenerProps,
     sortableColumnsProps,
+    customPaginationComponent
 } from './props';
 
 
@@ -21,4 +22,5 @@ storiesOf('React Collapsing Table', module)
     .add('Set the total rows displayed', () => <ReactCollapsingTable {...rowSizeProps} />)
     .add('Set the a custom component and callback', () => <ReactCollapsingTable {...customComponentProps} />)
     .add('Set a pagination listener function', () => <ReactCollapsingTable {...paginationListenerProps} />)
-    .add('Only certain columns can be sorted on', () => <ReactCollapsingTable {...sortableColumnsProps} />);
+    .add('Only certain columns can be sorted on', () => <ReactCollapsingTable {...sortableColumnsProps} />)
+    .add('Custom Text Input Pagination', () => <ReactCollapsingTable {...customPaginationComponent} />);
