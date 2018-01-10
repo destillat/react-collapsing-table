@@ -100,7 +100,7 @@ export const previousPage = ({ state }) => {
 };
 
 export const goToPage = (props) => {
-    return props.shouldCall ? setCurrentPage(props) : setTempPaginationPage(props);
+    return props.shouldCall ? setCurrentPage(props) : setInputtedPage(props);
 };
 
 export const setCurrentPage = ({ state, newPage, shouldCall }) => {
@@ -112,16 +112,16 @@ export const setCurrentPage = ({ state, newPage, shouldCall }) => {
         pagination: {
             ...state.pagination,
             currentPage: validatedCurrentPage,
-            currentPageTemp: validatedCurrentPage
+            inputtedPage: validatedCurrentPage
         }
     };
 };
 
-export const setTempPaginationPage = ({ state, newPage, shouldCall }) => {
+export const setInputtedPage = ({ state, newPage, shouldCall }) => {
     const { totalPages, currentPage } = state.pagination;
     const validatedCurrentPage = checkPageState({ newPage, totalPages, currentPage, shouldCall });
 
-    return { ...state, pagination: { ...state.pagination, currentPageTemp: validatedCurrentPage } };
+    return { ...state, pagination: { ...state.pagination, inputtedPage: validatedCurrentPage } };
 };
 
 export const checkPageState = ({ newPage, currentPage, totalPages, shouldCall }) => {
@@ -147,7 +147,7 @@ export const checkPageState = ({ newPage, currentPage, totalPages, shouldCall })
 };
 
 export const changePage = ({ state, currentPage }) => {
-    const pagination = { ...state.pagination, currentPage, currentPageTemp: currentPage } ;
+    const pagination = { ...state.pagination, currentPage, inputtedPage: currentPage } ;
     if(state.paginationEventListener) state.paginationEventListener({ pagination });
     return { ...state, pagination }
 };

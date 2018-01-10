@@ -422,7 +422,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 3,
-                currentPageTemp: 3,
+                inputtedPage: 3,
                 rowSize: 15,
             },
         };
@@ -442,7 +442,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 1,
-                currentPageTemp: 1,
+                inputtedPage: 1,
                 rowSize: 15,
             },
         };
@@ -455,7 +455,7 @@ describe('Table Actions', () => {
             state: {
                 pagination: {
                     currentPage: 31,
-                    currentPageTemp: 31,
+                    inputtedPage: 31,
                     totalPages: 150,
                 },
             },
@@ -465,7 +465,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: "33",
-                currentPageTemp: "33",
+                inputtedPage: "33",
                 totalPages: 150,
             },
         };
@@ -473,12 +473,12 @@ describe('Table Actions', () => {
         expect(actions.goToPage(given)).toEqual(expected);
     });
 
-    it('should decide when shouldCall is false to call setTempPaginationPage', () => {
+    it('should decide when shouldCall is false to call setInputtedPage', () => {
         const given = {
             state: {
                 pagination: {
                     currentPage: 31,
-                    currentPageTemp: 31,
+                    inputtedPage: 31,
                     totalPages: 150,
                 },
             },
@@ -488,7 +488,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 31,
-                currentPageTemp: "33",
+                inputtedPage: "33",
                 totalPages: 150,
             },
         };
@@ -497,12 +497,12 @@ describe('Table Actions', () => {
     });
 
 
-    it('should test the states pagination currentPage and currentPageTemp to be set to the new page value', () => {
+    it('should test the states pagination currentPage and inputtedPage to be set to the new page value', () => {
         const given = {
             state: {
                 pagination: {
                     currentPage: 31,
-                    currentPageTemp: 31,
+                    inputtedPage: 31,
                     totalPages: 150,
                 },
             },
@@ -512,7 +512,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: "33",
-                currentPageTemp: "33",
+                inputtedPage: "33",
                 totalPages: 150,
             },
         };
@@ -520,12 +520,12 @@ describe('Table Actions', () => {
         expect(actions.setCurrentPage(given)).toEqual(expected);
     });
 
-    it('should test the states pagination currentPageTemp to be set to the new page value', () => {
+    it('should test the states pagination inputtedPage to be set to the new page value', () => {
         const given = {
             state: {
                 pagination: {
                     currentPage: 31,
-                    currentPageTemp: 31,
+                    inputtedPage: 31,
                     totalPages: 150,
                 },
             },
@@ -535,12 +535,12 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 31,
-                currentPageTemp: "33",
+                inputtedPage: "33",
                 totalPages: 150,
             },
         };
 
-        expect(actions.setTempPaginationPage(given)).toEqual(expected);
+        expect(actions.setInputtedPage(given)).toEqual(expected);
     });
 
     it('should test not a number and receive the currentPage number back', () => {
@@ -645,7 +645,7 @@ describe('Table Actions', () => {
             state: {
                 pagination: {
                     currentPage: 2,
-                    currentPageTemp: 2,
+                    inputtedPage: 2,
                     rowSize: 15,
                 },
                 paginationEventListener,
@@ -655,7 +655,7 @@ describe('Table Actions', () => {
         const expected = {
             pagination: {
                 currentPage: 3,
-                currentPageTemp: 3,
+                inputtedPage: 3,
                 rowSize: 15,
             },
         };

@@ -6,7 +6,7 @@ import Search from './Search';
 import Columns from './Columns';
 import Rows from './Rows';
 import Pagination from './Pagination';
-import { calculateRows, sortColumn, nextPage, previousPage, goToPage, expandRow, setTempPaginationPage } from '../actions/TableActions'
+import { calculateRows, sortColumn, nextPage, previousPage, goToPage, expandRow, setInputtedPage } from '../actions/TableActions'
 import { resizeTable } from '../actions/ResizeTableActions'
 import { searchRows, clearSearch } from '../actions/SearchActions';
 import throttle from 'lodash.throttle';
@@ -44,7 +44,7 @@ export class Table extends Component {
             pagination: {
                 rowSize,
                 currentPage,
-                currentPageTemp: currentPage,
+                inputtedPage: currentPage,
                 totalPages,
             },
             sort: {
@@ -145,14 +145,14 @@ export class Table extends Component {
     }
 
     render(){
-        const { columns, pagination: { currentPage, totalPages, currentPageTemp }, callbacks, showSearch, showPagination, CustomPagination } = this.state;
+        const { columns, pagination: { currentPage, totalPages, inputtedPage }, callbacks, showSearch, showPagination, CustomPagination } = this.state;
         const displayedRows = calculateRows({ state: this.state });
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
         const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
 
         const PaginationComponent = showPagination && CustomPagination
             ? <CustomPagination currentPage={ currentPage }
-                                currentPageTemp={ currentPageTemp }
+                                inputtedPage={ inputtedPage }
                                 totalPages={ totalPages }
                                 goToPage={ this.goToPage }
                                 nextPage={ this.nextPage }

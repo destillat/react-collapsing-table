@@ -16,7 +16,7 @@ describe('Table', () => {
     beforeEach(() => {
         props = {
             sort: { direction: 'none', column: '', defaultSortColumn: 'email' },
-            pagination: { currentPage: 1, currentPageTemp: 1, rowSize: 5, totalPages: 1 },
+            pagination: { currentPage: 1, inputtedPage: 1, rowSize: 5, totalPages: 1 },
             columns: [
                 { accessor: 'firstName', label: 'First Name', isVisible: true, minWidth: 100, priorityLevel: 3, position: 1, },
                 { accessor: 'lastName', label: 'Last Name', isVisible: true, minWidth: 50, priorityLevel: 1, position: 2, },
