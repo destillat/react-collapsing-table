@@ -43,9 +43,9 @@ export const expandIcon = ({ cellIndex, rowIndex, row, hiddenColumnsLength, expa
 export const sortDirection = ({ direction='none', size=20 }) => {
     switch (direction) {
         case 'ascending':
-            return <span><CaretUp size={ size } className="brand-primary-light" /></span>;
+            return <span><CloseRow size={ size } className="brand-primary-light" /></span>;
         case 'descending':
-            return <span><CaretDown size={ size } className="brand-primary-light" /></span>;
+            return <span><OpenRow size={ size } className="brand-primary-light" /></span>;
         default:
             return <span />;
     }
