@@ -1,8 +1,11 @@
+import React from 'react';
 import faker from 'faker';
 import moment from 'moment';
 import Button from './button';
 import Link from './link';
 import TextInputPagination from './TextInputPagination';
+import ArrowUp from 'react-icons/lib/fa/arrow-up';
+import ArrowDown from 'react-icons/lib/fa/arrow-down';
 
 export const generateFakeData = ({ totalRows }) => {
     let data = [];
@@ -128,4 +131,16 @@ export const customPaginationComponent = {
     showPagination: true,
     showSearch: true,
     CustomPagination: TextInputPagination,
+};
+
+export const customIconProps = {
+    id: 'customIdForTheTable',
+    columns: getColumns(),
+    rows: generateFakeData({ totalRows: 1000 }),
+    icons: {
+        ascending: <svg width="10" height="10"><circle cx="5" cy="5" r="4" stroke="blue" strokeWidth="1" fill="red" /></svg>,
+        descending: <svg width="10" height="10"><circle cx="5" cy="5" r="4" stroke="red" strokeWidth="1" fill="blue" /></svg>,
+        openRow: ArrowDown,
+        closeRow: ArrowUp,
+    }
 };

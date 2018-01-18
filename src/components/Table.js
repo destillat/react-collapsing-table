@@ -33,6 +33,8 @@ export class Table extends Component {
             paginationEventListener = null,
             totalPages = (rows.length === 0) ? 1 : Math.ceil(rows.length / rowSize),
             CustomPagination = null,
+            icons = null,
+            id = null,
         } = props;
 
         this.state = {
@@ -55,7 +57,9 @@ export class Table extends Component {
             showSearch,
             showPagination,
             paginationEventListener,
-            CustomPagination
+            CustomPagination,
+            icons,
+            id,
         };
 
         this.resizeTable = this.resizeTable.bind(this);
@@ -145,7 +149,16 @@ export class Table extends Component {
     }
 
     render(){
-        const { columns, pagination: { currentPage, totalPages, inputtedPage }, callbacks, showSearch, showPagination, CustomPagination } = this.state;
+        const {
+            columns,
+            pagination: { currentPage, totalPages, inputtedPage },
+            callbacks,
+            showSearch,
+            showPagination,
+            CustomPagination,
+            icons,
+            id
+        } = this.state;
         const displayedRows = calculateRows({ state: this.state });
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
         const hiddenColumns = Object.assign([], columns.filter(column => !column.isVisible));
@@ -171,11 +184,13 @@ export class Table extends Component {
         return (
             <div>
                 { SearchComponent }
-                <table className="react-collapsible">
-                    <Columns columns={ visibleColumns }
+                <table className="react-collapsible" id={ id }>
+                    <Columns icons={ icons }
+                             columns={ visibleColumns }
                              sortRows={ this.sortRows }
                              sort={ this.state.sort } />
-                    <Rows rows={ displayedRows }
+                    <Rows icons={ icons }
+                          rows={ displayedRows }
                           visibleColumns={ visibleColumns }
                           hiddenColumns={ hiddenColumns }
                           expandRow={ this.expandRow }

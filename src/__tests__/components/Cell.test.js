@@ -28,6 +28,7 @@ describe('Cell', () => {
             rowIndex: 2,
             expandRow: jest.fn(),
             hiddenColumnsLength: 4,
+            icons: null,
         };
 
         wrapper = shallow(<Cell { ...props } />);

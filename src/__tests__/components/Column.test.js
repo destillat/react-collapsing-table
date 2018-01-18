@@ -14,6 +14,7 @@ describe('Column', () => {
             label: 'First Name',
             sortable: true,
             onClick: jest.fn(),
+            icons: null,
             sort: {
                 direction: 'ascending',
                 column: 'lastName',

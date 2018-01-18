@@ -5,11 +5,12 @@ import { RowsPropType } from '../utils/propTypes';
 import Row from './Row';
 import ExpandedRow from './ExpandedRow';
 
-const Rows = ({ rows, visibleColumns, hiddenColumns, expandRow, callbacks }) => {
+const Rows = ({ rows, visibleColumns, hiddenColumns, expandRow, callbacks, icons }) => {
     const tableRows = rows.reduce((r, row, index) => r.concat(
         <Row key={ `${index}-1` }
              rowIndex={ index }
              row={ row }
+             icons={ icons }
              visibleColumns={ visibleColumns }
              hiddenColumns={ hiddenColumns }
              callbacks={ callbacks }

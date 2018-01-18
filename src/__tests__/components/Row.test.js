@@ -37,7 +37,8 @@ describe('Row', () => {
             ],
             expandRow: jest.fn(),
             rowIndex: 2,
-            callbacks: {}
+            callbacks: {},
+            icons: null,
         };
 
         wrapper = mount(<Row { ...props } />);

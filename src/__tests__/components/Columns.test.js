@@ -27,7 +27,8 @@ describe('Columns', () => {
                 direction: 'ascending',
                 column: 'firstName',
                 defaultSortColumn: 'email',
-            }
+            },
+            icons: null,
         };
 
         wrapper = shallow(<Columns { ...props } />);

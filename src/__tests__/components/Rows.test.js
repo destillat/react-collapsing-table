@@ -64,6 +64,7 @@ describe('Rows', () => {
             ],
             expandRow: jest.fn(),
             callbacks: {},
+            icons: null,
         };
 
         wrapper = shallow(<Rows { ...props } />);
