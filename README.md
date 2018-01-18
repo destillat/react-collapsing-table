@@ -3,7 +3,7 @@
 
 Thanks for taking a look at the react collapsping table. This was inspired by the the [jquery datatables library](https://datatables.net/). You can see a working example of this app [here](https://massmutual.github.io/react-collapsing-table/). You can also see an [example](https://github.com/Salinn/travel-receipts) of this app using custom components that has redux hooked up.
 
-[This is article](https://medium.com/@pauldarragh/react-collapsing-table-817173321c35) is a quick dive into some features shown in a very simple example
+[This article](https://medium.com/@pauldarragh/react-collapsing-table-817173321c35) is a quick dive into some features shown in a very simple example
 
 ## Table of Contents
 - Features
@@ -16,9 +16,14 @@ Thanks for taking a look at the react collapsping table. This was inspired by th
 ---
 
 ### Features
-This table is designed to dynamically change size based on the screen width. This is the main goal so that a drop down becomes avaible once any column is hidden and then that row can be expanded or closed based on a user clicking the table.
-
-We have also included basic pagination and a global table search feature that highlights the found results. These features opperate best when you pass it all of the data that you have recieved. These features do not work with fetching eternal data.
+- Expandable Row that makes the table mobile friendly
+- Prioritization of when columns are shown or hidden as the table expands and shrinks
+- Search built in with highlighting of content
+- Creating your own custom react components for each cell
+- The ability for your custom component to call a function you made outside of the table
+- The ability to create your own custom pagination component and still call the table functions
+- The ability to listen for pagination events, like if you need to know if you were on the last page
+- Ability to overwrite built in icons for sorting and open/closing a row
 
 ---
 
