@@ -3,12 +3,14 @@
 
 Thanks for taking a look at the react collapsping table. This was inspired by the the [jquery datatables library](https://datatables.net/). You can see a working example of this app [here](https://massmutual.github.io/react-collapsing-table/). You can also see an [example](https://github.com/Salinn/travel-receipts) of this app using custom components that has redux hooked up.
 
+[This is article](https://medium.com/@pauldarragh/react-collapsing-table-817173321c35) is a quick dive into some features shown in a very simple example
+
 ## Table of Contents
 - Features
 - Installing
-- Styling
 - Props
 - Add your Own Components
+- Styling
 - Contributing
 
 ---
@@ -37,43 +39,16 @@ const yourComponent({ rows, columns }) => {
 }
 ```
 
----
-
-### Styling
-We have given most of the components defined class names to make them easy to add your own styles to. If you want to use our styles that we defined then you can create a css file in your project and copy them from [here](https://github.com/massmutual/react-collapsing-table/blob/master/src/assets/styles/react-table.css).
-
-We tried to make each this table easy to make your own and have added a number of class names and ids to help make it easy to style and giving them each unique names to avoid name collisions.
-
-##### Table Data Cell (td)
-- **id**: `td-${currentRowIndex}-${currentColumnIndex} `
-  - This uses the generated row and column indexes
-- **class name**: `${ accessor }`
-  - This uses the column defined attribute as the class name so that you can see all of the attributes that line up to a class name
-##### Table Row (tr)
-- **id**: `tr-normal-${ rowIndex }`
-  - This uses the genereated row index to define which row it is on
-- **class name**: `normal-row`
-
-##### Expanded Table Row (tr)
-- **id**: `tr-expanded-${ rowIndex }`
-  - This uses the genereated row index to define which row it is on
-- **class name**: `expanded-row`
-
-##### Columns (th)
-- **id**: `column-${accessor}`
-  - This uses the data accessor as a unique column name
-
-##### Table (table)
-- **class name**: `react-collapsible`
-
-##### Search (div)
-- **class name**: `react-collapsible-search`
-
-##### Clear Search (button)
-- **class name**: `react-collapsible-clear`
-
-##### Pagination (div)
-- **class name**: `react-collapsible-page`
+Rows and Columns for the above example may look like
+```
+rows = [
+  { id: 1, firstName: 'Paul', lastName: 'Darragh', }
+]
+columns = [
+  { accessor: 'firstName', label: 'First Name', priorityLevel: 1, position: 1, minWidth: 150, },
+  { accessor: 'lastName', label: 'Last Name', priorityLevel: 2, position: 2, minWidth: 150, },
+]
+```
 
 ---
 
@@ -113,6 +88,8 @@ This is used to tell the table if sorting which column should be displayed as so
 This is used to tell the table which direction the sorted column is displayed in. The 2 valid options are 'ascending' and 'descending'
 ##### callbacks 
 This is an object that is expecting keys that match the accessors of the columns and will allow each column access to a custom function that is mapped to that key. 
+##### id
+This is a string that you can use to set an id for the table if you need to
 ##### paginationEventListener
 This is a function that you can pass to the table and when the next or previous button is clicked it will invoke this function and pass a pagination object back that has the the current page, how many pages there are, and the row size
 ##### CustomPagination
@@ -127,6 +104,24 @@ This function will receive:
   - Let the user specify the page they want to go to with onChange and it will pick up your value. example `<input onChange={ goToPage } />` 
   - Specify the exact page by giving it a newPage value. example `goToPage({ newPage: 25 })`
 - `inputtedPage`: The value to use for `goToPage` function if you are allowing a user to input a value. example `<input value={ inputtedPage } onChange={ goToPage } />`
+
+##### icons
+This is an object that allows you to customize the ascending and decending icons on the columns and the open and close row icons on the rows
+
+This object required you use set the following values: `openRow`, `closeRow`, `ascending`, `descending`. If you want to overRide openRow you must also do the same with closeRow and same for ascending and descending.
+These values that can be set can take a icon file or regular html. 
+Example: 
+```
+import ArrowUp from 'react-icons/lib/fa/arrow-up';
+import ArrowDown from 'react-icons/lib/fa/arrow-down';
+
+icons: {
+        ascending: <svg width="10" height="10"><circle cx="5" cy="5" r="4" stroke="blue" strokeWidth="1" fill="red" /></svg>,
+        descending: <svg width="10" height="10"><circle cx="5" cy="5" r="4" stroke="red" strokeWidth="1" fill="blue" /></svg>,
+        openRow: ArrowDown,
+        closeRow: ArrowUp,
+    }
+```
 
 ---
 
@@ -161,6 +156,44 @@ const tableCallbacks = { photo: this.clickedImage, email: this.getEmailLogo }
 
 <ReactCollapsingTable callbacks={ tableCallbacks } />
 ```
+
+---
+
+### Styling
+We have given most of the components defined class names to make them easy to add your own styles to. If you want to use our styles that we defined then you can create a css file in your project and copy them from [here](https://github.com/massmutual/react-collapsing-table/blob/master/src/assets/styles/react-table.css).
+
+We tried to make each this table easy to make your own and have added a number of class names and ids to help make it easy to style and giving them each unique names to avoid name collisions.
+
+##### Table Data Cell (td)
+- **id**: `td-${currentRowIndex}-${currentColumnIndex} `
+  - This uses the generated row and column indexes
+- **class name**: `${ accessor }`
+  - This uses the column defined attribute as the class name so that you can see all of the attributes that line up to a class name
+##### Table Row (tr)
+- **id**: `tr-normal-${ rowIndex }`
+  - This uses the genereated row index to define which row it is on
+- **class name**: `normal-row`
+
+##### Expanded Table Row (tr)
+- **id**: `tr-expanded-${ rowIndex }`
+  - This uses the genereated row index to define which row it is on
+- **class name**: `expanded-row`
+
+##### Columns (th)
+- **id**: `column-${accessor}`
+  - This uses the data accessor as a unique column name
+
+##### Table (table)
+- **class name**: `react-collapsible`
+
+##### Search (div)
+- **class name**: `react-collapsible-search`
+
+##### Clear Search (button)
+- **class name**: `react-collapsible-clear`
+
+##### Pagination (div)
+- **class name**: `react-collapsible-page`
 
 ---
 
