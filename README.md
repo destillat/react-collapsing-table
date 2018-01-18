@@ -115,6 +115,18 @@ This is used to tell the table which direction the sorted column is displayed in
 This is an object that is expecting keys that match the accessors of the columns and will allow each column access to a custom function that is mapped to that key. 
 ##### paginationEventListener
 This is a function that you can pass to the table and when the next or previous button is clicked it will invoke this function and pass a pagination object back that has the the current page, how many pages there are, and the row size
+##### CustomPagination
+This is a function that you can pass to the table when you don't want to use the built in pagination component. You will still need to have `showPagination` set to true.
+
+This function will receive:
+- `currentPage`: What page it is on
+- `totalPages`: How many pages are there (or the last page)
+- `previousPage`: The function to let you go back one page on the table
+- `nextPage`: The function to let you go forward a page on the table
+- `goToPage`: A function that lets you go to any page. 
+  - Let the user specify the page they want to go to with onChange and it will pick up your value. example `<input onChange={ goToPage } />` 
+  - Specify the exact page by giving it a newPage value. example `goToPage({ newPage: 25 })`
+- `inputtedPage`: The value to use for `goToPage` function if you are allowing a user to input a value. example `<input value={ inputtedPage } onChange={ goToPage } />`
 
 ---
 
