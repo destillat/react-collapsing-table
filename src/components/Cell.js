@@ -4,8 +4,8 @@ import { CellPropType } from '../utils/propTypes';
 //Components
 import { expandIcon } from '../assets/icons/Icon';
 
-const Cell = ({ row, accessor, cellIndex, rowIndex, expandRow, hiddenColumnsLength, CustomComponent, CustomFunction }) => {
-    const icon = expandIcon({ cellIndex, rowIndex, row, hiddenColumnsLength, expandRow });
+const Cell = ({ row, accessor, cellIndex, rowIndex, expandRow, hiddenColumnsLength, CustomComponent, CustomFunction, icons }) => {
+    const icon = expandIcon({ cellIndex, rowIndex, row, hiddenColumnsLength, expandRow, icons });
     const content = CustomComponent === undefined
                   ? <span dangerouslySetInnerHTML={{ __html: row[accessor] }} />
                   : <CustomComponent row={ row }

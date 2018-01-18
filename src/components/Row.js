@@ -5,7 +5,7 @@ import { RowPropType } from '../utils/propTypes';
 import Cell from './Cell';
 import ExpandedRow from './ExpandedRow';
 
-const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callbacks }) => {
+const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callbacks, icons }) => {
     const hiddenColumnsLength = hiddenColumns.length;
 
     const cells = visibleColumns.map(({ accessor, CustomComponent }, index) => {
@@ -13,6 +13,7 @@ const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callback
                      row={ row }
                      rowIndex={ rowIndex }
                      cellIndex={ index }
+                     icons={ icons }
                      accessor={ accessor }
                      expandRow={ expandRow }
                      hiddenColumnsLength={ hiddenColumnsLength }
