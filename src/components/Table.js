@@ -87,6 +87,7 @@ export class Table extends Component {
                 rows,
                 pagination: {
                     ...currentState.pagination,
+                    currentPage: 1,
                     totalPages: (rows.length === 0) ? 1 : Math.ceil(rows.length / currentState.pagination.rowSize)
                 }
             }
