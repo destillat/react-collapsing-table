@@ -70,7 +70,7 @@ describe('Search Actions', () => {
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                     { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
                 ],
-                pagination: { currentPage: 1 }
+                pagination: { currentPage: 1, rowSize: 2, totalPages: 2 }
             },
             searchString: 'matthew',
             initialRows: [
@@ -86,7 +86,7 @@ describe('Search Actions', () => {
                 { accessor: 'lastName' },
             ],
             rows: [],
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1, rowSize: 2, totalPages: 1 }
         };
         expect(actions.searchRows(given)).toEqual(expected);
     });
@@ -103,9 +103,9 @@ describe('Search Actions', () => {
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                     { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
                 ],
+                pagination: { currentPage: 1, rowSize: 2, totalPages: 2 },
             },
             searchString: 'g',
-            pagination: { currentPage: 1 },
             initialRows: [
                 { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
                 { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -122,7 +122,7 @@ describe('Search Actions', () => {
             rows: [
                 { firstName: 'Paul', lastName: 'Darra<span class="highlight">g</span>h', isOpen: true },
             ],
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1, rowSize: 2, totalPages: 1 }
         };
         expect(actions.searchRows(given)).toEqual(expected);
     });
@@ -139,7 +139,7 @@ describe('Search Actions', () => {
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                     { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
                 ],
-                pagination: { currentPage: 1 }
+                pagination: { currentPage: 1, rowSize: 2, totalPages: 2 }
             },
             searchString: 'm',
             initialRows: [
@@ -158,7 +158,7 @@ describe('Search Actions', () => {
                 { firstName: '<span class="highlight">M</span>att', lastName: 'S<span class="highlight">m</span>ith', isOpen: true },
                 { firstName: '<span class="highlight">M</span>ichelle', lastName: 'Piper', isOpen: true },
             ],
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1, rowSize: 2, totalPages: 1 }
         };
         expect(actions.searchRows(given)).toEqual(expected);
     });
@@ -175,9 +175,9 @@ describe('Search Actions', () => {
                     { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
                     { firstName: 'Tony', lastName: 'Blacksmith', email: 'tony.w.blacksmith@gmail.com' },
                 ],
+                pagination: { currentPage: 1, rowSize: 2, totalPages: 2 },
             },
             searchString: 'W',
-            pagination: { currentPage: 1 },
             initialRows: [
                 { firstName: 'Paul', lastName: 'Darragh', email: 'p@d.com' },
                 { firstName: 'Winston', lastName: 'Smith', email: 'smith@gmail.com' },
@@ -193,7 +193,7 @@ describe('Search Actions', () => {
             rows: [
                 { firstName: '<span class="highlight">W</span>inston', lastName: 'Smith', email: 'smith@gmail.com' },
             ],
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1, rowSize: 2, totalPages: 1 }
         };
         expect(actions.searchRows(given)).toEqual(expected);
     });
@@ -210,9 +210,9 @@ describe('Search Actions', () => {
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                     { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
                 ],
+                pagination: { currentPage: 1, rowSize: 2, totalPages: 2 },
             },
             searchString: '',
-            pagination: { currentPage: 1 },
             initialRows: [
                 { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
                 { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -230,7 +230,7 @@ describe('Search Actions', () => {
                 { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                 { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
             ],
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1, rowSize: 2, totalPages: 2 }
         };
         expect(actions.searchRows(given)).toEqual(expected);
     });
@@ -247,9 +247,9 @@ describe('Search Actions', () => {
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                     { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
                 ],
+                pagination: { currentPage: 4, rowSize: 2, totalPages: 2 },
             },
             searchString: '',
-            pagination: { currentPage: 4 },
             initialRows: [
                 { firstName: 'Paul', lastName: 'Darragh', isOpen: true },
                 { firstName: 'Matt', lastName: 'Smith', isOpen: true },
@@ -267,7 +267,7 @@ describe('Search Actions', () => {
                 { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                 { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
             ],
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1, rowSize: 2, totalPages: 2 }
         };
         expect(actions.searchRows(given)).toEqual(expected);
     });
@@ -284,9 +284,9 @@ describe('Search Actions', () => {
                     { firstName: 'Matt', lastName: 'Smith', isOpen: true },
                     { firstName: 'Michelle', lastName: 'Piper', isOpen: true },
                 ],
+                pagination: { currentPage: 4, rowSize: 2, totalPages: 2 },
             },
             searchString: '',
-            pagination: { currentPage: 4 },
         };
         const expected = {
             searchString: '',
@@ -295,7 +295,7 @@ describe('Search Actions', () => {
                 { accessor: 'lastName' },
             ],
             rows: [],
-            pagination: { currentPage: 1 }
+            pagination: { currentPage: 1, rowSize: 2, totalPages: 1 }
         };
         expect(actions.searchRows(given)).toEqual(expected);
     });

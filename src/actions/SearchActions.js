@@ -30,7 +30,8 @@ export const searchRows = ({ searchString, state, initialRows=[] }) => {
           return flag ? updatedRow : false;
       });
   }
-  return { ...state, searchString, rows, pagination: { ...state.pagination, currentPage: 1 } };
+  const totalPages = (rows.length === 0) ? 1 : Math.ceil(rows.length / state.pagination.rowSize);
+  return { ...state, searchString, rows, pagination: { ...state.pagination, currentPage: 1, totalPages } };
 };
 
 export const searchRow = ({ row, upperCaseSearchString, columns }) => {
