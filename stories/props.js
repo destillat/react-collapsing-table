@@ -144,3 +144,9 @@ export const customIconProps = {
         closeRow: ArrowUp,
     }
 };
+
+export const differentTheme = {
+    columns: getColumns(),
+    rows: generateFakeData({ totalRows: 1000 }),
+    theme: 'notTheDefault'
+};
