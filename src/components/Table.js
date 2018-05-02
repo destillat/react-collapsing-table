@@ -182,8 +182,10 @@ export class Table extends Component {
                                                       searchRows={ this.searchRows }
                                                       clearSearch={ this.clearSearch } />;
 
+        const theme = (typeof this.props.theme === "undefined") ? "react-collapsible-theme" : this.props.theme;
+
         return (
-            <div>
+            <div className={theme}>
                 { SearchComponent }
                 <table className="react-collapsible" id={ id }>
                     <Columns icons={ icons }
