@@ -35,6 +35,7 @@ export class Table extends Component {
             CustomPagination = null,
             icons = null,
             id = null,
+            theme = 'react-collapsible-theme'
         } = props;
 
         this.state = {
@@ -60,6 +61,7 @@ export class Table extends Component {
             CustomPagination,
             icons,
             id,
+            theme,
         };
 
         this.resizeTable = this.resizeTable.bind(this);
@@ -158,7 +160,8 @@ export class Table extends Component {
             showPagination,
             CustomPagination,
             icons,
-            id
+            id,
+            theme,
         } = this.state;
         const displayedRows = calculateRows({ state: this.state });
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
@@ -181,8 +184,6 @@ export class Table extends Component {
         const SearchComponent = showSearch && <Search searchString={ this.state.searchString }
                                                       searchRows={ this.searchRows }
                                                       clearSearch={ this.clearSearch } />;
-
-        const theme = (typeof this.props.theme === "undefined") ? "react-collapsible-theme" : this.props.theme;
 
         return (
             <div className={theme}>
