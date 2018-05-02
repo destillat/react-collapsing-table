@@ -1,4 +1,5 @@
 import React from 'react';
+import '../src/assets/styles/global.css';
 
 import { storiesOf } from '@storybook/react';
 
