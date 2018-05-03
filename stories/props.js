@@ -150,3 +150,11 @@ export const differentTheme = {
     rows: generateFakeData({ totalRows: 1000 }),
     theme: 'notTheDefault'
 };
+
+export const unsorted = {
+    columns: getColumns().map(column => {
+        column.sortable = false;
+        return column;
+    }),
+    rows: generateFakeData({ totalRows: 1000 })
+};
