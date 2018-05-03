@@ -52,8 +52,8 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
 export const changeRowOrder = ({ column, state }) => {
     const { sort: { direction }, columns } = state;
     let rows = state.rows;
-    const [ columnBeingSorted, ...b ] = columns.filter(c => c.accessor === column);
-    const type = columnBeingSorted ? columnBeingSorted.sortType : null;
+    const [columnBeingSorted, ...b] = columns.filter(c => c.accessor === column);
+    const type = (columnBeingSorted && columnBeingSorted.sortable !== false) ? columnBeingSorted.sortType : null;
 
     switch (direction) {
         case 'ascending':
