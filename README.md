@@ -78,6 +78,9 @@ These objects also have several optional attributes that can make the cells disp
   - You must pass this to the table as a callbacks object with the key as the `accessor` and you function as the value. 
 - **sortType**: This allows you to pass an additional sort type
   - currently only the allowed option is 'date' and that sorts assuming the date format is `mm/dd/yyyy`
+- **sortable**: This allows you to disable the sort function for a column. 
+  - `true` (default): Clicking on the column header will sort by that column
+  - `false`: Clicking on the column header will have no effect
 
 ##### showSearch (default: false)
 This is a boolean to tell the table whether or not show the search component
