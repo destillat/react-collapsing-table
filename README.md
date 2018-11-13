@@ -1,7 +1,7 @@
 # React Collapsing Table [![Build Status](https://travis-ci.org/massmutual/react-collapsing-table.svg?branch=master)](https://travis-ci.org/massmutual/react-collapsing-table) [![Coverage Status](https://coveralls.io/repos/github/massmutual/react-collapsing-table/badge.svg?branch=master)](https://coveralls.io/github/massmutual/react-collapsing-table?branch=master)
 
 
-Thanks for taking a look at the react collapsping table. This was inspired by the the [jquery datatables library](https://datatables.net/). You can see a working example of this app [here](https://massmutual.github.io/react-collapsing-table/). You can also see an [example](https://github.com/Salinn/travel-receipts) of this app using custom components that has redux hooked up.
+Thanks for taking a look at the react collapsing table. This was inspired by the the [jquery datatables library](https://datatables.net/). You can see a working example of this app [here](https://massmutual.github.io/react-collapsing-table/). You can also see an [example](https://github.com/Salinn/travel-receipts) of this app using custom components that has redux hooked up.
 
 [This article](https://medium.com/@pauldarragh/react-collapsing-table-817173321c35) is a quick dive into some features shown in a very simple example
 
