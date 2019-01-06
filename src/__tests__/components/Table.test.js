@@ -234,4 +234,17 @@ describe('Table', () => {
         expect(lastName.sortable).toBe(false);
         expect(email.sortable).toBe(true);
     });
+
+    it('should allow to change columns after beeing mounted', () => {
+        wrapper = mount(<Table {...props} />)
+        
+        expect(wrapper.state().columns.length).toBe(3)
+        expect(wrapper.find('thead th')).toHaveLength(3)
+
+        // all of a sudden, there is only 2 columns
+        wrapper.setProps({ columns: props.columns.slice(1) })
+
+        expect(wrapper.state().columns.length).toBe(2)
+        expect(wrapper.find('thead th')).toHaveLength(2)
+    });
 });
