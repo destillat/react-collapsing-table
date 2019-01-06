@@ -82,11 +82,15 @@ export class Table extends Component {
         this.resizeTable();
     }
 
-    componentWillReceiveProps({ rows }){
+    componentWillReceiveProps({ rows, columns }){
         this.setState(currentState => {
             return {
                 ...currentState,
                 rows,
+                columns: columns.map(column => {
+                    const sortable = column.hasOwnProperty('sortable') ? column.sortable : true;
+                    return { ...column, isVisible: true, sortable }
+                }),
                 pagination: {
                     ...currentState.pagination,
                     currentPage: 1,
