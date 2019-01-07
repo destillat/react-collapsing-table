@@ -247,4 +247,29 @@ describe('Table', () => {
         expect(wrapper.state().columns.length).toBe(2)
         expect(wrapper.find('thead th')).toHaveLength(2)
     });
+
+    it('should allow to change columns after beeing mounted', () => {
+        wrapper = mount(<Table {...props} />)
+
+        expect(wrapper.state().columns.length).toBe(3)
+        expect(wrapper.find('thead th')).toHaveLength(3)
+
+        // all of a sudden, there is only 2 columns
+        const newColumns = [
+            ...props.columns, 
+            { 
+                accessor: 'newColumn', 
+                label: 'New Column', 
+                isVisible: true, 
+                sortable: true,
+                minWidth: 100, 
+                priorityLevel: 3, 
+                position: 1, 
+            }
+        ]
+        wrapper.setProps({ columns: newColumns })
+
+        expect(wrapper.state().columns.length).toBe(4)
+        expect(wrapper.find('thead th')).toHaveLength(4)
+    });
 });
