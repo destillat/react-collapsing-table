@@ -248,7 +248,7 @@ describe('Table', () => {
         expect(wrapper.find('thead th')).toHaveLength(2)
     });
 
-    it('should allow to change columns after beeing mounted', () => {
+    it('should be able to handle a sortable new column', () => {
         wrapper = mount(<Table {...props} />)
 
         expect(wrapper.state().columns.length).toBe(3)
