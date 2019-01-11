@@ -31,7 +31,7 @@ setOptions({
    * display horizontal panel that displays addon configurations
    * @type {Boolean}
    */
-  showDownPanel: false,
+  showDownPanel: true,
   /**
    * display floating search box to search through stories
    * @type {Boolean}
