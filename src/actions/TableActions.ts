@@ -1,31 +1,90 @@
+import { sortDirection } from "../assets/icons/Icon";
+
 //What rows should be displayed?
-export const calculateRows = ({ state }) => {
+interface calculateRowsProps {
+    readonly state: {
+        rows: Array<object>,
+        pagination: {
+            currentPage: number,
+            rowSize: number
+        },
+    }
+}
+export function calculateRows(props: calculateRowsProps): Array<object> {
     const {
-        rows,
-        pagination: { currentPage, rowSize }
-    } = state;
-    let selectedRows = [];
+        state: {
+            rows,
+            pagination: { currentPage, rowSize }
+        }
+    } = props;
+
     //pagination
     if( rows.length > 0 ) {
         const startingPoint = ((currentPage - 1) * rowSize);
         const endingPoint = startingPoint + rowSize;
-        selectedRows = rows.slice(startingPoint, endingPoint);
+        return rows.slice(startingPoint, endingPoint);
     }
 
-    return selectedRows
+    return []
 };
 
+interface sortColumnProps {
+    column: {
+
+    },
+    state: {
+        sort: {
+            column: string,
+            direction: string,
+        }
+    }
+}
 //Sorting Rows
-export const sortColumn = ({ column, state }) => {
-    const { sortedColumn, sortedDirection } = changeSortFieldAndDirection({ newColumn: column, state });
-    state = { ...state, sort: { ...state.sort, column: sortedColumn, direction: sortedDirection } };
-    const { sortedRows } = changeRowOrder({ column: sortedColumn, state });
-    return { ...state, rows: sortedRows };
+export function sortColumn(props: sortColumnProps): object {
+    const { column, state } = props
+
+    const { 
+        sortedColumn, 
+        sortedDirection 
+    } = changeSortFieldAndDirection({ newColumn: column, state });
+
+    const updatedState = { 
+        ...state, 
+        sort: { 
+            ...state.sort, 
+            column: sortedColumn,
+            direction: sortedDirection 
+        } 
+    };
+
+    const { sortedRows } = changeRowOrder({ column: sortedColumn, state: updatedState });
+    
+    return { ...updatedState, rows: sortedRows };
 };
 
-export const changeSortFieldAndDirection = ({ newColumn, state }) => {
+interface changeSortFieldAndDirectionProps {
+    newColumn: string, 
+    state: { 
+        sort: {
+            column: string,
+            direction: string
+        }
+    }
+}
+
+interface changeSortFieldAndDirectionReturn {
+    sortedColumn: string,
+    sortedDirection: string
+}
+
+export function changeSortFieldAndDirection(props: changeSortFieldAndDirectionProps): changeSortFieldAndDirectionReturn {
+    const { 
+        newColumn, 
+        state: { 
+            sort: { column, direction }
+        }
+    } = props
     let newDirection;
-    const { sort: { column, direction } } = state;
 
     if(column === newColumn) {
         switch (direction) {

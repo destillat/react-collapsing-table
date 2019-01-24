@@ -8,10 +8,26 @@ import CaretDown from 'react-icons/lib/fa/caret-down';
 import ChevronLeft from 'react-icons/lib/fa/chevron-left';
 import ChevronRight from 'react-icons/lib/fa/chevron-right';
 
-export const getIcon = ({ onClick, name='', size=16 }) => {
+interface getIconProps {
+    name: string,
+    size: number,
+    onClick: () => void
+}
+
+export const getIcon = (props: getIconProps):JSX.Element => {
+    const { 
+        onClick, 
+        name = '', 
+        size = 16 
+    } = props
+    
     switch (name) {
         case 'OpenRow':
-            return <span><OpenRow onClick={ onClick } size={ size } className="brand-primary-light" /></span>;
+            return (
+                <span>
+                    <OpenRow onClick={ onClick } size={ size } className="brand-primary-light" />
+                </span>
+            );
         case 'CloseRow':
             return <span><CloseRow onClick={ onClick } size={ size } className="brand-primary-light" /></span>;
         case 'ascending':
