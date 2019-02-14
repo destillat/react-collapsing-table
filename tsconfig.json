@@ -5,7 +5,10 @@
         "sourceMap": true,
         "jsx": "react",
         "allowSyntheticDefaultImports": true,
-        "strict": true
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "strict": true,
+        "noUnusedLocals": true,
     },
     "include": [
       "./src"

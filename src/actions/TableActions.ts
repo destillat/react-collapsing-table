@@ -1,16 +1,39 @@
 import { sortDirection } from "../assets/icons/Icon";
+import { stat } from "fs";
+
+interface Pagination {
+    currentPage: number;
+    rowSize: number;
+    totalPages: number;
+    inputtedPage: number;
+}
+
+interface Row {
+    isOpen: boolean
+}
+
+interface State {
+    rows: Array<Row>,
+    pagination: Pagination
+    sort: {
+        column: string;
+        direction: string;
+    }
+    columns: [
+        {
+            accessor: string;
+            sortable: boolean;
+            sortType: string;
+        }
+    ],
+    paginationEventListener: (props: { pagination: Pagination}) => void
+}
 
 //What rows should be displayed?
-interface calculateRowsProps {
-    readonly state: {
-        rows: Array<object>,
-        pagination: {
-            currentPage: number,
-            rowSize: number
-        },
-    }
+interface CalculateRowsProps {
+    readonly state: State
 }
-export function calculateRows(props: calculateRowsProps): Array<object> {
+export function calculateRows(props: CalculateRowsProps): Array<object> {
     const {
         state: {
             rows,
@@ -28,19 +51,12 @@ export function calculateRows(props: calculateRowsProps): Array<object> {
     return []
 };
 
-interface sortColumnProps {
-    column: {
-
-    },
-    state: {
-        sort: {
-            column: string,
-            direction: string,
-        }
-    }
+interface SortColumnProps {
+    column: string,
+    state: State
 }
 //Sorting Rows
-export function sortColumn(props: sortColumnProps): object {
+export function sortColumn(props: SortColumnProps): object {
     const { column, state } = props
 
     const { 
@@ -62,22 +78,17 @@ export function sortColumn(props: sortColumnProps): object {
     return { ...updatedState, rows: sortedRows };
 };
 
-interface changeSortFieldAndDirectionProps {
+interface ChangeSortFieldAndDirectionProps {
     newColumn: string, 
-    state: { 
-        sort: {
-            column: string,
-            direction: string
-        }
-    }
+    state: State
 }
 
-interface changeSortFieldAndDirectionReturn {
+interface ChangeSortFieldAndDirectionReturn {
     sortedColumn: string,
     sortedDirection: string
 }
 
-export function changeSortFieldAndDirection(props: changeSortFieldAndDirectionProps): changeSortFieldAndDirectionReturn {
+export function changeSortFieldAndDirection(props: ChangeSortFieldAndDirectionProps): ChangeSortFieldAndDirectionReturn {
     const { 
         newColumn, 
         state: { 
@@ -108,10 +119,17 @@ export function changeSortFieldAndDirection(props: changeSortFieldAndDirectionPr
     return { sortedColumn: newColumn, sortedDirection: newDirection };
 };
 
-export const changeRowOrder = ({ column, state }) => {
+interface ChangeRowOrderProps {
+    column: string;
+    state: State
+}
+
+export function changeRowOrder(props: ChangeRowOrderProps) {
+    const { column, state } = props
     const { sort: { direction }, columns } = state;
     let rows = state.rows;
-    const [columnBeingSorted, ...b] = columns.filter(c => c.accessor === column);
+
+    const columnBeingSorted = columns.filter(c => c.accessor === column)[0];
     const type = (columnBeingSorted && columnBeingSorted.sortable !== false) ? columnBeingSorted.sortType : null;
 
     switch (direction) {
@@ -128,10 +146,17 @@ export const changeRowOrder = ({ column, state }) => {
     return { sortedRows: rows };
 };
 
-export const dynamicSort = ({ column, type }) => {
+interface dynamicSortProps {
+    column: string,
+    type: string | null
+}
+
+export const dynamicSort = (props: dynamicSortProps) => {
+    const { column, type } = props
+
     switch (type) {
         case 'date':
-            return (a, b) => {
+            return (a: Row, b: Row) => {
                 const [aMonth, aDay, aYear] = a[column].split('/');
                 const [bMonth, bDay, bYear] = b[column].split('/');
                 const aDate = [aYear, aMonth, aDay].join('');
@@ -139,30 +164,39 @@ export const dynamicSort = ({ column, type }) => {
                 return ((aDate < bDate) ? 1 : (aDate > bDate) ? -1 : 0)
             };
         default:
-            return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
+            return (a: object, b: object) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
     }
 };
 
 //Pagination
-export const nextPage = ({ state }) => {
+export const nextPage = (props: { state: State }): { state: State, currentPage: number } => {
+    const { state } = props
     const { totalPages, currentPage } = state.pagination;
     const validatedCurrentPage = checkPageState({ newPage: currentPage + 1, totalPages, currentPage });
 
     return changePage({ state, currentPage: validatedCurrentPage })
 };
 
-export const previousPage = ({ state }) => {
+export const previousPage = (props: { state: State }): { state: State, currentPage: number } => {
+    const { state } = props
     const { totalPages, currentPage } = state.pagination;
     const validatedCurrentPage = checkPageState({ newPage: currentPage - 1, totalPages, currentPage });
 
     return changePage({ state, currentPage: validatedCurrentPage })
 };
 
-export const goToPage = (props) => {
+interface goToPageProps {
+    shouldCall: boolean;
+    state: State;
+    newPage: string,
+}
+
+export const goToPage = (props: goToPageProps) => {
     return props.shouldCall ? setCurrentPage(props) : setInputtedPage(props);
 };
 
-export const setCurrentPage = ({ state, newPage, shouldCall }) => {
+export const setCurrentPage = (props: goToPageProps): State => {
+    const { state, newPage, shouldCall } = props
     const { totalPages, currentPage } = state.pagination;
     const validatedCurrentPage = checkPageState({ newPage, totalPages, currentPage, shouldCall });
 
@@ -176,14 +210,29 @@ export const setCurrentPage = ({ state, newPage, shouldCall }) => {
     };
 };
 
-export const setInputtedPage = ({ state, newPage, shouldCall }) => {
+export const setInputtedPage = (props: goToPageProps): State => {
+    const { state, newPage, shouldCall } = props
     const { totalPages, currentPage } = state.pagination;
     const validatedCurrentPage = checkPageState({ newPage, totalPages, currentPage, shouldCall });
 
-    return { ...state, pagination: { ...state.pagination, inputtedPage: validatedCurrentPage } };
+    return { 
+        ...state, 
+        pagination: { 
+            ...state.pagination, 
+            inputtedPage: validatedCurrentPage 
+        } 
+    };
 };
 
-export const checkPageState = ({ newPage, currentPage, totalPages, shouldCall }) => {
+interface checkPageStateProps {
+    newPage: number,
+    currentPage: number,
+    totalPages: number,
+    shouldCall?: boolean
+}
+
+export const checkPageState = (props: checkPageStateProps): number => {
+    const { newPage, currentPage, totalPages, shouldCall } = props
     const isBelowZero = newPage < 0;
     const isZero = newPage === "0";
     const isAboveTotalPages = newPage > totalPages;
@@ -205,14 +254,24 @@ export const checkPageState = ({ newPage, currentPage, totalPages, shouldCall })
     }
 };
 
-export const changePage = ({ state, currentPage }) => {
+interface changePageProps {
+    state: State,
+    currentPage: number
+}
+export const changePage = (props: changePageProps) => {
+    const { state, currentPage } = props
     const pagination = { ...state.pagination, currentPage, inputtedPage: currentPage } ;
     if(state.paginationEventListener) state.paginationEventListener({ pagination });
     return { ...state, pagination }
 };
 
+interface expandRowProps {
+    rowIndex: number,
+    state: State
+}
 //Hide or Show Rows
-export const expandRow = ({ rowIndex, state }) => {
+export const expandRow = (props: expandRowProps) => {
+    const { rowIndex, state } = props
     const actualIndex = rowIndex + ((state.pagination.currentPage - 1) * state.pagination.rowSize);
     const newRows = state.rows.map((row, index) => {
         return (index === actualIndex) ? { ...row, isOpen: !row.isOpen } : row

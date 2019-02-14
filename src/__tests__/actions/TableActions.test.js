@@ -1,4 +1,4 @@
-import * as actions from '../../actions/TableActions';
+import * as actions from '../../actions/TableActions.ts';
 
 describe('Table Actions', () => {
     //CALCULATE ROWS

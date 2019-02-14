@@ -14,7 +14,7 @@ interface getIconProps {
     onClick: () => void
 }
 
-export const getIcon = (props: getIconProps):JSX.Element => {
+export const getIcon = (props: getIconProps): HTMLElement => {
     const { 
         onClick, 
         name = '', 

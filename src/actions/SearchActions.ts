@@ -1,7 +1,7 @@
-export const length = (x) => x.length;
-export const sum = (a, b) => a+b;
-export const indexesOf = (substr) => ({
-  in: (str) => (
+export const length = (x: string): number => x.length;
+export const sum = (a: number, b: number): number => a+b;
+export const indexesOf = (substr: string) => ({
+  in: (str: string) => (
     str
     .split(substr)
     .slice(0, -1)
@@ -14,7 +14,7 @@ export const indexesOf = (substr) => ({
   )
 });
 
-export const insert = (str, index, value) => {
+export const insert = (str: string, index: number, value) => {
     return str.substr(0, index) + value + str.substr(index);
 };
 
