@@ -35,7 +35,8 @@ export class Table extends Component {
             CustomPagination = null,
             icons = null,
             id = null,
-            theme = 'react-collapsible-theme'
+            theme = 'react-collapsible-theme',
+            handleSort
         } = props;
 
         this.state = {
@@ -72,6 +73,7 @@ export class Table extends Component {
         this.expandRow = this.expandRow.bind(this);
         this.searchRows = this.searchRows.bind(this);
         this.clearSearch = this.clearSearch.bind(this);
+        this.handleSort = handleSort;
     }
 
     componentWillMount(){
@@ -111,8 +113,15 @@ export class Table extends Component {
     };
 
     sortRows({ column }) {
+        const customSort = typeof(this.handleSort) === 'function';
+        
         this.setState(currentState => {
-            return sortColumn({ column, state: currentState })
+            const newState = sortColumn({ column, state: currentState, customSort });
+            if (customSort) {
+                const { sort } = newState;
+                this.handleSort(sort);
+            }
+            return newState;
         });
     }
 

@@ -16,11 +16,14 @@ export const calculateRows = ({ state }) => {
 };
 
 //Sorting Rows
-export const sortColumn = ({ column, state }) => {
+export const sortColumn = ({ column, state, customSort }) => {
     const { sortedColumn, sortedDirection } = changeSortFieldAndDirection({ newColumn: column, state });
     state = { ...state, sort: { ...state.sort, column: sortedColumn, direction: sortedDirection } };
-    const { sortedRows } = changeRowOrder({ column: sortedColumn, state });
-    return { ...state, rows: sortedRows };
+    if (!customSort) {
+        const { sortedRows } = changeRowOrder({ column: sortedColumn, state });
+        state = { ...state, rows: sortedRows };
+    }
+    return state;
 };
 
 export const changeSortFieldAndDirection = ({ newColumn, state }) => {

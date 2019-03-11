@@ -88,6 +88,7 @@ export const TablePropType = {
     rowSize: number,
     currentPage: number,
     defaultSortColumn: string,
+    handleSort: func,
     column: string,
     direction: string,
     callbacks: object,
